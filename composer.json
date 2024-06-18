@@ -1,0 +1,21 @@
+{
+    "name": "burgerbib/ams-core",
+    "description": "ARK Management System",
+    "type": "library",
+    "require": {
+        "php": "^8.3"
+    },
+    "license": "MIT",
+    "authors": [
+        {
+            "role": "Digital Archivist",
+            "name": "Gionathan Diani",
+            "email": "gionathan.diani@burgerbib.ch"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "Burgerbib\\AmsCore\\" : "src"
+        }
+    }
+}
