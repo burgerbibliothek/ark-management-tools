@@ -1,9 +1,12 @@
 {
-    "name": "burgerbib/ams-core",
-    "description": "ARK Management System",
+    "name": "burgerbibliothek/ark-management-tools",
+    "description": "PHP library for minting / validating Archival Resource Keys (ARK) and managing Electronic Resource Citation (ERC) Records.",
     "type": "library",
     "require": {
         "php": "^8.3"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^11.2"
     },
     "license": "MIT",
     "authors": [
@@ -15,7 +18,7 @@
     ],
     "autoload": {
         "psr-4": {
-            "Burgerbib\\AmsCore\\" : "src"
+            "Burgerbibliothek\\ArkManagementTools\\" : "src"
         }
     }
 }

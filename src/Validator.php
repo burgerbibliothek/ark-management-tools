@@ -1,11 +1,11 @@
 <?php
-namespace Burgerbib\AmsCore;
+namespace Burgerbibliothek\ArkManagementTools;
 
 class Validator{
 
     /**
-     * Validate character repetoire.
-     * Check if string contains only characters which are valid for forming ARKs
+     * Validate ARK character repetoire.
+     * Check if the string contains only characters that are valid for forming ARKs
      * https://www.ietf.org/archive/id/draft-kunze-ark-39.html#name-character-repertoires.
      * @param string $repetoire Character repetoire
      */
@@ -15,7 +15,7 @@ class Validator{
 
     /**
      * Validate NAAN.
-     * Check if string contains only characters which are valid for forming NAANs
+     * Check if the string contains only characters that are valid for forming NAANs
      * https://www.ietf.org/archive/id/draft-kunze-ark-39.html#name-the-name-assigning-authorit.
      * @param string $naan NAAN
     */

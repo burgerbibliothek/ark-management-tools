@@ -1,7 +1,7 @@
 <?php
 
-namespace Burgerbib\AmsCore;
-use Burgerbib\AmsCore\Anvl;
+namespace Burgerbibliothek\ArkManagementTools;
+use Burgerbibliothek\ArkManagementTools\Anvl;
 
 class Erc extends Anvl
 {
@@ -15,18 +15,6 @@ class Erc extends Anvl
     {
         parent::__construct($lineLength);
         $this->add('erc', '');
-    }
-
-    /**
-     * Add new element
-     */
-    public function add(string $name, string $body){
-
-        if(array_key_exists($name, $this->record)){
-            $body = $this->record[$name].'; '.$body;
-        }
-
-        parent::add($name, $body);
     }
 
     /**
@@ -45,6 +33,22 @@ class Erc extends Anvl
             $this->add($h, $values[$index]);
         }
     }
+
+    
+
+    /**
+     * Add new element
+     */
+    public function add(string $name, string $body){
+
+        if(array_key_exists($name, $this->record)){
+            $body = $this->record[$name].'; '.$body;
+        }
+
+        parent::add($name, $body);
+    }
+
+    
 
     public static function parseKernelMetadata(string $metadata): ?array
     {

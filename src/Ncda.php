@@ -1,5 +1,5 @@
 <?php
-namespace Burgerbib\AmsCore;
+namespace Burgerbibliothek\ArkManagementTools;
 
 class Ncda
 {
@@ -13,18 +13,18 @@ class Ncda
 	static public function calc(string $id, string $xdigits)
 	{
 
-		// Check if $id only contains characters which are in $xdigits
+		/** Check if $id contains only characters that are in $xdigits */
 		if (preg_match_all('/[\/' . $xdigits . ']/', $id) !== strlen($id)) {
 			return false;
 		}
 
-		// Make sure xdigits only contains unique values
+		/** Make sure $xdigits contains unique values only */
 		$xdigits = array_unique(str_split($xdigits));
 
-		// Sort array
+		/** Sort character repetoire */
 		sort($xdigits);
 
-		// Calculate the checkdigit
+		/** Calculate the checkdigit */
 		$xdigitValues = array_flip($xdigits);
 		$chars = str_split($id);
 		$sum = 0;
@@ -42,7 +42,7 @@ class Ncda
 
 	/**
 	 * Verify ID.
-	 * Verify if an ID conforms to the Noid Check Digit Algorithm (NCDA).
+	 * Verify a given ID against the Noid Check Digit Algorithm.
 	 * @param string $id ID whichs should be verified.
 	 * @param string $xdigits Character repetoire used for ID generation.
 	 */

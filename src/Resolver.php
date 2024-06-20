@@ -1,9 +1,9 @@
 <?php
 
-namespace Burgerbib\AmsCore;
+namespace Burgerbibliothek\ArkManagementTools;
 
-use Burgerbib\AmsCore\Ncda;
-use Burgerbib\AmsCore\Validator;
+use Burgerbibliothek\ArkManagementTools\Ncda;
+use Burgerbibliothek\ArkManagementTools\Validator;
 
 class Resolver
 {

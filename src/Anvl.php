@@ -1,6 +1,6 @@
 <?php
 
-namespace Burgerbib\AmsCore;
+namespace Burgerbibliothek\ArkManagementTools;
 
 class Anvl{
 
@@ -27,18 +27,6 @@ class Anvl{
     public function add(string $name, string $body)
     {         
         $this->record[$name] = trim($body);
-    }
-
-    /**
-     * Add multiple entries.
-     * Add multiple entries to record.
-     */
-    public function addMultiple(array $data){
-
-        foreach($data as $name => $value){
-            $this->add($name, $value);
-        }
-
     }
 
     /**
