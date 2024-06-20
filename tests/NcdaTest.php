@@ -6,7 +6,7 @@ use PHPUnit\Framework\TestCase;
 class NcdaTest extends TestCase
 {
     /**
-     * Test NOID CHECK DIGIT ALGORITHM
+     * Test NOID CHECK DIGIT ALGORITHM.
      * https://metacpan.org/dist/Noid/view/noid#NOID-CHECK-DIGIT-ALGORITHM
      */
     public function test_noid_check_digit_algortihm_works(): void

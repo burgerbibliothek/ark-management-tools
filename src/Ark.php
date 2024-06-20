@@ -1,6 +1,11 @@
 <?php
+
 namespace Burgerbibliothek\ArkManagementTools;
+
 use Burgerbibliothek\ArkManagementTools\Ncda;
+use Burgerbibliothek\ArkManagementTools\Validator;
+use Random\Randomizer;
+use Exception;
 
 class Ark
 {
@@ -16,34 +21,42 @@ class Ark
 	 */
 	public static function generate(string $naan, string $xdigits, int $length, string $shoulder = null, bool $ncda = true)
 	{
-		
-		$id = $naan . '/';
 
-		/**
-		 * Length of id can't exceed the number of xdigits in order for the NCDA to work
-		 * https://metacpan.org/dist/Noid/view/noid#NOID-CHECK-DIGIT-ALGORITHM
-		 */
-		if ($length > strlen($xdigits)) {
-			return false;
+		if($length <= 0){
+			throw new Exception('ARKs must have at least a length greater than zero.');
+		}
+		
+		if(Validator::validNaan($naan) === false){
+			throw new Exception('NAAN can only consist of the betanumeric characters: 0123456789bcdfghjkmnpqrstvwxz.');
 		}
 
-		/** Prepend shoulder to blade */
-		if ($shoulder) {
+		if(Validator::validArkCharacterRepetoire($xdigits) === false){
+			throw new Exception('ARKs may be built using letters, digits, or any of these seven characters: = ~ * + @ _ $');
+		}
+
+		$id = $naan . '/';
+
+		/** 
+		 * Prepend Shoulder.
+		 * Shoulder is prepended to assigned name if characters are valid.
+		 */
+		if($shoulder && Validator::shoulderInXdigits($shoulder, $xdigits)){
 			$id .= $shoulder;
 		}
 
 		/** Generate random ID */
-		$randomizer = new \Random\Randomizer();
+		$randomizer = new Randomizer();
 		$id .= $randomizer->getBytesFromString($xdigits, $length);
-
-		/** Append check digit */
-		if ($ncda === true) {
+		
+		/**
+		 * Append check digit.
+		 * Length of id can't exceed the number of xdigits in order for the NCDA to work
+		 * https://metacpan.org/dist/Noid/view/noid#NOID-CHECK-DIGIT-ALGORITHM
+		 */
+		if($ncda && $length <= strlen($xdigits)) {
 			$id .= Ncda::calc($id, $xdigits);
 		}
 
 		return $id;
 	}
-
-
 }
-
