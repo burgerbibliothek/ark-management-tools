@@ -4,7 +4,7 @@ namespace Burgerbibliothek\ArkManagementTools;
 
 class Anvl{
 
-    protected array $record;
+    public array $record;
     protected int $lineLength;
     
     /**
@@ -33,22 +33,24 @@ class Anvl{
      * ANVL record.
      */
     public function record(){
+        
+        $record = '';
 
-        foreach($this->recordArray as $name => $value){
+        foreach($this->record as $name => $value){
             
             $separator = $name === '#' ? chr(32) : chr(58).chr(32);
             
-            if($this->linelength){
-                $value =  wordwrap($value, $this->linelength, chr(13).chr(10).chr(9));
+            if($this->lineLength){
+                $value =  wordwrap($value, $this->lineLength, chr(13).chr(10).chr(9));
             }
             
-            $this->record .= $name.$separator.$value.chr(13).chr(10);
+            $record .= $name.$separator.$value.chr(13).chr(10);
         
         }
 
-        $this->record .= chr(13).chr(10);
+        $record .= chr(13).chr(10);
 
-        return $this->record;
+        return $record;
     }
 
 

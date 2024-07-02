@@ -3,52 +3,42 @@
 namespace Burgerbibliothek\ArkManagementTools;
 use Burgerbibliothek\ArkManagementTools\Anvl;
 
+use function PHPSTORM_META\type;
+
 class Erc extends Anvl
 {
 
     /**
      * Instantiate ERC Record.
-     * @param arr $elements ['Gibbon, Edward','The Decline and Fall of the Roman Empire', '1781', 'http://www.ccel.org/g/gibbon/decline/']
      * @param int $lineLength After how many words to wrap text.
      */
     function __construct($lineLength = 72)
     {
         parent::__construct($lineLength);
-        $this->add('erc', '');
+        $this->add('erc', ' ');
     }
 
-    /**
-     * Existing stories are overwritten.
-     */
-    public function story(array $values, $story = null)
-    {
-
-        $elements = ['who', 'what', 'when', 'where'];
-
-        if ($story) {
-            $elements = array_map(fn ($h) => $story . '-' . $h, $elements);
+    public function add(string $story, ?string $body){
+        
+        if(array_key_exists($story, $this->record)){
+            $body .= '; '.$this->record[$story];
         }
 
-        foreach ($elements as $index => $h) {
-            $this->add($h, $values[$index]);
+        if(!$body){
+            return;
         }
+
+        parent::add($story, $body);
+
     }
 
-    
+    public function addMultiple(array $stories, array $values){
 
-    /**
-     * Add new element
-     */
-    public function add(string $name, string $body){
-
-        if(array_key_exists($name, $this->record)){
-            $body = $this->record[$name].'; '.$body;
+        foreach($stories as $i => $story){
+            $this->add($story, $values[$i]);
         }
 
-        parent::add($name, $body);
     }
-
-    
 
     public static function parseKernelMetadata(string $metadata): ?array
     {
@@ -68,10 +58,6 @@ class Erc extends Anvl
         foreach ($rows as $row) {
             $pair = explode(':', trim($row));
             $kernel[$pair[0]] = trim($pair[1]);
-        }
-
-        if (!array_key_exists('who', $kernel) || !array_key_exists('what', $kernel) || !array_key_exists('when', $kernel) || !array_key_exists('where', $kernel)) {
-            return null;
         }
 
         return $kernel;
