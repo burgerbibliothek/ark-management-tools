@@ -10,29 +10,34 @@ class Anvl{
     /**
      * A Name Value Object.
      * Create and interact with ANVL records.
+     * http://www.cdlib.org/inside/diglib/ark/anvlspec.pdf,
      * https://datatracker.ietf.org/doc/draft-kunze-anvl/
      */
-    function __construct($lineLength = 72)
+    function __construct(int $lineLength = 72)
     {
-        $this->lineLength = $lineLength;
         $this->record = [];
+        $this->lineLength = $lineLength;
     }
 
     /**
-     * Add data element.
+     * Add element.
      * Add a new data element to the ANVL record.
-     * @param string $name 1*<any CHAR, excluding control-chars and ":"> 
-     * @param string $body text
+     * @param string $label 1*<any CHAR, excluding control-chars and ":"> 
+     * @param string $value text
      */
-    public function add(string $name, string $body)
+    public function add(string $label, ?string $value = '')
     {         
-        $this->record[$name] = trim($body);
+        if($value){
+            $this->record[$label] = trim($value);
+        }
     }
 
     /**
      * ANVL record.
+     * Parse anvl record.
      */
-    public function record(){
+    public function record()
+    {
         
         $record = '';
 

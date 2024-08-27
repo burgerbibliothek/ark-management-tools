@@ -134,7 +134,7 @@ class Ark
 			if(count($ark) > 0){
 				$components['suffixes'] = implode('/', $ark);
 			}
-
+			
 		}
 
 		return $components;
