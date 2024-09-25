@@ -25,29 +25,34 @@ class Anvl{
      * @param string $label 1*<any CHAR, excluding control-chars and ":"> 
      * @param string $value text
      */
-    public function add(string $label, ?string $value = '')
+    public function add(string $label, ?string $value = null)
     {         
-        if($value){
-            $this->record[$label] = trim($value);
-        }
+        // TODO add check if label only contains valid characters
+        $this->record[$label] = trim($value);
     }
 
     /**
      * ANVL record.
      * Parse anvl record.
+     * @param bool $comments Set to true to output comments.
      */
-    public function record()
+    public function record(bool $comments = false)
     {
-        
+
         $record = '';
 
         foreach($this->record as $name => $value){
+
+            if(!$comments && $name === '#'){
+                continue; 
+            }
             
             $separator = $name === '#' ? chr(32) : chr(58).chr(32);
             
             if($this->lineLength){
                 $value =  wordwrap($value, $this->lineLength, chr(13).chr(10).chr(9));
             }
+            
             
             $record .= $name.$separator.$value.chr(13).chr(10);
         
