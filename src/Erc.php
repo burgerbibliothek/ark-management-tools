@@ -53,7 +53,7 @@ class Erc extends Anvl
 
             /** Element consist of a label, a colon, and an optional value. */
             foreach ($record as $value) {
-                if (strlen(preg_replace('/(#|[A-z]{1}[\w-]+(\(h[\d]*\))?\:).*/', '', $value)) !== 0) {
+                if (strlen(preg_replace('/(#|[A-z]{1}[\w-]+(\(h[\d]*\))?\:)[\S\s]*/', '', $value)) !== 0) {
                     return false;
                 }
             }

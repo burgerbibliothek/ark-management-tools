@@ -1,0 +1,27 @@
+erc:
+123:   (:unav) unavailable
+what:  Truckee River, below Truckee Station, looking towards Eastern
+	Summit. Photographer's number: 222 Photographer's series:
+	Central Pacific Railroad, California.  :222
+when:  (:unav) unavailable
+where: http://ark.cdlib.org/ark:/13030/tf5p30086k
+
+who:   (:unav) unavailable
+what:  San Francisco, Calif. (Post Street). Owners of Japanese ancestry
+	board windows of their stores prior to evacuation. Evacuees
+	will be housed in War Relocation Authority centers for the
+	duration. Photographer: Lange, Dorothea San Francisco,
+	California. 4/7/42
+when:  (:unav) unavailable
+where: http://ark.cdlib.org/ark:/13030/ft858008bp
+
+erc:
+who#:   (:unav) unavailable
+what:  San Francisco, Calif. (Post Street). Owners of Japanese ancestry
+	board windows of their stores prior to evacuation. Evacuees
+	will be housed in War Relocation Authority centers for the
+	duration. Photographer: Lange, Dorothea San Francisco,
+	California. 4/7/42
+when:  (:unav) unavailable
+where: http://ark.cdlib.org/ark:/13030/ft858008bp
+
