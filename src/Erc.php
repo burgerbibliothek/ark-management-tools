@@ -27,10 +27,13 @@ class Erc extends Anvl
      * Kernel element labels are strings beginning with a letter that may contain any combination 
      * of letters, numbers, hyphens, and underscores ("_"). An element label may also be accompanied 
      * by its coded synonym e. g. wer(h1). 
+     * @param string $label
+     * @return bool
      */
     public static function isValidKernelElementLabel(string $label): bool
     {
-        return (strlen(preg_replace('/#|[A-z]{1}[\w-]+(\(h[\d]*\))?/', '', $label)) === 0) ? true : false;
+        preg_match('/^(#.+)|([A-z]{1}[\w\-]*)+(\(h\d{1,2}\))?$/', $label, $matches);
+        return $matches[0] === $label ? true : false;
     }
 
     /**
@@ -46,21 +49,20 @@ class Erc extends Anvl
         /** Create array from record. */
         $record = preg_split('/\r\n|\n/', $record);
         /** Get last two elements record */
-        $end = array_slice($record, -2, 2);
+        $record = array_chunk($record, count($record) - 2);
 
         /** Starts with erc: and ends with two newlines  */
-        if (preg_match('/(erc:)\s*/', $record[0]) && empty($end[0]) && empty($end[1])) {
-
+        if (trim($record[0][0]) === 'erc:' && empty($end[1][0]) && empty($end[1][1])) {
+           
             /** Element consist of a label, a colon, and an optional value. */
-            foreach ($record as $value) {
-                if (strlen(preg_replace('/(#|[A-z]{1}[\w-]+(\(h[\d]*\))?\:)[\S\s]*/', '', $value)) !== 0) {
+            foreach ($record[0] as $r) {
+                $labelValue = preg_split('/:/', $r, 2);
+                if(!self::isValidKernelElementLabel($labelValue[0])){
                     return false;
                 }
             }
-
             return true;
         }
-
         return false;
     }
 

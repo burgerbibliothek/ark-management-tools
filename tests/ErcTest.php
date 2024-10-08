@@ -31,4 +31,24 @@ class ErcTest extends TestCase
         
     }
 
+    /**
+     * Test isValidKernelElementLabel
+     */
+    public function test_valid_kernel_element_label(): void
+    {
+        
+        $valid = ['# Comment', 'wer(h1)', 'test-1', 'test_2'];
+
+        foreach ($valid as $v) {
+            $this->assertTrue(Erc::isValidKernelElementLabel($v));
+        }
+
+        $invalid = ['12345', 'test.1', 'test 2'];
+
+        foreach ($invalid as $v) {
+            $this->assertFalse(Erc::isValidKernelElementLabel($v));
+        }
+        
+    }
+
 }
