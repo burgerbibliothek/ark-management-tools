@@ -25,7 +25,7 @@ class Anvl{
      * @param string $label 1*<any CHAR, excluding control-chars and ":"> 
      * @param string $value text
      */
-    public function add(string $label, ?string $value = null)
+    public function add(string $label, ?string $value = '')
     {         
         // TODO add check if label only contains valid characters
         $this->record[$label] = trim($value);

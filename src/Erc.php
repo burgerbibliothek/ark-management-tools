@@ -3,6 +3,7 @@
 namespace Burgerbibliothek\ArkManagementTools;
 
 use Burgerbibliothek\ArkManagementTools\Anvl;
+use Exception\InvalidArgumentException;
 
 class Erc extends Anvl
 {
@@ -134,9 +135,7 @@ class Erc extends Anvl
         }
  
         foreach($stories as $i => $story) {
-
             self::addElement($labels[$i], $story);
-
         }
         
     }
@@ -147,7 +146,6 @@ class Erc extends Anvl
      */
     public static function parseKernelMetadata(string $metadata): ?array
     {
-
         $metadata = str_replace(chr(13) . chr(10) . chr(9), ' ', $metadata);
 
         $rows = explode(chr(0x0A), $metadata);
@@ -168,6 +166,27 @@ class Erc extends Anvl
         }
 
         return $kernel;
+    }
+
+    /**
+     * Decode record.
+     * Gets 
+     * @param string $record String containing a valid ERC record.
+     * @return string
+     */
+    public static function decodeRecord(string $record): string
+    {
+        if(!self::isValidRecord($record)){
+            throw new \InvalidArgumentException('ERC record is not valid.');
+        }
+
+        $record = array_map(fn($value) => self::decodeElementValue($value), self::parseKernelMetadata($record));
+        
+        $anvl = new Anvl;
+        $anvl->record = $record;
+
+        return $anvl->record();
+        
     }
 
     /**
