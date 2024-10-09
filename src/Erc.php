@@ -147,7 +147,7 @@ class Erc extends Anvl
      * @param array $type Story type e.g. 'about', 'neta', 'support', 'depositor'.
      * @param bool $append Append to story instead of overwriting.
      */
-    public function addStory(array $storyValues, ?string $label = null, bool $append = true)
+    public function addStory(array $storyValues, ?string $label = null, bool $append = true): void
     {
 
         $labels = ['who', 'what', 'when', 'where'];
@@ -164,31 +164,35 @@ class Erc extends Anvl
     }
 
     /**
-     * Parse Kernel Metadata to array.
-     * @param string $metadata
+     * Parse ERC record to array.
+     * @param string $erc ERC record.
+     * @param string $labelList Optionally pass a list of allowed labels.
+     * @return null|array In case of a valid erc record, the parsed metadata is returned.
      */
-    public static function parseKernelMetadata(string $metadata): ?array
+    public static function parseRecord(string $erc, array $labelList = null): ?array
     {
-        $metadata = str_replace(chr(13) . chr(10) . chr(9), ' ', $metadata);
-
-        $rows = explode(chr(0x0A), $metadata);
-
-        if (!empty($rows[count($rows) - 1]) && !empty($rows[count($rows) - 2])) {
+        
+        // Check if record is valid
+        if(!self::isValidRecord($erc, $labelList)){
             return null;
-        }
+        }    
 
-        $rows = array_slice($rows, 0, -2);
+        /** Remove linebreaks in values */
+        $erc = str_replace(chr(13) . chr(10) . chr(9), ' ', $erc);
 
-        if (trim($rows[0]) !== 'erc:') {
-            return null;
-        }
+        /** Split into elements */
+        $rows = array_slice(preg_split('/\r\n|\n/', $erc), 0, -2);
+
+        $record = [];
 
         foreach ($rows as $row) {
-            $pair = explode(':', trim($row), 2);
-            $kernel[$pair[0]] = trim($pair[1]);
+            if(!empty($row)){
+                $element = explode(':', trim($row), 2);
+                $record[$element[0]] = trim($element[1]);
+            }
         }
-
-        return $kernel;
+        
+        return $record;
     }
 
     /**
