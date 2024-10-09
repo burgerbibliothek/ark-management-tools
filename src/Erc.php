@@ -41,29 +41,52 @@ class Erc extends Anvl
      * Validate ERC record.
      * Checks if string conforms to ERC.
      * @param string $record String to check.
+     * @param string $labelList Optionally pass a list of allowed labels.
+     * @return bool Returns TRUE if record is valid.
      */
-    public static function isValidRecord(string $record): bool
-    {
+    public static function isValidRecord(string $record, array $labelList = null): bool
+    {   
+        $record = ltrim($record);
 
-        /** Remove indentations. */
-        $record = preg_replace('/\r\n\t|\n\t/', ' ', $record);
-        /** Create array from record. */
-        $record = preg_split('/\r\n|\n/', $record);
-        /** Get last two elements record */
-        $record = array_chunk($record, count($record) - 2);
+        if(substr($record, 0, 4) === 'erc:'){
+        
+            /** Remove indentations. */
+            $record = preg_replace('/\r\n\t|\n\t/', ' ', $record);
 
-        /** Starts with erc: and ends with two newlines  */
-        if (trim($record[0][0]) === 'erc:' && empty($end[1][0]) && empty($end[1][1])) {
-           
-            /** Element consist of a label, a colon, and an optional value. */
-            foreach ($record[0] as $r) {
-                $labelValue = preg_split('/:/', $r, 2);
-                if(!self::isValidKernelElementLabel($labelValue[0])){
-                    return false;
+            /** Create array from record. */
+            $record = preg_split('/\r\n|\n/', $record);
+
+            /** The length of a valid record is at least 3 and the last two elements are void */
+            $recordLength = count($record);
+            if($recordLength >= 3 && $record[$recordLength - 1] == '' && $record[$recordLength - 2] == ''){
+
+                $record = array_slice($record, 1, -2);
+
+                /** Check if labels are valid */
+                foreach ($record as $r) {
+
+                    if(str_contains($r, ':')){   
+                        $labelValue = preg_split('/:/', $r, 2);
+                        if(!self::isValidKernelElementLabel($labelValue[0])){
+                            return false;
+                        }
+
+                        if($labelList && !in_array($labelValue[0], $labelList)){
+                            return false;                           
+                        }
+
+                    }else if($r != ''){
+
+                        return false;
+                    
+                    }
                 }
-            }
-            return true;
+
+                return true;
+
+            } 
         }
+
         return false;
     }
 
