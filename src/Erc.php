@@ -207,7 +207,7 @@ class Erc extends Anvl
             throw new \InvalidArgumentException('ERC record is not valid.');
         }
 
-        $record = array_map(fn($value) => self::decodeElementValue($value), self::parseKernelMetadata($record));
+        $record = array_map(fn($value) => self::decodeElementValue($value), self::parseRecord($record));
         
         $anvl = new Anvl;
         $anvl->record = $record;
