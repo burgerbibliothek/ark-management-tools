@@ -51,8 +51,9 @@ class Validator{
      */
     public static function shoulderInXdigits(string $shoulder, string $xdigits):bool
     {
-        $xdigits = str_split($xdigits);
+        
         $shoulder = str_split($shoulder);
+        $xdigits = str_split($xdigits);
 
         foreach($shoulder as &$s)
         {

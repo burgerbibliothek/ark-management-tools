@@ -24,7 +24,7 @@ class Ark
 			sort($xdigits);
 		}
 
-		if($arr){
+		if($arr === false){
 			return implode($xdigits);
 		}
 		
