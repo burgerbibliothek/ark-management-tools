@@ -41,7 +41,7 @@ class Erc extends Anvl
      * Validate ERC record.
      * Checks if string conforms to ERC.
      * @param string $record String to check.
-     * @param string $labelList Optionally pass a list of allowed labels.
+     * @param array<string> $labelList Optionally pass a list of allowed labels.
      * @return bool Returns TRUE if record is valid.
      */
     public static function isValidRecord(string $record, array $labelList = null): bool
@@ -94,6 +94,7 @@ class Erc extends Anvl
      * Encode element value.
      * https://www.dublincore.org/groups/kernel/spec/#95--element-value-encoding.
      * @param string $value String which should be encoded.
+     * @return string
      */
     public static function encodeElementValue(string $value): string
     {
@@ -105,6 +106,7 @@ class Erc extends Anvl
      * Decode element value.
      * https://www.dublincore.org/groups/kernel/spec/#95--element-value-encoding.
      * @param string $value String which should be decoded.
+     * @return string
      */
     public static function decodeElementValue(string $value): string
     {
@@ -117,8 +119,9 @@ class Erc extends Anvl
      * Adds a Kernel element to the record.
      * @param string $label String beginning with a letter that may contain any combination of letters, numbers, hyphens, and underscores. An element label may also be accompanied by its coded synonym e. g. wer(h1)
      * @param string $value Value of the element will be encoded.
+     * @return void
      */
-    public function addElement(string $label, string $value)
+    public function addElement(string $label, string $value): void
     {
         if (self::isValidKernelElementLabel($label)) {
 
@@ -134,17 +137,17 @@ class Erc extends Anvl
 
     /**
      * Add Comment
-     * 
+     * @return void
      */
-    public function addComment(string $comment)
+    public function addComment(string $comment): void
     {
         $this->addElement('#', $comment);
     }
 
     /**
      * Add story to record.
-     * @param array $storyValues e.g. ['Gibbon, Edward', 'The Decline and Fall of the Roman Empire', 1781, 'http://www.ccel.org/g/gibbon/decline/']
-     * @param array $type Story type e.g. 'about', 'neta', 'support', 'depositor'.
+     * @param array<string> $storyValues e.g. ['Gibbon, Edward', 'The Decline and Fall of the Roman Empire', 1781, 'http://www.ccel.org/g/gibbon/decline/']
+     * @param string $label Story type e.g. 'about', 'neta', 'support', 'depositor'.
      * @param bool $append Append to story instead of overwriting.
      */
     public function addStory(array $storyValues, ?string $label = null, bool $append = true): void
@@ -166,10 +169,10 @@ class Erc extends Anvl
     /**
      * Parse ERC record to array.
      * @param string $erc ERC record.
-     * @param string $labelList Optionally pass a list of allowed labels.
-     * @return null|array In case of a valid erc record, the parsed metadata is returned.
+     * @param array<string> $labelList Optionally pass a list of allowed labels.
+     * @return null|array<string> In case of a valid erc record, the parsed metadata is returned.
      */
-    public static function parseRecord(string $erc, array $labelList = null): ?array
+    public static function parseRecord(string $erc, array &$labelList = null): ?array
     {
         
         // Check if record is valid
@@ -219,13 +222,15 @@ class Erc extends Anvl
     /**
      * Retrieve record.
      * @param bool $decode Decode values.
-     * @param bool $comments Hide comments. 
+     * @param bool $comments Hide comments.
+     * @return string
      */
-    public function record(bool $decode = true, bool $comments = false)
+    public function record(bool $decode = true, bool $comments = false): string
     {
         if ($decode) {
             $this->record = array_map(fn($value) => self::decodeElementValue($value), $this->record);
         }
+
         return parent::record($comments);
     }
 }

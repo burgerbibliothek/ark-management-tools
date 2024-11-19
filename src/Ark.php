@@ -9,17 +9,38 @@ use Exception;
 
 class Ark
 {
+	/** 
+	 * Remove duplicate characters from repetoire.
+	 * @param string $xdigits String containing the character repetoire.
+	 * @param bool $sort Sort the characters
+	 * @param bool $arr Return the characters as array.
+	 * @return string|array<string>
+	 */
+	public static function removeDuplicateChars(string $xdigits, bool $sort = true, bool $arr = false): string|array
+	{
+		$xdigits = array_unique(str_split($xdigits));
+		
+		if($sort){
+			sort($xdigits);
+		}
+
+		if($arr){
+			return implode($xdigits);
+		}
+		
+		return $xdigits;
+	}
 
 	/**
-	 * ARK generator.
 	 * Generate an ARK of desired length with given NAAN and character repetoire.
 	 * @param string $naan Name Assigning Authority Number.
 	 * @param string $xdigits Charachter repetoire e.g. "0123456789bcdfghjkmnpqrstvwxz".
 	 * @param int $length Desired length of ID.
 	 * @param string $shoulder Prefix to blade.
 	 * @param bool $ncda Executes Noid Check Digit Algorithm and appends result to blade.
+	 * @return string $id Generated ID.
 	 */
-	public static function generate(string $naan, string $xdigits, int $length, string $shoulder = null, bool $ncda = true)
+	public static function generate(string $naan, string $xdigits, int $length, string $shoulder = null, bool $ncda = true): string
 	{
 
 		if ($length <= 0) {
@@ -33,6 +54,8 @@ class Ark
 		if (Validator::followsArkCharacterRepetoire($xdigits) === false) {
 			throw new Exception('ARKs may be built using letters, digits, or any of these seven characters: = ~ * + @ _ $');
 		}
+
+		$xdigits = self::removeDuplicateChars($xdigits);
 
 		$id = $naan . '/';
 
@@ -64,8 +87,9 @@ class Ark
 	 * Split ARK into components.
 	 * Splits an ARK into the Components Resolver Service, NAAN, Base Name, Base Compact Name, Check Zone and Suffixes.
 	 * @param string $ark ARK (also with resolver service).
-	 */
-	public static function splitIntoComponents(string $ark)
+	 * @return array<string,string>|array<string,mixed>
+ 	 */
+	public static function splitIntoComponents(string $ark): array
 	{
 		
 		$components = [
@@ -87,8 +111,6 @@ class Ark
 				'host' => '',
 				'port' => ':',
 			];
-
-			$components['resolverService'] = '';
 
 			foreach ($componentKeys as $key => $comp) {
 
@@ -147,7 +169,7 @@ class Ark
 	 * @param $ark ARK or URI containing an ARK.
 	 * @return string|null The normalized ARK or null if provided ARK is not valid. 
 	 */
-	public static function normalize(string $ark)
+	public static function normalize(string $ark): ?string
 	{
 
 		$ark = trim($ark);
@@ -198,9 +220,10 @@ class Ark
 	 * Compare multiple ARKs for lexical equivalence.
 	 * Check if all ARKs in a list are lexically equivalent. 
 	 * https://www.ietf.org/archive/id/draft-kunze-ark-39.html#name-normalization-and-lexical-e.
-	 * @param array $arks List containing arks e.g. ['ark:/ABC456/xyz?info', 'ARK:ABC456/xyz??'].
-	 */
-	public static function areLexicalEquivalent(array $arks)
+	 * @param array<string> $arks List containing arks e.g. ['ark:/ABC456/xyz?info', 'ARK:ABC456/xyz??'].
+	 * @return bool
+ 	 */
+	public static function areLexicalEquivalent(array $arks): bool
 	{
 		$check = [];
 		foreach ($arks as $ark) {

@@ -4,6 +4,9 @@ namespace Burgerbibliothek\ArkManagementTools;
 
 class Anvl{
 
+    /**
+     * @param array<string> $record
+     */
     public array $record;
     protected int $lineLength;
     
@@ -24,8 +27,9 @@ class Anvl{
      * Add a new data element to the ANVL record.
      * @param string $label 1*<any CHAR, excluding control-chars and ":"> 
      * @param string $value text
+     * @return void
      */
-    public function add(string $label, ?string $value = '')
+    public function add(string $label, ?string $value = ''): void
     {         
         // TODO add check if label only contains valid characters
         $this->record[$label] = trim($value);
@@ -35,8 +39,9 @@ class Anvl{
      * ANVL record.
      * Parse anvl record.
      * @param bool $comments Set to true to output comments.
+     * @return string
      */
-    public function record(bool $comments = false)
+    public function record(bool $comments = false): string
     {
 
         $record = '';

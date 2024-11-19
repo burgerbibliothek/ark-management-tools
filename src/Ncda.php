@@ -9,8 +9,9 @@ class Ncda
 	 * Reference: https://metacpan.org/dist/Noid/view/noid#NOID-CHECK-DIGIT-ALGORITHM.
 	 * @param string $id ID for which a checkdigit should be calculated.
 	 * @param string $xdigits Character repetoire used for ID generation.
+	 * @return string|bool Returns check digit or false when $id is not a subset of $xdigits.
 	 */
-	static public function calc(string $id, string $xdigits)
+	static public function calc(string $id, string $xdigits): string|bool
 	{
 
 		/** Check if $id contains only characters that are in $xdigits */
@@ -45,8 +46,9 @@ class Ncda
 	 * Verify a given ID against the Noid Check Digit Algorithm.
 	 * @param string $id ID whichs should be verified.
 	 * @param string $xdigits Character repetoire used for ID generation.
-	 */
-	static public function verify(string $id, string $xdigits)
+	 * @return bool
+ 	 */
+	static public function verify(string $id, string $xdigits): bool
 	{
 
 		$id = str_split($id, strlen($id) - 1);
