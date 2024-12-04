@@ -36,11 +36,12 @@ class Ark
 	 * @param string $naan Name Assigning Authority Number.
 	 * @param string $xdigits Charachter repetoire e.g. "0123456789bcdfghjkmnpqrstvwxz".
 	 * @param int $length Desired length of ID.
-	 * @param string $shoulder Prefix to blade.
-	 * @param bool $ncda Executes Noid Check Digit Algorithm and appends result to blade.
+	 * @param string $shoulder Prefix to blade (default: null).
+	 * @param bool $ncda Executes Noid Check Digit Algorithm and appends result to blade (default: true).
+	 * @param bool $slashAfterLabel Include / in label part e.g. ark:/ (default: false).
 	 * @return string $id Generated ID.
 	 */
-	public static function generate(string $naan, string $xdigits, int $length, string $shoulder = null, bool $ncda = true): string
+	public static function generate(string $naan, string $xdigits, int $length, string $shoulder = null, bool $ncda = true, bool $slashAfterLabel = false): string
 	{
 
 		if ($length <= 0) {
@@ -57,7 +58,8 @@ class Ark
 
 		$xdigits = self::removeDuplicateChars($xdigits);
 
-		$id = $naan . '/';
+		$label = $slashAfterLabel ? 'ark:/' : 'ark:';
+		$id = $label . $naan . '/';
 
 		/** 
 		 * Prepend Shoulder.

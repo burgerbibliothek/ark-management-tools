@@ -11,7 +11,7 @@ class Validator{
      * @param bool $reservedChars Check conformance, including the reserved character: % - . /
      * @return bool
      */
-    public static function followsArkCharacterRepetoire(string $subject, bool $reservedChars = false): bool
+    public static function followsArkCharacterRepetoire(string $subject, bool $reservedChars = true): bool
     {
         if($reservedChars){
             return preg_match('/[^0-9A-z=~*+@_$%-.\/]/', $subject) > 0 ? false : true;
@@ -37,7 +37,7 @@ class Validator{
      * @param $subject The input string.
      * @return bool
      */
-    public static function isValidBaseCompactName(string $subject):bool
+    public static function isValidBaseCompactName(string $subject): bool
     {
         return preg_match('/(ark:)\/?[0-9bcdfghjkmnpqrstvwxz]{5}/', $subject) > 0 ? true : false;
     }
@@ -49,7 +49,7 @@ class Validator{
      * @param string $xdigits character repetoire.
      * @return bool
      */
-    public static function shoulderInXdigits(string $shoulder, string $xdigits):bool
+    public static function shoulderInXdigits(string $shoulder, string $xdigits): bool
     {
         
         $shoulder = str_split($shoulder);

@@ -1,6 +1,7 @@
 <?php declare(strict_types=1);
 
 use Burgerbibliothek\ArkManagementTools\Ark;
+use Burgerbibliothek\ArkManagementTools\Validator;
 use PHPUnit\Framework\TestCase;
 
 class ArkTest extends TestCase
@@ -10,21 +11,54 @@ class ArkTest extends TestCase
      */
     public function test_ark_generator(): void
     {
-        
-        $ark = Ark::generate('12345', '0123456789abcdefghijklmnopqrstuvwxyz=~*+@_$', 5, 'x1', true);
+
+        /** Define NAAN and character repetoire */
+        $naan = '12345';
+        $xdigits = '0123456789abcdefghijklmnopqrstuvwxyz=~*+@_$';
+        $shoulder = 'x1';
+
+        /** Follows the NAAN character repetoire */
+        $this->assertTrue(Validator::followsNaanCharacterRepetoire($naan), 'Illegal characters detected.');
+
+        /** Follows the ARK character repetoire */
+        $this->assertTrue(Validator::followsArkCharacterRepetoire($xdigits), 'Illegal characters detected.');
+
+        /** Shoulder in xdigits */
+        $this->assertTrue(Validator::shoulderInXdigits($shoulder, $xdigits), 'Illegal characters detected.');
+
+        /** Generate ARK */
+        $ark = Ark::generate($naan, $xdigits, 5, shoulder: $shoulder, ncda: true);
+        $components = Ark::splitIntoComponents($ark);
         
         /** Length of ARK */
-        $this->assertEquals(14, strlen($ark), 'ARK has not the expected length.');
-        /** NAAN is prepended */
-        $this->assertSame('12345/', substr($ark, 0, 6), 'Something is wrong with the NAAN.');
-        /** Shoulder is prepended */
-        $this->assertSame('x1', substr($ark, 6, 2), 'Something is wrong with the shoulder.');
+        $this->assertEquals(17, strlen($ark), 'ARK has not the expected length.');
 
-        
-        $ark_only_assigned_name = Ark::generate('12345', '0123456789abcdefghijklmnopqrstuvwxyz=~*+@_$', 5, null, false);
-        /** Lenght of ARK */
-        $this->assertEquals(11, strlen($ark_only_assigned_name), 'ARK has not the expected length.');
-        
+        /** Check the character repetoire */
+        $this->assertTrue(Validator::isValidBaseCompactName($components['baseCompactName']), 'Illegal characters detected.');
+
+        /** Shoulder is prepended */
+        $this->assertSame('x1', substr($components['baseName'], 0, 2), 'Something is wrong with the shoulder.');
+
+        /** Define NAAN and character repetoire */
+        $naan = '99999';
+        $xdigits = '0123456789';
+
+        /** Follows the NAAN character repetoire */
+        $this->assertTrue(Validator::followsNaanCharacterRepetoire($naan), 'Illegal characters detected.');
+
+        /** Follows the ARK character repetoire */
+        $this->assertTrue(Validator::followsArkCharacterRepetoire($xdigits, true), 'Illegal characters detected.');
+
+        /** Generate ARK with / in label */
+        $ark = Ark::generate($naan, $xdigits, 10, ncda: false, slashAfterLabel: true);
+        $components = Ark::splitIntoComponents($ark);
+
+        /** Length of ARK */
+        $this->assertEquals(21, strlen($ark), 'ARK has not the expected length.');
+
+        /** Check the character repetoire */
+        $this->assertTrue(Validator::isValidBaseCompactName($components['baseCompactName']), 'Illegal characters detected.');
+
     }
 
 }
