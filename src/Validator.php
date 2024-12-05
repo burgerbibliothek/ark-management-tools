@@ -8,7 +8,7 @@ class Validator{
      * Check if the string contains only characters that are valid for forming ARKs: 
      * https://www.ietf.org/archive/id/draft-kunze-ark-39.html#name-character-repertoires
      * @param string $subject The input string.
-     * @param bool $reservedChars Check conformance, including the reserved character: % - . /
+     * @param bool $reservedChars Check conformance, including the reserved character: % - . / (default: true)
      * @return bool
      */
     public static function followsArkCharacterRepetoire(string $subject, bool $reservedChars = true): bool
@@ -21,8 +21,8 @@ class Validator{
 
     /**
      * String follows NAAN character repetoire.
-     * Check if the string contains only characters that are valid for forming NAANs
-     * https://www.ietf.org/archive/id/draft-kunze-ark-39.html#name-the-name-assigning-authorit.
+     * Check if the string contains only characters that are valid for forming NAANs.
+     * Check: https://www.ietf.org/archive/id/draft-kunze-ark-39.html#name-the-name-assigning-authorit.
      * @param string $subject The input string.
      * @return bool
      */
@@ -32,14 +32,14 @@ class Validator{
     }
 
     /**
-     * Contains Base Compact Name.
-     * String contains pattern in the form of ark:[/]NAAN.
+     * Is a valid base compact name.
+     * String contains pattern in the form of ark:[/]NAAN/{Base Name}.
      * @param $subject The input string.
      * @return bool
      */
     public static function isValidBaseCompactName(string $subject): bool
     {
-        return preg_match('/(ark:)\/?[0-9bcdfghjkmnpqrstvwxz]{5}/', $subject) > 0 ? true : false;
+        return preg_match('/^ark:\/?[0-9bcdfghjkmnpqrstvwxz]{5}\/[0-9A-z=~*+@_$]+$/', $subject) === 1 ? true : false;
     }
 
     /**

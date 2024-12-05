@@ -58,8 +58,7 @@ class Ark
 
 		$xdigits = self::removeDuplicateChars($xdigits);
 
-		$label = $slashAfterLabel ? 'ark:/' : 'ark:';
-		$id = $label . $naan . '/';
+		$id = $naan . '/';
 
 		/** 
 		 * Prepend Shoulder.
@@ -73,14 +72,13 @@ class Ark
 		$randomizer = new Randomizer();
 		$id .= $randomizer->getBytesFromString($xdigits, $length);
 
-		/**
-		 * Append check digit.
-		 * Length of id can't exceed the number of xdigits in order for the NCDA to work
-		 * https://metacpan.org/dist/Noid/view/noid#NOID-CHECK-DIGIT-ALGORITHM
-		 */
-		if ($ncda && $length <= strlen($xdigits)) {
+		/** Append check digit. */
+		if ($ncda) {
 			$id .= Ncda::calc($id, $xdigits);
 		}
+
+		$label = $slashAfterLabel ? 'ark:/' : 'ark:';
+		$id = $label . $id;
 
 		return $id;
 	}
@@ -106,6 +104,7 @@ class Ark
 		if (filter_var($ark, FILTER_VALIDATE_URL)) {
 
 			$url = parse_url($ark);
+			
 			$componentKeys = [
 				'scheme' => '://',
 				'user' => '',
@@ -159,6 +158,10 @@ class Ark
 				$components['suffixes'] = implode('/', $ark);
 			}
 			
+		}
+
+		if(Validator::isValidBaseCompactName($components['baseCompactName']) === false){
+			throw new Exception('$ark seems to be invalid.');
 		}
 
 		return $components;

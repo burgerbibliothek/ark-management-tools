@@ -1,7 +1,10 @@
 <?php
 namespace Burgerbibliothek\ArkManagementTools;
 
-class Ncda
+use Burgerbibliothek\ArkManagementTools\Ark;
+use Exception;
+
+class Ncda extends Ark
 {
 
 	/**
@@ -9,14 +12,18 @@ class Ncda
 	 * Reference: https://metacpan.org/dist/Noid/view/noid#NOID-CHECK-DIGIT-ALGORITHM.
 	 * @param string $id ID for which a checkdigit should be calculated.
 	 * @param string $xdigits Character repetoire used for ID generation.
-	 * @return string|bool Returns check digit or false when $id is not a subset of $xdigits.
+	 * @return string Returns check digit.
 	 */
-	static public function calc(string $id, string $xdigits): string|bool
+	static public function calc(string $id, string $xdigits): string
 	{
+
+		if (strlen($id) >= strlen($xdigits)) {
+			throw new Exception('Length of id can\'t exceed the number of xdigits in order for the NCDA to work.');
+		}
 
 		/** Check if $id contains only characters that are in $xdigits */
 		if (preg_match_all('/[\/' . $xdigits . ']/', $id) !== strlen($id)) {
-			return false;
+			throw new Exception('$id is not well formed.');
 		}
 
 		/** Make sure $xdigits contains unique values only */
@@ -27,13 +34,12 @@ class Ncda
 
 		/** Calculate the checkdigit */
 		$xdigitValues = array_flip($xdigits);
+		$xdigitValues['/'] = 0;
 		$chars = str_split($id);
 		$sum = 0;
 
 		foreach ($chars as $index => $value) {
-			if (isset($xdigitValues[$value])) {
-				$sum += $xdigitValues[$value] * ($index + 1);
-			}
+			$sum += $xdigitValues[$value] * ($index + 1);
 		}
 
 		$checkDigit = $sum % count($xdigits);

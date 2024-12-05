@@ -1,6 +1,7 @@
 <?php declare(strict_types=1);
 
 use Burgerbibliothek\ArkManagementTools\Ark;
+use Burgerbibliothek\ArkManagementTools\Ncda;
 use Burgerbibliothek\ArkManagementTools\Validator;
 use PHPUnit\Framework\TestCase;
 
@@ -31,13 +32,16 @@ class ArkTest extends TestCase
         $components = Ark::splitIntoComponents($ark);
         
         /** Length of ARK */
-        $this->assertEquals(17, strlen($ark), 'ARK has not the expected length.');
+        $this->assertEquals(18, strlen($ark), 'ARK has not the expected length.');
 
         /** Check the character repetoire */
         $this->assertTrue(Validator::isValidBaseCompactName($components['baseCompactName']), 'Illegal characters detected.');
 
         /** Shoulder is prepended */
         $this->assertSame('x1', substr($components['baseName'], 0, 2), 'Something is wrong with the shoulder.');
+
+        /** NCDA */
+        $this->assertTrue(Ncda::verify($components['checkZone'], $xdigits), 'NCDA failed.');
 
         /** Define NAAN and character repetoire */
         $naan = '99999';
