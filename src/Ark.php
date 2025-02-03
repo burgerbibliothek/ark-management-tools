@@ -45,7 +45,7 @@ class Ark
 	{
 
 		if ($length <= 0) {
-			throw new Exception('ARKs must have at least a length greater than zero.');
+			throw new Exception('ARKs must have a length of at least more than zero.');
 		}
 
 		if (Validator::followsNaanCharacterRepetoire($naan) === false) {
@@ -104,7 +104,7 @@ class Ark
 		if (filter_var($ark, FILTER_VALIDATE_URL)) {
 
 			$url = parse_url($ark);
-			
+
 			$componentKeys = [
 				'scheme' => '://',
 				'user' => '',
@@ -135,11 +135,11 @@ class Ark
 
 		}
 		
-		if(substr($ark, 0, 3) == 'ark'){
+		if(substr($ark, 0, 3) === 'ark'){
 
 			$ark = explode('/', $ark);
 			
-			if($ark[0] == 'ark:'){
+			if($ark[0] === 'ark:'){
 				$components['naan'] = $ark[1];
 				array_splice($ark, 0, 2);		
 			}else{
@@ -172,9 +172,9 @@ class Ark
 	 * Normalization for ARK.
 	 * https://www.ietf.org/archive/id/draft-kunze-ark-39.html#name-normalization-and-lexical-e.
 	 * @param $ark ARK or URI containing an ARK.
-	 * @return string|null The normalized ARK or null if provided ARK is not valid. 
+	 * @return string
 	 */
-	public static function normalize(string $ark): ?string
+	public static function normalize(string $ark): string
 	{
 
 		$ark = trim($ark);
@@ -188,37 +188,35 @@ class Ark
 		if (preg_match('/(?:^ark:\/?[0-9A-z]{5})/i', $ark, $baseNameComponent)) {
 
 			/** Any URI query string is removed (everything from the first literal '?' to the end of the string) */
-			$normalized_ark = explode('?', $ark)[0];
+			$ark = explode('?', $ark)[0];
 
 			/** The first case-insensitive match on "ark:/" or "ark:" is converted to "ark:" 
 			 * (replacing any uppercase letters and removing any terminal '/').
 			 */
-			$normalized_ark = preg_replace('/(?:^ark:\/?)/i', 'ark:', $normalized_ark);
+			$ark = preg_replace('/(?:^ark:\/?)/i', 'ark:', $ark);
 
 			/** Any uppercase letters in the NAAN are converted to lowercase */
-			$normalized_ark = preg_replace_callback('/(?:ark:[0-9A-z]{5})/', fn ($matches) => strtolower($matches[0]), $normalized_ark, 1);
+			$ark = preg_replace_callback('/(?:ark:[0-9A-z]{5})/', fn ($matches) => strtolower($matches[0]), $ark, 1);
 
 			/** the two characters following every occurrence of '%' are converted to uppercase */
-			$normalized_ark = preg_replace_callback('/(?:%..)/', fn ($matches) => strtoupper($matches[0]), $normalized_ark);
+			$ark = preg_replace_callback('/(?:%..)/', fn ($matches) => strtoupper($matches[0]), $ark);
 
 			/** All hyphens are removed */
-			$normalized_ark = preg_replace('/[\x{0020}|\x{00a0}|\x{002d}|\x{00ad}|\x{2000}-\x{2015}]/u', '', $normalized_ark);
+			$ark = preg_replace('/[\x{0020}|\x{00a0}|\x{002d}|\x{00ad}|\x{2000}-\x{2015}]/u', '', $ark);
 
 			/** Structural characters (slash and period) are normalized: 
 			 *  initial and final occurrences are removed, and two structural characters in a row (e.g., // or ./) 
 			 *  are replaced by the first character, iterating until each occurrence has at least one 
 			 * 	non-structural character on either side.
 			 */
-			$normalized_ark = rtrim($normalized_ark, '/');
+			$ark = rtrim($ark, '/');
 			$rgxp = '/(?:[\.\/]{2})/';
-			while (preg_match($rgxp, $normalized_ark) > 0) {
-				$normalized_ark = preg_replace_callback($rgxp, fn ($matches) => substr($matches[0], 0, 1), $normalized_ark);
+			while (preg_match($rgxp, $ark) > 0) {
+				$ark = preg_replace_callback($rgxp, fn ($matches) => substr($matches[0], 0, 1), $ark);
 			}
-
-			return $normalized_ark;
 		};
 
-		return null;
+		return $ark;
 	}
 
 	/**
