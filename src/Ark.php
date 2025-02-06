@@ -176,45 +176,37 @@ class Ark
 	 */
 	public static function normalize(string $ark): string
 	{
-
+		/** Remove whitespace on beginning and end of string */
 		$ark = trim($ark);
 
-		if (filter_var($ark, FILTER_VALIDATE_URL)) {
-			/** If $ark is a URL, extract the path component */
-			$ark = ltrim(parse_url($ark, PHP_URL_PATH), "/");
+		/** The NMA part (eg, everything from an initial "https://" up to the first occurrence of "/ark:"), if present is removed. */
+		$ark = preg_replace('/.*?(?=ark:)/i', '', $ark, limit: 1);
+
+		/** Any URI query string is removed (everything from the first literal '?' to the end of the string). */
+		$ark = explode('?', $ark)[0];
+
+		/** All hyphens are removed */
+		$ark = preg_replace('/[\x{0020}|\x{00a0}|\x{002d}|\x{00ad}|\x{2000}-\x{2015}]/u', '', $ark);
+
+		/** The first case-insensitive match on "ark:/" or "ark:" is converted to "ark:" (replacing any uppercase letters and removing any terminal '/'). */
+		$ark = preg_replace('/(?:^ark:\/?)/i', 'ark:', $ark);
+
+		/** Any uppercase letters in the NAAN are converted to lowercase */
+		$ark = preg_replace_callback('/(?:ark:[0-9A-z]{5})/', fn ($matches) => strtolower($matches[0]), $ark, 1);
+
+		/** the two characters following every occurrence of '%' are converted to uppercase */
+		$ark = preg_replace_callback('/(?:%..)/', fn ($matches) => strtoupper($matches[0]), $ark);
+
+		/** Structural characters (slash and period) are normalized: 
+		 *  initial and final occurrences are removed, and two structural characters in a row (e.g., // or ./) 
+		 *  are replaced by the first character, iterating until each occurrence has at least one 
+		 * 	non-structural character on either side.
+		 */
+		$ark = rtrim($ark, '/');
+		$rgxp = '/(?:[\.\/]{2})/';
+		while (preg_match($rgxp, $ark) > 0) {
+			$ark = preg_replace_callback($rgxp, fn ($matches) => substr($matches[0], 0, 1), $ark);
 		}
-
-		/** $ark beginns with ark:[/]NAAN */
-		if (preg_match('/(?:^ark:\/?[0-9A-z]{5})/i', $ark, $baseNameComponent)) {
-
-			/** Any URI query string is removed (everything from the first literal '?' to the end of the string) */
-			$ark = explode('?', $ark)[0];
-
-			/** The first case-insensitive match on "ark:/" or "ark:" is converted to "ark:" 
-			 * (replacing any uppercase letters and removing any terminal '/').
-			 */
-			$ark = preg_replace('/(?:^ark:\/?)/i', 'ark:', $ark);
-
-			/** Any uppercase letters in the NAAN are converted to lowercase */
-			$ark = preg_replace_callback('/(?:ark:[0-9A-z]{5})/', fn ($matches) => strtolower($matches[0]), $ark, 1);
-
-			/** the two characters following every occurrence of '%' are converted to uppercase */
-			$ark = preg_replace_callback('/(?:%..)/', fn ($matches) => strtoupper($matches[0]), $ark);
-
-			/** All hyphens are removed */
-			$ark = preg_replace('/[\x{0020}|\x{00a0}|\x{002d}|\x{00ad}|\x{2000}-\x{2015}]/u', '', $ark);
-
-			/** Structural characters (slash and period) are normalized: 
-			 *  initial and final occurrences are removed, and two structural characters in a row (e.g., // or ./) 
-			 *  are replaced by the first character, iterating until each occurrence has at least one 
-			 * 	non-structural character on either side.
-			 */
-			$ark = rtrim($ark, '/');
-			$rgxp = '/(?:[\.\/]{2})/';
-			while (preg_match($rgxp, $ark) > 0) {
-				$ark = preg_replace_callback($rgxp, fn ($matches) => substr($matches[0], 0, 1), $ark);
-			}
-		};
 
 		return $ark;
 	}

@@ -64,7 +64,7 @@ class ArkTest extends TestCase
         $this->assertTrue(Validator::isValidBaseCompactName($components['baseCompactName']), 'Illegal characters detected.');
 
         /** Check normalization **/
-        $ark = Ark::normalize(' ArK:/ABC123/abc-def-—123-567%c3%b6/xyz/?query=www    ');
+        $ark = Ark::normalize(' Ar K:/ABC123/abc-def-—123-567%c3%b6/xyz/?query=www    ');
         $this->assertEquals($ark, 'ark:abc123/abcdef123567%C3%B6/xyz', 'Normalization did not work.');
 
 
