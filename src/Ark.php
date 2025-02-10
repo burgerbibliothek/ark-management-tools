@@ -98,7 +98,8 @@ class Ark
 			'baseName' => '',
 			'baseCompactName' => '',
 			'checkZone' => '',
-			'suffixes' => ''
+			'suffixes' => '',
+			'inflections' => []
 		];
 
 		/** Remove whitespace on beginning and end of string. */
@@ -140,11 +141,15 @@ class Ark
 		/** The NMA part (everything from an initial "https://" up to the first occurrence of "/ark:"), if present is removed. */
 		$ark = preg_replace('/.*?(?=ark:)/i', '', $ark, limit: 1);
 		
-		/* if remaining string starts with "ark" */
+		/** Extract the remaining parts */
 		if(preg_match('/ark:/', substr($ark, 0, 4)) === 1){
 
+			preg_match('/\?.*/', $ark, $inflections);
+			$ark = preg_replace('/\?.*/', '', $ark);
+			parse_str(implode('', $inflections), $components['inflections']);
+
 			$ark = explode('/', $ark);
-			
+						
 			if($ark[0] === 'ark:'){
 				$components['naan'] = $ark[1];
 				array_splice($ark, 0, 2);		
@@ -160,19 +165,23 @@ class Ark
 				unset($ark[0]);
 			}
 
-			if(count($ark) > 0){
-				$components['suffixes'] = implode('/', $ark);
+			if(count($ark) > 0 || $inflections){
+				$components['suffixes'] = implode('/', $ark).$inflections[0];
 			}
 			
 		}
 
 		/* Reset items if base compact name is invalid */
 		if(!Validator::isValidBaseCompactName($components['baseCompactName'])){
-			$components['naan'] = '';
-			$components['baseName'] = '';
-			$components['baseCompactName'] = '';
-			$components['checkZone'] = '';
-			$components['suffixes'] = '';
+			$components = [
+				'resolverService' => '',
+				'naan' => '',
+				'baseName' => '',
+				'baseCompactName' => '',
+				'checkZone' => '',
+				'suffixes' => '',
+				'inflections' => []
+			];
 		}	
 		
 		return $components;
