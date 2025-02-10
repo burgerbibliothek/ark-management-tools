@@ -9,6 +9,11 @@
         "phpunit/phpunit": "^11.2",
         "phpstan/phpstan": "^2.0"
     },
+    "extra": {
+        "branch-alias": {
+            "dev-main": "0.0.x-dev"
+        }
+    },
     "license": "MIT",
     "authors": [
         {

@@ -70,4 +70,65 @@ class ArkTest extends TestCase
 
     }
 
+    public function test_ark_split_into_components(): void
+    {
+        
+        /** components with resolverService */
+        $ark_w_nma = 'https://example.tld/ark:/99999/a1b2c3d4e5f6g/suffix?info';
+        $ark_w_nma_components = [
+            'resolverService' => 'https://example.tld',
+            'naan' => '99999',
+            'baseName' => 'a1b2c3d4e5f6g',
+            'baseCompactName' => 'ark:99999/a1b2c3d4e5f6g',
+            'checkZone' => '99999/a1b2c3d4e5f6g',
+            'suffixes' => 'suffix?info'
+        ];
+
+        $ark_w_nma = Ark::splitIntoComponents($ark_w_nma);
+        $this->assertEquals($ark_w_nma, $ark_w_nma_components);
+
+        /** components without resolverService */
+        $ark = 'ark:/99999/a1b2c3d4e5f6g/suffix?info';
+        $ark_components = [
+            'resolverService' => '',
+            'naan' => '99999',
+            'baseName' => 'a1b2c3d4e5f6g',
+            'baseCompactName' => 'ark:99999/a1b2c3d4e5f6g',
+            'checkZone' => '99999/a1b2c3d4e5f6g',
+            'suffixes' => 'suffix?info'
+        ];
+
+        $ark = Ark::splitIntoComponents($ark);
+        $this->assertEquals($ark_components, $ark);
+
+        /** components without resolverService */
+        $scrambled_url = 'ftp:/exampleark:/99999/a1b2c3d4e5f6g/suffix?info';
+        $scrambled_url_components = [
+            'resolverService' => '',
+            'naan' => '99999',
+            'baseName' => 'a1b2c3d4e5f6g',
+            'baseCompactName' => 'ark:99999/a1b2c3d4e5f6g',
+            'checkZone' => '99999/a1b2c3d4e5f6g',
+            'suffixes' => 'suffix?info'
+        ];
+
+        $scrambled_url = Ark::splitIntoComponents($scrambled_url);
+        $this->assertEquals($scrambled_url_components, $scrambled_url);
+
+        /** no components */
+        $invalid_ark = 'ftp:/examplea/rk:/99999/a1bark2c3dark:4e5f6g/suffix?info';
+        $invalid_ark_components = [
+            'resolverService' => '',
+            'naan' => '',
+            'baseName' => '',
+            'baseCompactName' => '',
+            'checkZone' => '',
+            'suffixes' => ''
+        ];
+
+        $invalid_ark = Ark::splitIntoComponents($invalid_ark);
+        $this->assertEquals($invalid_ark_components, $invalid_ark);
+
+    }
+
 }

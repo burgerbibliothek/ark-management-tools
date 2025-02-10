@@ -86,8 +86,8 @@ class Ark
 	/**
 	 * Split ARK into components.
 	 * Splits an ARK into the Components Resolver Service, NAAN, Base Name, Base Compact Name, Check Zone and Suffixes.
-	 * @param string $ark ARK (also with resolver service).
-	 * @return array<string,string>|array<string,mixed>
+	 * @param string $ark
+	 * @return array<string>
  	 */
 	public static function splitIntoComponents(string $ark): array
 	{
@@ -98,9 +98,13 @@ class Ark
 			'baseName' => '',
 			'baseCompactName' => '',
 			'checkZone' => '',
-			'suffixes' => '',
+			'suffixes' => ''
 		];
 
+		/** Remove whitespace on beginning and end of string. */
+		$ark = trim($ark);
+
+		/** Extract resolverService part if $ark is a valid url. **/
 		if (filter_var($ark, FILTER_VALIDATE_URL)) {
 
 			$url = parse_url($ark);
@@ -113,6 +117,7 @@ class Ark
 				'port' => ':',
 			];
 
+			/** reassemble url **/
 			foreach ($componentKeys as $key => $comp) {
 
 				if (isset($url[$key])) {
@@ -130,12 +135,13 @@ class Ark
 					}
 				}
 			}
-
-			$ark = substr($ark, strlen($components['resolverService']) + 1, strlen($ark));
-
 		}
+
+		/** The NMA part (everything from an initial "https://" up to the first occurrence of "/ark:"), if present is removed. */
+		$ark = preg_replace('/.*?(?=ark:)/i', '', $ark, limit: 1);
 		
-		if(substr($ark, 0, 3) === 'ark'){
+		/* if remaining string starts with "ark" */
+		if(preg_match('/ark:/', substr($ark, 0, 4)) === 1){
 
 			$ark = explode('/', $ark);
 			
@@ -160,10 +166,15 @@ class Ark
 			
 		}
 
-		if(Validator::isValidBaseCompactName($components['baseCompactName']) === false){
-			throw new Exception('$ark seems to be invalid.');
-		}
-
+		/* Reset items if base compact name is invalid */
+		if(!Validator::isValidBaseCompactName($components['baseCompactName'])){
+			$components['naan'] = '';
+			$components['baseName'] = '';
+			$components['baseCompactName'] = '';
+			$components['checkZone'] = '';
+			$components['suffixes'] = '';
+		}	
+		
 		return $components;
 
 	}
@@ -179,7 +190,7 @@ class Ark
 		/** Remove whitespace on beginning and end of string */
 		$ark = trim($ark);
 
-		/** The NMA part (eg, everything from an initial "https://" up to the first occurrence of "/ark:"), if present is removed. */
+		/** The NMA part (everything from an initial "https://" up to the first occurrence of "/ark:"), if present is removed. */
 		$ark = preg_replace('/.*?(?=ark:)/i', '', $ark, limit: 1);
 
 		/** Any URI query string is removed (everything from the first literal '?' to the end of the string). */
