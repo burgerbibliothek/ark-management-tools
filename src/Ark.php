@@ -85,9 +85,9 @@ class Ark
 
 	/**
 	 * Split ARK into components.
-	 * Splits an ARK into the Components Resolver Service, NAAN, Base Name, Base Compact Name, Check Zone and Suffixes.
+	 * Splits an ARK into components: Resolver Service, NAAN, Base Name, Base Compact Name, Check Zone and Suffixes.
 	 * @param string $ark
-	 * @return array<string>
+	 * @return array<string> array has empty values, when ark is invalid.
  	 */
 	public static function splitIntoComponents(string $ark): array
 	{
@@ -138,16 +138,19 @@ class Ark
 			}
 		}
 
-		/** The NMA part (everything from an initial "https://" up to the first occurrence of "/ark:"), if present is removed. */
-		$ark = preg_replace('/.*?(?=ark:)/i', '', $ark, limit: 1);
+		/** The NMA part (everything up to the first occurrence of "/ark:"), if present is removed. */
+		$ark = preg_replace('/.*?\/(?=ark:)/i', '', $ark, limit: 1);
 		
 		/** Extract the remaining parts */
 		if(preg_match('/ark:/', substr($ark, 0, 4)) === 1){
 
+			/** Extract inflections (everything starting with ?) */
 			preg_match('/\?.*/', $ark, $inflections);
+			$inflections = implode($inflections);
+			parse_str($inflections, $components['inflections']);
 			$ark = preg_replace('/\?.*/', '', $ark);
-			parse_str(implode('', $inflections), $components['inflections']);
 
+			/** Extract baseName */
 			$ark = explode('/', $ark);
 						
 			if($ark[0] === 'ark:'){
@@ -166,7 +169,7 @@ class Ark
 			}
 
 			if(count($ark) > 0 || $inflections){
-				$components['suffixes'] = implode('/', $ark).$inflections[0];
+				$components['suffixes'] = implode('/', $ark).$inflections;
 			}
 			
 		}
@@ -199,11 +202,15 @@ class Ark
 		/** Remove whitespace on beginning and end of string */
 		$ark = trim($ark);
 
-		/** The NMA part (everything from an initial "https://" up to the first occurrence of "/ark:"), if present is removed. */
-		$ark = preg_replace('/.*?(?=ark:)/i', '', $ark, limit: 1);
-
+		/** The NMA part (everything up to the first occurrence of "/ark:"), if present is removed. */
+		$ark = preg_replace('/.*?\/(?=ark:)/i', '', $ark, limit: 1);
+		
+		/** Note any inflections. */
+		preg_match('/\?.*/', $ark, $inflections);
+		$inflections = implode($inflections);
+		
 		/** Any URI query string is removed (everything from the first literal '?' to the end of the string). */
-		$ark = explode('?', $ark)[0];
+		$ark = preg_replace('/\?.*/', '', $ark);
 
 		/** All hyphens are removed */
 		$ark = preg_replace('/[\x{0020}|\x{00a0}|\x{002d}|\x{00ad}|\x{2000}-\x{2015}]/u', '', $ark);
@@ -228,7 +235,7 @@ class Ark
 			$ark = preg_replace_callback($rgxp, fn ($matches) => substr($matches[0], 0, 1), $ark);
 		}
 
-		return $ark;
+		return $ark.$inflections;
 	}
 
 	/**

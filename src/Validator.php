@@ -32,14 +32,25 @@ class Validator{
     }
 
     /**
-     * Is a valid base compact name.
+     * Is a valid NAAN.
+     * String contains a valid NAAN ().
+     * @param $subject The input string.
+     * @return bool
+     */
+    public static function isValidNaan(string $subject): bool
+    {   
+        return preg_match('/^[0-9bcdfghjkmnpqrstvwxz]{5,14}$/', $subject) === 1 ? true : false;
+    }
+
+    /**
+     * Is a valid base NAAN.
      * String contains pattern in the form of ark:[/]NAAN/{Base Name}.
      * @param $subject The input string.
      * @return bool
      */
     public static function isValidBaseCompactName(string $subject): bool
     {
-        return preg_match('/^ark:\/?[0-9bcdfghjkmnpqrstvwxz]{5}\/[0-9A-z=~*+@_$]+$/', $subject) === 1 ? true : false;
+        return preg_match('/^ark:\/?[0-9bcdfghjkmnpqrstvwxz]{5,14}\/[0-9A-z=~*+@_$]+$/', $subject) === 1 ? true : false;
     }
 
     /**
