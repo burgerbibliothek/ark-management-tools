@@ -9,6 +9,7 @@ Homestead.json
 /.vagrant
 .phpunit.result.cache
 error_log
+test.php
 
 # Sublime Text
 *.sublime-*

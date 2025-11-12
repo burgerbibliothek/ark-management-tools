@@ -204,11 +204,7 @@ class Ark
 
 		/** The NMA part (everything up to the first occurrence of "/ark:"), if present is removed. */
 		$ark = preg_replace('/.*?\/(?=ark:)/i', '', $ark, limit: 1);
-		
-		/** Note any inflections. */
-		preg_match('/\?.*/', $ark, $inflections);
-		$inflections = implode($inflections);
-		
+				
 		/** Any URI query string is removed (everything from the first literal '?' to the end of the string). */
 		$ark = preg_replace('/\?.*/', '', $ark);
 
@@ -235,7 +231,7 @@ class Ark
 			$ark = preg_replace_callback($rgxp, fn ($matches) => substr($matches[0], 0, 1), $ark);
 		}
 
-		return $ark.$inflections;
+		return $ark;
 	}
 
 	/**
