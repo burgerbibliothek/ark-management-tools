@@ -41,7 +41,7 @@ class Ark
 	 * @param bool $slashAfterLabel Include / in label part e.g. ark:/ (default: false).
 	 * @return string $id Generated ID.
 	 */
-	public static function generate(string $naan, string $xdigits, int $length, string $shoulder = null, bool $ncda = true, bool $slashAfterLabel = false): string
+	public static function generate(string $naan, string $xdigits, int $length, ?string $shoulder = null, bool $ncda = true, bool $slashAfterLabel = false): string
 	{
 
 		if ($length <= 0) {
@@ -77,7 +77,7 @@ class Ark
 			$id .= Ncda::calc($id, $xdigits);
 		}
 
-		$label = $slashAfterLabel ? 'ark:/' : 'ark:';
+		$label = $slashAfterLabel === true ? 'ark:/' : 'ark:';
 		$id = $label . $id;
 
 		return $id;
@@ -254,4 +254,5 @@ class Ark
 
 		return count(array_unique($check)) == count($arks) ? false : true;
 	}
+
 }
