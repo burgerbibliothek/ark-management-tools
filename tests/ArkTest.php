@@ -107,12 +107,12 @@ class ArkTest extends TestCase
         $scrambled_url = 'ftp:/exampleark:/99999/a1b2c3d4e5f6g/suffix?info';
         $scrambled_url_components = [
             'resolverService' => '',
-            'naan' => '99999',
-            'baseName' => 'a1b2c3d4e5f6g',
-            'baseCompactName' => 'ark:99999/a1b2c3d4e5f6g',
-            'checkZone' => '99999/a1b2c3d4e5f6g',
-            'suffixes' => 'suffix?info',
-            'inflections' => ['?info' => '']
+            'naan' => '',
+            'baseName' => '',
+            'baseCompactName' => '',
+            'checkZone' => '',
+            'suffixes' => '',
+            'inflections' => []
         ];
 
         $scrambled_url = Ark::splitIntoComponents($scrambled_url);
