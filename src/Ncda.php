@@ -4,12 +4,15 @@ namespace Burgerbibliothek\ArkManagementTools;
 use Burgerbibliothek\ArkManagementTools\Ark;
 use Exception;
 
+/**
+ * NOID Check digit algorithm (NCDA).
+ */
 class Ncda extends Ark
 {
 
 	/**
-	 * NOID Check digit algorithm.
-	 * Calculates a check digit using the NOID Check digit algorithm.
+	 * Calculate Check Digit.
+	 * Calculates a check digit using the NOID Check Digit Algorithm.
 	 * @link https://metacpan.org/dist/Noid/view/noid#NOID-CHECK-DIGIT-ALGORITHM.
 	 * @param string $id ID for which a checkdigit should be calculated.
 	 * @param string $xdigits Character repetoire used for ID generation.
@@ -18,7 +21,7 @@ class Ncda extends Ark
 	static public function calc(string $id, string $xdigits): string
 	{
 
-		if (strlen($id) >= strlen($xdigits)) {
+		if (strlen($id) > strlen($xdigits)) {
 			throw new Exception('Length of id can\'t exceed the number of xdigits in order for the NCDA to work.');
 		}
 

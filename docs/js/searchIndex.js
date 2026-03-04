@@ -123,12 +123,12 @@ Search.appendIndex(
         },                {
             "fqsen": "\\Burgerbibliothek\\ArkManagementTools\\Ncda",
             "name": "Ncda",
-            "summary": "",
+            "summary": "NOID\u0020Check\u0020digit\u0020algorithm\u0020\u0028NCDA\u0029.",
             "url": "classes/Burgerbibliothek-ArkManagementTools-Ncda.html"
         },                {
             "fqsen": "\\Burgerbibliothek\\ArkManagementTools\\Ncda\u003A\u003Acalc\u0028\u0029",
             "name": "calc",
-            "summary": "NOID\u0020Check\u0020digit\u0020algorithm.",
+            "summary": "Calculate\u0020Check\u0020Digit.",
             "url": "classes/Burgerbibliothek-ArkManagementTools-Ncda.html#method_calc"
         },                {
             "fqsen": "\\Burgerbibliothek\\ArkManagementTools\\Ncda\u003A\u003Averify\u0028\u0029",
