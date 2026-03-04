@@ -11,9 +11,11 @@ class Ark
 {
 	/** 
 	 * Remove duplicate characters from repetoire.
+	 * Duplicate characters get removed from given string. 
 	 * @param string $xdigits String containing the character repetoire.
 	 * @param bool $sort Sort the characters
 	 * @param bool $arr Return the characters as array.
+	 * @example echo Ark::removeDuplicateChars('xyyyzaaabbc') // Outputs "abcxyz"
 	 * @return string|array<string>
 	 */
 	public static function removeDuplicateChars(string $xdigits, bool $sort = true, bool $arr = false): string|array
@@ -39,7 +41,8 @@ class Ark
 	 * @param string $shoulder Prefix to blade (default: null).
 	 * @param bool $ncda Executes Noid Check Digit Algorithm and appends result to blade (default: true).
 	 * @param bool $slashAfterLabel Include / in label part e.g. ark:/ (default: false).
-	 * @return string $id Generated ID.
+	 * @example echo ARK::generate('12345', '0123456789bcdfghjkmnpqrstvwxz', 7, 'q1'); // Possible outputs: ark:12345/q15fk5zszx
+	 * @return string $id Generated ARK.
 	 */
 	public static function generate(string $naan, string $xdigits, int $length, ?string $shoulder = null, bool $ncda = true, bool $slashAfterLabel = false): string
 	{
@@ -87,6 +90,7 @@ class Ark
 	 * Split ARK into components.
 	 * Splits an ARK into components: Resolver Service, NAAN, Base Name, Base Compact Name, Check Zone and Suffixes.
 	 * @param string $ark
+	 * @example print_r(Ark::splitIntoComponents('https://n2t.org/ark:9999/q15fk5zszx/image.jpg?info')) // Outputs: ['resolverService' => 'https://n2t.org/', 'naan' => '9999', 'baseName' => '9999/q15fk5zszx', 'baseCompactName' => 'ark:9999/q15fk5zszx', 'checkZone' => 'ark:9999/q15fk5zszx', 'suffixes' => '', 'inflections' => []] 
 	 * @return array<string> array has empty values, when ark is invalid.
  	 */
 	public static function splitIntoComponents(string $ark): array
@@ -192,8 +196,12 @@ class Ark
 	}
 
 	/**
-	 * Normalization for ARK.
-	 * https://www.ietf.org/archive/id/draft-kunze-ark-39.html#name-normalization-and-lexical-e.
+	 * Normalization for ARK
+	 * 
+	 * * Strips whitespace on beginning and end of string
+	 * * Removes NMA
+	 * 
+	 * @link https://www.ietf.org/archive/id/draft-kunze-ark-39.html#name-normalization-and-lexical-e
 	 * @param $ark ARK or URI containing an ARK.
 	 * @return string
 	 */
@@ -235,11 +243,16 @@ class Ark
 	}
 
 	/**
-	 * Compare multiple ARKs for lexical equivalence.
-	 * Check if all ARKs in a list are lexically equivalent. 
-	 * https://www.ietf.org/archive/id/draft-kunze-ark-39.html#name-normalization-and-lexical-e.
-	 * @param array<string> $arks List containing arks e.g. ['ark:/ABC456/xyz?info', 'ARK:ABC456/xyz??'].
-	 * @return bool
+	 * Compare multiple ARKs for lexical equivalence
+	 * 
+	 * Checks if all ARKs in a list are lexically equivalent. 
+	 * 
+	 * @link https://www.ietf.org/archive/id/draft-kunze-ark-39.html#name-normalization-and-lexical-e.
+	 * @param array<string> $arks List containing arks .
+	 * @example 
+	 * $eq = Ark::areLexicalEquivalent(['ark:/ABC456/xyz?info', 'ARK:ABC456/xyz??']);
+	 * var_dump($eq) // Outputs: bool(true)
+	 * @return bool True if all ARKs in list are lexically equivalent, false otherwise
  	 */
 	public static function areLexicalEquivalent(array $arks): bool
 	{
