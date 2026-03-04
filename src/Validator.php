@@ -34,7 +34,7 @@ class Validator{
     /**
      * NAAN Validator.
      * Check if given string conforms as valid NAAN.
-     * @param $subject The input string.
+     * @param string $subject The input string.
      * @return bool
      */
     public static function isValidNaan(string $subject): bool
@@ -45,7 +45,7 @@ class Validator{
     /**
      * base NAAN Validator.
      * Check if string conforms to the pattern of ark:[/]NAAN/{Base Name}.
-     * @param $subject The input string.
+     * @param string $subject The input string.
      * @return bool
      */
     public static function isValidBaseCompactName(string $subject): bool
