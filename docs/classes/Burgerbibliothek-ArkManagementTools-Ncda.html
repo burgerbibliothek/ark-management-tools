@@ -179,7 +179,7 @@
     <span>
                                 &nbsp;: string    </span>
 </dt>
-<dd>Normalization for ARK</dd>
+<dd>Normalization for ARK.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a class="" href="classes/Burgerbibliothek-ArkManagementTools-Ark.html#method_removeDuplicateChars">removeDuplicateChars()</a>
@@ -230,7 +230,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Ark.php"><a href="files/src-ark.html"><abbr title="src/Ark.php">Ark.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">257</span>
+    <span class="phpdocumentor-element-found-in__line">255</span>
 
     </aside>
 
@@ -493,11 +493,11 @@ var_dump($eq) // Outputs: bool(true)</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Ark.php"><a href="files/src-ark.html"><abbr title="src/Ark.php">Ark.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">208</span>
+    <span class="phpdocumentor-element-found-in__line">206</span>
 
     </aside>
 
-        <p class="phpdocumentor-summary">Normalization for ARK</p>
+        <p class="phpdocumentor-summary">Normalization for ARK.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
@@ -506,10 +506,7 @@ var_dump($eq) // Outputs: bool(true)</p>
     <div class="phpdocumentor-label-line">
         </div>
     
-        <section class="phpdocumentor-description"><ul>
-<li>Strips whitespace on beginning and end of string</li>
-<li>Removes NMA</li>
-</ul>
+        <section class="phpdocumentor-description"><p>Reformats string containing an ARK into a normalized form.</p>
 </section>
 
         <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
@@ -538,6 +535,15 @@ var_dump($eq) // Outputs: bool(true)</p>
                 <dd class="phpdocumentor-tag-list__definition">
                                                                                                         <a class="phpdocumentor-tag-link" href="https://www.ietf.org/archive/id/draft-kunze-ark-39.html#name-normalization-and-lexical-e"> https://www.ietf.org/archive/id/draft-kunze-ark-39.html#name-normalization-and-lexical-e </a>
                     
+                                    </dd>
+                                                <dt class="phpdocumentor-tag-list__entry">
+                    <span class="phpdocumentor-tag__name">example</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                                                                                
+                                                 <section class="phpdocumentor-description"><p>echo Ark::normalize(' https://n2t.org/Ark:/9999/q15---FK5z-szx?info ') // Outputs: &quot;ark:/9999/q15fk5zszx&quot;</p>
+</section>
+
                                     </dd>
                                             </dl>
 
@@ -663,7 +669,7 @@ var_dump($eq) // Outputs: bool(true)</p>
     <div class="phpdocumentor-label-line">
         </div>
     
-        <section class="phpdocumentor-description"><p>Splits an ARK into components: Resolver Service, NAAN, Base Name, Base Compact Name, Check Zone and Suffixes.</p>
+        <section class="phpdocumentor-description"><p>Splits an ARK into the following components: Resolver Service, NAAN, Base Name, Base Compact Name, Check Zone and Suffixes.</p>
 </section>
 
         <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
@@ -701,7 +707,7 @@ var_dump($eq) // Outputs: bool(true)</p>
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
         <span class="phpdocumentor-signature__response_type">array&lt;string|int, string&gt;</span>
                     &mdash;
-                <section class="phpdocumentor-description"><p>array has empty values, when ark is invalid.</p>
+                <section class="phpdocumentor-description"><p>In case of an invalid array, the returned array, will be empty.</p>
 </section>
 
             </section>

@@ -5,8 +5,8 @@ class Validator{
 
     /**
      * String follows ARK character repetoire.
-     * Check if the string contains only characters that are valid for forming ARKs: 
-     * https://www.ietf.org/archive/id/draft-kunze-ark-39.html#name-character-repertoires
+     * Check if the string contains only characters that are valid for forming ARKs.
+     * @link https://www.ietf.org/archive/id/draft-kunze-ark-39.html#name-character-repertoires
      * @param string $subject The input string.
      * @param bool $reservedChars Check conformance, including the reserved character: % - . / (default: true)
      * @return bool
@@ -22,7 +22,7 @@ class Validator{
     /**
      * String follows NAAN character repetoire.
      * Check if the string contains only characters that are valid for forming NAANs.
-     * Check: https://www.ietf.org/archive/id/draft-kunze-ark-39.html#name-the-name-assigning-authorit.
+     * @link https://www.ietf.org/archive/id/draft-kunze-ark-39.html#name-the-name-assigning-authorit.
      * @param string $subject The input string.
      * @return bool
      */
@@ -32,8 +32,8 @@ class Validator{
     }
 
     /**
-     * Is a valid NAAN.
-     * String contains a valid NAAN ().
+     * NAAN Validator.
+     * Check if given string conforms as valid NAAN.
      * @param $subject The input string.
      * @return bool
      */
@@ -43,8 +43,8 @@ class Validator{
     }
 
     /**
-     * Is a valid base NAAN.
-     * String contains pattern in the form of ark:[/]NAAN/{Base Name}.
+     * base NAAN Validator.
+     * Check if string conforms to the pattern of ark:[/]NAAN/{Base Name}.
      * @param $subject The input string.
      * @return bool
      */
@@ -54,7 +54,7 @@ class Validator{
     }
 
     /**
-     * Validate Shoulder.
+     * Shoulder Validator.
      * Check if shoulder contains only character which are also in the character repetoire.
      * @param string $shoulder Shoulder
      * @param string $xdigits character repetoire.

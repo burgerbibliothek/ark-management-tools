@@ -48,7 +48,7 @@ Search.appendIndex(
         },                {
             "fqsen": "\\Burgerbibliothek\\ArkManagementTools\\Ark\u003A\u003Anormalize\u0028\u0029",
             "name": "normalize",
-            "summary": "Normalization\u0020for\u0020ARK",
+            "summary": "Normalization\u0020for\u0020ARK.",
             "url": "classes/Burgerbibliothek-ArkManagementTools-Ark.html#method_normalize"
         },                {
             "fqsen": "\\Burgerbibliothek\\ArkManagementTools\\Ark\u003A\u003AareLexicalEquivalent\u0028\u0029",

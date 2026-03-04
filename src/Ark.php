@@ -88,10 +88,10 @@ class Ark
 
 	/**
 	 * Split ARK into components.
-	 * Splits an ARK into components: Resolver Service, NAAN, Base Name, Base Compact Name, Check Zone and Suffixes.
+	 * Splits an ARK into the following components: Resolver Service, NAAN, Base Name, Base Compact Name, Check Zone and Suffixes.
 	 * @param string $ark
 	 * @example print_r(Ark::splitIntoComponents('https://n2t.org/ark:9999/q15fk5zszx/image.jpg?info')) // Outputs: ['resolverService' => 'https://n2t.org/', 'naan' => '9999', 'baseName' => '9999/q15fk5zszx', 'baseCompactName' => 'ark:9999/q15fk5zszx', 'checkZone' => 'ark:9999/q15fk5zszx', 'suffixes' => '', 'inflections' => []] 
-	 * @return array<string> array has empty values, when ark is invalid.
+	 * @return array<string> In case of an invalid array, the returned array, will be empty.
  	 */
 	public static function splitIntoComponents(string $ark): array
 	{
@@ -196,13 +196,11 @@ class Ark
 	}
 
 	/**
-	 * Normalization for ARK
-	 * 
-	 * * Strips whitespace on beginning and end of string
-	 * * Removes NMA
-	 * 
+	 * Normalization for ARK.
+	 * Reformats string containing an ARK into a normalized form.
 	 * @link https://www.ietf.org/archive/id/draft-kunze-ark-39.html#name-normalization-and-lexical-e
 	 * @param $ark ARK or URI containing an ARK.
+	 * @example echo Ark::normalize(' https://n2t.org/Ark:/9999/q15---FK5z-szx?info ') // Outputs: "ark:/9999/q15fk5zszx"
 	 * @return string
 	 */
 	public static function normalize(string $ark): string
