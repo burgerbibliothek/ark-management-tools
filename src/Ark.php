@@ -91,7 +91,7 @@ class Ark
 	 * Splits an ARK into the following components: Resolver Service, NAAN, Base Name, Base Compact Name, Check Zone and Suffixes.
 	 * @param string $ark
 	 * @example print_r(Ark::splitIntoComponents('https://n2t.org/ark:9999/q15fk5zszx/image.jpg?info')) // Outputs: ['resolverService' => 'https://n2t.org/', 'naan' => '9999', 'baseName' => '9999/q15fk5zszx', 'baseCompactName' => 'ark:9999/q15fk5zszx', 'checkZone' => 'ark:9999/q15fk5zszx', 'suffixes' => '', 'inflections' => []] 
-	 * @return array<string> In case of an invalid array, the returned array, will be empty.
+	 * @return array<mixed> In case of an invalid array, the returned array, will have empty values.
  	 */
 	public static function splitIntoComponents(string $ark): array
 	{
