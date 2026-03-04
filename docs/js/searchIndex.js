@@ -153,17 +153,17 @@ Search.appendIndex(
         },                {
             "fqsen": "\\Burgerbibliothek\\ArkManagementTools\\Validator\u003A\u003AisValidNaan\u0028\u0029",
             "name": "isValidNaan",
-            "summary": "Is\u0020a\u0020valid\u0020NAAN.",
+            "summary": "NAAN\u0020Validator.",
             "url": "classes/Burgerbibliothek-ArkManagementTools-Validator.html#method_isValidNaan"
         },                {
             "fqsen": "\\Burgerbibliothek\\ArkManagementTools\\Validator\u003A\u003AisValidBaseCompactName\u0028\u0029",
             "name": "isValidBaseCompactName",
-            "summary": "Is\u0020a\u0020valid\u0020base\u0020NAAN.",
+            "summary": "base\u0020NAAN\u0020Validator.",
             "url": "classes/Burgerbibliothek-ArkManagementTools-Validator.html#method_isValidBaseCompactName"
         },                {
             "fqsen": "\\Burgerbibliothek\\ArkManagementTools\\Validator\u003A\u003AshoulderInXdigits\u0028\u0029",
             "name": "shoulderInXdigits",
-            "summary": "Validate\u0020Shoulder.",
+            "summary": "Shoulder\u0020Validator.",
             "url": "classes/Burgerbibliothek-ArkManagementTools-Validator.html#method_shoulderInXdigits"
         },                {
             "fqsen": "\\",
