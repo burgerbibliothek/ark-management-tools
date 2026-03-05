@@ -8,6 +8,8 @@ use ValueError;
 
 /**
  * NOID Check digit algorithm (NCDA).
+ * Methods for calculating and verifying check digits using the NOID Check Digit Algorithm.
+ * @link https://metacpan.org/dist/Noid/view/noid#NOID-CHECK-DIGIT-ALGORITHM
  */
 class Ncda extends Ark
 {

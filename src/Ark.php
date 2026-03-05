@@ -7,6 +7,11 @@ use Burgerbibliothek\ArkManagementTools\Validator;
 use Random\Randomizer;
 use Exception;
 
+/**
+ * Archival Resource Key (ARK).
+ * Methods for minting ARKs.
+ * @link https://arks.org/
+ */
 class Ark
 {
 	/** 

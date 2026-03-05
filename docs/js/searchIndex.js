@@ -3,12 +3,12 @@ Search.appendIndex(
                 {
             "fqsen": "\\Burgerbibliothek\\ArkManagementTools\\Anvl",
             "name": "Anvl",
-            "summary": "",
+            "summary": "Name\u002DValue\u0020Language\u0020\u0028ANVL\u0029.",
             "url": "classes/Burgerbibliothek-ArkManagementTools-Anvl.html"
         },                {
             "fqsen": "\\Burgerbibliothek\\ArkManagementTools\\Anvl\u003A\u003A__construct\u0028\u0029",
             "name": "__construct",
-            "summary": "A\u0020Name\u0020Value\u0020Object.",
+            "summary": "",
             "url": "classes/Burgerbibliothek-ArkManagementTools-Anvl.html#method___construct"
         },                {
             "fqsen": "\\Burgerbibliothek\\ArkManagementTools\\Anvl\u003A\u003Aadd\u0028\u0029",
@@ -28,7 +28,7 @@ Search.appendIndex(
         },                {
             "fqsen": "\\Burgerbibliothek\\ArkManagementTools\\Ark",
             "name": "Ark",
-            "summary": "",
+            "summary": "Archival\u0020Resource\u0020Key\u0020\u0028ARK\u0029.",
             "url": "classes/Burgerbibliothek-ArkManagementTools-Ark.html"
         },                {
             "fqsen": "\\Burgerbibliothek\\ArkManagementTools\\Ark\u003A\u003AremoveDuplicateChars\u0028\u0029",
@@ -58,7 +58,7 @@ Search.appendIndex(
         },                {
             "fqsen": "\\Burgerbibliothek\\ArkManagementTools\\Erc",
             "name": "Erc",
-            "summary": "",
+            "summary": "Electronic\u0020Resource\u0020Citation\u0020\u0028ERC\u0029.",
             "url": "classes/Burgerbibliothek-ArkManagementTools-Erc.html"
         },                {
             "fqsen": "\\Burgerbibliothek\\ArkManagementTools\\Erc\u003A\u003A__construct\u0028\u0029",
@@ -138,7 +138,7 @@ Search.appendIndex(
         },                {
             "fqsen": "\\Burgerbibliothek\\ArkManagementTools\\Validator",
             "name": "Validator",
-            "summary": "",
+            "summary": "Validator.",
             "url": "classes/Burgerbibliothek-ArkManagementTools-Validator.html"
         },                {
             "fqsen": "\\Burgerbibliothek\\ArkManagementTools\\Validator\u003A\u003AfollowsArkCharacterRepetoire\u0028\u0029",

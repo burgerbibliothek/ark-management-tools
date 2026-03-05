@@ -1,6 +1,10 @@
 <?php
 namespace Burgerbibliothek\ArkManagementTools;
 
+/**
+ * Validator.
+ * Methods for validating ARKs.
+ */
 class Validator{
 
     /**

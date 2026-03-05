@@ -2,6 +2,12 @@
 
 namespace Burgerbibliothek\ArkManagementTools;
 
+/**
+ * Name-Value Language (ANVL).
+ * Methods for creating and interacting with ANVL records.
+ * @link http://www.cdlib.org/inside/diglib/ark/anvlspec.pdf
+ * @link https://datatracker.ietf.org/doc/draft-kunze-anvl/
+ */
 class Anvl{
 
     /**
@@ -10,12 +16,6 @@ class Anvl{
     public array $record;
     protected int $lineLength;
     
-    /**
-     * A Name Value Object.
-     * Create and interact with ANVL records.
-     * http://www.cdlib.org/inside/diglib/ark/anvlspec.pdf,
-     * https://datatracker.ietf.org/doc/draft-kunze-anvl/
-     */
     function __construct(int $lineLength = 72)
     {
         $this->record = [];

@@ -5,6 +5,11 @@ namespace Burgerbibliothek\ArkManagementTools;
 use Burgerbibliothek\ArkManagementTools\Anvl;
 use Exception\InvalidArgumentException;
 
+/**
+ * Electronic Resource Citation (ERC).
+ * Methods for creating and interacting with ERC records.
+ * @link https://www.dublincore.org/groups/kernel/spec/
+ */
 class Erc extends Anvl
 {
 
@@ -92,7 +97,7 @@ class Erc extends Anvl
 
     /**
      * Encode element value.
-     * https://www.dublincore.org/groups/kernel/spec/#95--element-value-encoding.
+     * @link https://www.dublincore.org/groups/kernel/spec/#95--element-value-encoding.
      * @param string $value String which should be encoded.
      * @return string
      */
@@ -104,7 +109,7 @@ class Erc extends Anvl
 
     /**
      * Decode element value.
-     * https://www.dublincore.org/groups/kernel/spec/#95--element-value-encoding.
+     * @link https://www.dublincore.org/groups/kernel/spec/#95--element-value-encoding.
      * @param string $value String which should be decoded.
      * @return string
      */
