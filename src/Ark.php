@@ -77,6 +77,7 @@ class Ark
 
 		/** Append check digit. */
 		if ($ncda) {
+			$xdigits = self::removeDuplicateChars(implode(array_merge(str_split($naan), str_split($xdigits))));
 			$id .= Ncda::calc($id, $xdigits);
 		}
 

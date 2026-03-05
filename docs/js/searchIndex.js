@@ -158,8 +158,13 @@ Search.appendIndex(
         },                {
             "fqsen": "\\Burgerbibliothek\\ArkManagementTools\\Validator\u003A\u003AisValidBaseCompactName\u0028\u0029",
             "name": "isValidBaseCompactName",
-            "summary": "base\u0020NAAN\u0020Validator.",
+            "summary": "Base\u0020Compact\u0020Name\u0020Validator.",
             "url": "classes/Burgerbibliothek-ArkManagementTools-Validator.html#method_isValidBaseCompactName"
+        },                {
+            "fqsen": "\\Burgerbibliothek\\ArkManagementTools\\Validator\u003A\u003AisValidCheckZone\u0028\u0029",
+            "name": "isValidCheckZone",
+            "summary": "Check\u0020Zone\u0020Validator.",
+            "url": "classes/Burgerbibliothek-ArkManagementTools-Validator.html#method_isValidCheckZone"
         },                {
             "fqsen": "\\Burgerbibliothek\\ArkManagementTools\\Validator\u003A\u003AshoulderInXdigits\u0028\u0029",
             "name": "shoulderInXdigits",

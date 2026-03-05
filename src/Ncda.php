@@ -2,7 +2,9 @@
 namespace Burgerbibliothek\ArkManagementTools;
 
 use Burgerbibliothek\ArkManagementTools\Ark;
+use Burgerbibliothek\ArkManagementTools\Validator;
 use Exception;
+use ValueError;
 
 /**
  * NOID Check digit algorithm (NCDA).
@@ -20,23 +22,26 @@ class Ncda extends Ark
 	 */
 	static public function calc(string $id, string $xdigits): string
 	{
+		
+		/** Check if $id conforms to ARK Check Zone */
+		if(Validator::isValidCheckZone($id) === false){
+			throw new Exception("\$id is not well formed (^[0-9bcdfghjkmnpqrstvwxz]{5,14}\/[0-9A-z=~*+@_$]+$): $id");
+		}
 
-		if (strlen($id) > strlen($xdigits)) {
-			throw new Exception('Length of id can\'t exceed the number of xdigits in order for the NCDA to work.');
+		/** Make sure $xdigits contains unique values only */
+		$xdigits = self::removeDuplicateChars($xdigits, true);
+
+		if (strlen(str_replace('/','',$id)) >= strlen($xdigits)) {
+			throw new Exception('Length of $id must be less than the number of xdigits in order for the NCDA to work.');
 		}
 
 		/** Check if $id contains only characters that are in $xdigits */
 		if (preg_match_all('/[\/' . $xdigits . ']/', $id) !== strlen($id)) {
-			throw new Exception('$id is not well formed.');
+			throw new Exception('$id is not well formed (characters which are not part of $xdigits found in $id).');
 		}
 
-		/** Make sure $xdigits contains unique values only */
-		$xdigits = array_unique(str_split($xdigits));
-
-		/** Sort character repetoire */
-		sort($xdigits);
-
 		/** Calculate the checkdigit */
+		$xdigits = str_split($xdigits);
 		$xdigitValues = array_flip($xdigits);
 		$xdigitValues['/'] = 0;
 		$chars = str_split($id);

@@ -169,7 +169,14 @@
     <span>
                                 &nbsp;: bool    </span>
 </dt>
-<dd>base NAAN Validator.</dd>
+<dd>Base Compact Name Validator.</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a class="" href="classes/Burgerbibliothek-ArkManagementTools-Validator.html#method_isValidCheckZone">isValidCheckZone()</a>
+    <span>
+                                &nbsp;: bool    </span>
+</dt>
+<dd>Check Zone Validator.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a class="" href="classes/Burgerbibliothek-ArkManagementTools-Validator.html#method_isValidNaan">isValidNaan()</a>
@@ -360,7 +367,7 @@
 
     </aside>
 
-        <p class="phpdocumentor-summary">base NAAN Validator.</p>
+        <p class="phpdocumentor-summary">Base Compact Name Validator.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
@@ -369,7 +376,60 @@
     <div class="phpdocumentor-label-line">
         </div>
     
-        <section class="phpdocumentor-description"><p>Check if string conforms to the pattern of ark:[/]NAAN/{Base Name}.</p>
+        <section class="phpdocumentor-description"><p>Check if string conforms to the pattern of ark:[/]{NAAN}/{Base Name}.</p>
+</section>
+
+        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-argument-list__argument__name">$subject</span>
+                : <span class="phpdocumentor-argument-list__argument__type">string</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"><p>The input string.</p>
+</section>
+
+            </dd>
+            </dl>
+
+    
+
+        
+    
+            <section>
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">bool</span>
+            </section>
+
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                    -static                    "
+>
+    <h4 class="phpdocumentor-element__name" id="method_isValidCheckZone">
+        isValidCheckZone()
+        <a href="classes/Burgerbibliothek-ArkManagementTools-Validator.html#method_isValidCheckZone" class="headerlink"><i class="fas fa-link"></i></a>
+
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/Validator.php"><a href="files/src-validator.html"><abbr title="src/Validator.php">Validator.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">62</span>
+
+    </aside>
+
+        <p class="phpdocumentor-summary">Check Zone Validator.</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+            <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">isValidCheckZone</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$subject</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">bool</span></code>
+
+    <div class="phpdocumentor-label-line">
+        </div>
+    
+        <section class="phpdocumentor-description"><p>Check if string conforms to the pattern of {NAAN}/{Base Name}.</p>
 </section>
 
         <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
@@ -462,7 +522,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Validator.php"><a href="files/src-validator.html"><abbr title="src/Validator.php">Validator.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">63</span>
+    <span class="phpdocumentor-element-found-in__line">74</span>
 
     </aside>
 
@@ -628,6 +688,7 @@
                                             <li class=""><a href="classes/Burgerbibliothek-ArkManagementTools-Validator.html#method_followsArkCharacterRepetoire">followsArkCharacterRepetoire()</a></li>
                                             <li class=""><a href="classes/Burgerbibliothek-ArkManagementTools-Validator.html#method_followsNaanCharacterRepetoire">followsNaanCharacterRepetoire()</a></li>
                                             <li class=""><a href="classes/Burgerbibliothek-ArkManagementTools-Validator.html#method_isValidBaseCompactName">isValidBaseCompactName()</a></li>
+                                            <li class=""><a href="classes/Burgerbibliothek-ArkManagementTools-Validator.html#method_isValidCheckZone">isValidCheckZone()</a></li>
                                             <li class=""><a href="classes/Burgerbibliothek-ArkManagementTools-Validator.html#method_isValidNaan">isValidNaan()</a></li>
                                             <li class=""><a href="classes/Burgerbibliothek-ArkManagementTools-Validator.html#method_shoulderInXdigits">shoulderInXdigits()</a></li>
                                     </ul>

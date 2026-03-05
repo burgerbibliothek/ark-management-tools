@@ -43,14 +43,25 @@ class Validator{
     }
 
     /**
-     * base NAAN Validator.
-     * Check if string conforms to the pattern of ark:[/]NAAN/{Base Name}.
+     * Base Compact Name Validator.
+     * Check if string conforms to the pattern of ark:[/]{NAAN}/{Base Name}.
      * @param string $subject The input string.
      * @return bool
      */
     public static function isValidBaseCompactName(string $subject): bool
     {
         return preg_match('/^ark:\/?[0-9bcdfghjkmnpqrstvwxz]{5,14}\/[0-9A-z=~*+@_$]+$/', $subject) === 1 ? true : false;
+    }
+
+    /**
+     * Check Zone Validator.
+     * Check if string conforms to the pattern of {NAAN}/{Base Name}.
+     * @param string $subject The input string.
+     * @return bool
+     */
+    public static function isValidCheckZone(string $subject): bool
+    {
+        return preg_match('/^[0-9bcdfghjkmnpqrstvwxz]{5,14}\/[0-9A-z=~*+@_$]+$/', $subject) === 1 ? true : false;
     }
 
     /**

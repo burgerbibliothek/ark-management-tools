@@ -85,14 +85,21 @@ class NcdaTest extends TestCase
         $this->assertTrue(Ncda::verify($ark, $this->xdigits), 'Failed to verify that the NCDA is true.');
     }
 
+    public function test_noid_check_digit_algortihm_check_zone_exception(): void
+    {   
+        $this->expectException(Exception::class);
+        $this->expectExceptionMessage('$id is not well formed (^[0-9bcdfghjkmnpqrstvwxz]{5,14}\/[0-9A-z=~*+@_$]+$): 36599gvp8nfpx9cc');
+        Ncda::calc('36599gvp8nfpx9cc', $this->xdigits);
+    }
+
     public function test_noid_check_digit_algortihm_length_exception(): void
     {
         $this->expectException(Exception::class);
-        Ncda::calc($this->xdigits, $this->xdigits);
+        Ncda::calc($this->checkZone, '1');
     }
 
     public function test_noid_check_digit_algortihm_well_formedness(): void
-    {
+    {   
         $this->expectException(Exception::class);
         Ncda::calc($this->checkZone.'-._$@', $this->xdigits);
     }
