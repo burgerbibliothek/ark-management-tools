@@ -19,9 +19,29 @@ use Burgerbibliothek\ArkManagementTools\Ncda
 
 echo ARK::verify('12345/q15fk5zszx', '0123456789bcdfghjkmnpqrstvwxz');
 ```
-expected Output:
+Output:
 ```
 true
 ```
 
+### Split ARK into components
+```php
+use Burgerbibliothek\ArkManagementTools\Ark
+
+var_dump(Ark::splitIntoComponents('https://ark.example.tld/ark:/99999/a1b2c3d4e5f6g/suffix?info'));
+```
+Output
+```php
+array(7) {
+  ["resolverService"]=> string(24) "https://ark.example.tld/"
+  ["naan"]=> string(5) "99999"
+  ["baseName"]=> string(13) "a1b2c3d4e5f6g"
+  ["baseCompactName"]=> string(23) "ark:99999/a1b2c3d4e5f6g"
+  ["checkZone"]=> string(19) "99999/a1b2c3d4e5f6g"
+  ["suffixes"]=> string(11) "suffix?info"
+  ["inflections"]=> array(1) {
+    ["?info"]=> string(0) ""
+  }
+} 
+```
 
