@@ -63,6 +63,14 @@ class ArkTest extends TestCase
         /** Check the character repetoire */
         $this->assertTrue(Validator::isValidBaseCompactName($components['baseCompactName']), 'Illegal characters detected.');
 
+        /** Generate ARK with NMA part */
+        $ark = Ark::generate($naan, $xdigits, 10, ncda: false, nma: 'https://ark.burgerbib.ch', slashAfterLabel: true);
+        
+        /** Length of ARK */
+        $this->assertEquals(21, strlen($ark), 'ARK has not the expected length.');
+
+
+
         /** Check normalization **/
         $ark = Ark::normalize(' Ar K:/ABC123/abc-def-—123-567%c3%b6/xyz/?query=www    ');
         $this->assertEquals($ark, 'ark:abc123/abcdef123567%C3%B6/xyz', 'Normalization did not work.');
@@ -76,7 +84,7 @@ class ArkTest extends TestCase
         /** components with resolverService */
         $ark_w_nma = 'https://example.tld/ark:/99999/a1b2c3d4e5f6g/suffix?info';
         $ark_w_nma_components = [
-            'resolverService' => 'https://example.tld',
+            'resolverService' => 'https://example.tld/',
             'naan' => '99999',
             'baseName' => 'a1b2c3d4e5f6g',
             'baseCompactName' => 'ark:99999/a1b2c3d4e5f6g',
@@ -104,7 +112,7 @@ class ArkTest extends TestCase
         $this->assertEquals($ark_components, $ark);
 
         /** components without resolverService */
-        $scrambled_url = 'ftp:/exampleark:/99999/a1b2c3d4e5f6g/suffix?info';
+        $scrambled_url = 'ftp:/examplerk:/99999/a1b2c3d4e5f6g/suffix?info';
         $scrambled_url_components = [
             'resolverService' => '',
             'naan' => '',

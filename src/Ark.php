@@ -26,15 +26,15 @@ class Ark
 	public static function removeDuplicateChars(string $xdigits, bool $sort = true, bool $arr = false): string|array
 	{
 		$xdigits = array_unique(str_split($xdigits));
-		
-		if($sort){
+
+		if ($sort) {
 			sort($xdigits);
 		}
 
-		if($arr === false){
+		if ($arr === false) {
 			return implode($xdigits);
 		}
-		
+
 		return $xdigits;
 	}
 
@@ -44,13 +44,16 @@ class Ark
 	 * @param string $xdigits Charachter repetoire e.g. "0123456789bcdfghjkmnpqrstvwxz".
 	 * @param int $length Desired length of ID.
 	 * @param string $shoulder Prefix to blade (default: null).
+	 * @param string $nma Name Mapping Authority (default: null).
 	 * @param bool $ncda Executes Noid Check Digit Algorithm and appends result to blade (default: true).
 	 * @param bool $slashAfterLabel Include / in label part e.g. ark:/ (default: false).
 	 * @example echo ARK::generate('12345', '0123456789bcdfghjkmnpqrstvwxz', 7, 'q1'); // Possible outputs: ark:12345/q15fk5zszx
 	 * @return string $id Generated ARK.
 	 */
-	public static function generate(string $naan, string $xdigits, int $length, ?string $shoulder = null, bool $ncda = true, bool $slashAfterLabel = false): string
+	public static function generate(string $naan, string $xdigits, int $length, ?string $shoulder = null, ?string $nma = null, bool $ncda = true, bool $slashAfterLabel = false): string
 	{
+
+		$ark = '';
 
 		if ($length <= 0) {
 			throw new Exception('ARKs must have a length of at least more than zero.');
@@ -66,30 +69,40 @@ class Ark
 
 		$xdigits = self::removeDuplicateChars($xdigits);
 
-		$id = $naan . '/';
+		$ark .= $naan . '/';
 
 		/** 
 		 * Prepend Shoulder.
 		 * Shoulder is prepended to assigned name if characters are valid.
 		 */
 		if ($shoulder && Validator::shoulderInXdigits($shoulder, $xdigits)) {
-			$id .= $shoulder;
+			$ark .= $shoulder;
 		}
 
 		/** Generate random ID */
 		$randomizer = new Randomizer();
-		$id .= $randomizer->getBytesFromString($xdigits, $length);
+		$ark .= $randomizer->getBytesFromString($xdigits, $length);
 
 		/** Append check digit. */
 		if ($ncda) {
 			$xdigits = self::removeDuplicateChars(implode(array_merge(str_split($naan), str_split($xdigits))));
-			$id .= Ncda::calc($id, $xdigits);
+			$ark .= Ncda::calc($ark, $xdigits);
 		}
 
 		$label = $slashAfterLabel === true ? 'ark:/' : 'ark:';
-		$id = $label . $id;
+		$ark = $label . $ark;
 
-		return $id;
+		/** Prepend NMA part if desired */
+		if ($nma !== null && filter_var($nma, FILTER_VALIDATE_URL, FILTER_FLAG_PATH_REQUIRED) !== false) {
+
+			if (in_array(substr($nma, -1), ['/', '?', '=', '#']) === false) {
+				$nma .= '/';
+			}
+
+			$ark = $nma . $ark;
+		}
+
+		return $ark;
 	}
 
 	/**
@@ -98,10 +111,10 @@ class Ark
 	 * @param string $ark
 	 * @example print_r(Ark::splitIntoComponents('https://n2t.org/ark:9999/q15fk5zszx/image.jpg?info')) // Outputs: ['resolverService' => 'https://n2t.org/', 'naan' => '9999', 'baseName' => '9999/q15fk5zszx', 'baseCompactName' => 'ark:9999/q15fk5zszx', 'checkZone' => 'ark:9999/q15fk5zszx', 'suffixes' => '', 'inflections' => []] 
 	 * @return array<mixed> In case of an invalid array, the returned array, will have empty values.
- 	 */
+	 */
 	public static function splitIntoComponents(string $ark): array
 	{
-		
+
 		$components = [
 			'resolverService' => '',
 			'naan' => '',
@@ -114,45 +127,18 @@ class Ark
 
 		/** Remove whitespace on beginning and end of string. */
 		$ark = trim($ark);
-
+		
 		/** Extract resolverService part if $ark is a valid url. **/
 		if (filter_var($ark, FILTER_VALIDATE_URL)) {
-
-			$url = parse_url($ark);
-
-			$componentKeys = [
-				'scheme' => '://',
-				'user' => '',
-				'pass' => '@',
-				'host' => '',
-				'port' => ':',
-			];
-
-			/** reassemble url **/
-			foreach ($componentKeys as $key => $comp) {
-
-				if (isset($url[$key])) {
-
-					switch ($key) {
-						case 'port':
-							$components['resolverService'] .= $comp . $url[$key];
-							break;
-						case 'pass':
-							$components['resolverService'] .= ':'. $url[$key] . $comp;
-							break;						
-						default:
-							$components['resolverService'] .= $url[$key] . $comp;
-							break;
-					}
-				}
-			}
+			preg_match('/.*?(?=ark:)/i', $ark, $resolverService);
+			$components['resolverService'] = $resolverService[0];
 		}
-
-		/** The NMA part (everything up to the first occurrence of "/ark:"), if present is removed. */
-		$ark = preg_replace('/.*?\/(?=ark:)/i', '', $ark, limit: 1);
 		
+		/** The NMA part (everything up to the first occurrence of "/ark:"), if present is removed. */
+		$ark = preg_replace('/.*?(?=ark:)/i', '', $ark, limit: 1);
+
 		/** Extract the remaining parts */
-		if(preg_match('/ark:/', substr($ark, 0, 4)) === 1){
+		if (preg_match('/ark:/', substr($ark, 0, 4)) === 1) {
 
 			/** Extract inflections (everything starting with ?) */
 			preg_match('/\?.*/', $ark, $inflections);
@@ -162,30 +148,29 @@ class Ark
 
 			/** Extract baseName */
 			$ark = explode('/', $ark);
-						
-			if($ark[0] === 'ark:'){
+
+			if ($ark[0] === 'ark:') {
 				$components['naan'] = $ark[1];
-				array_splice($ark, 0, 2);		
-			}else{
+				array_splice($ark, 0, 2);
+			} else {
 				$components['naan'] = explode(':', $ark[0])[1];
 				array_splice($ark, 0, 1);
 			}
 
-			if(isset($ark[0])){
+			if (isset($ark[0])) {
 				$components['baseName'] = $ark[0];
-				$components['baseCompactName'] = 'ark:'.$components['naan'].'/'.$components['baseName'];
-				$components['checkZone'] = $components['naan'].'/'.$components['baseName'];
+				$components['baseCompactName'] = 'ark:' . $components['naan'] . '/' . $components['baseName'];
+				$components['checkZone'] = $components['naan'] . '/' . $components['baseName'];
 				unset($ark[0]);
 			}
 
-			if(count($ark) > 0 || $inflections){
-				$components['suffixes'] = implode('/', $ark).$inflections;
+			if (count($ark) > 0 || $inflections) {
+				$components['suffixes'] = implode('/', $ark) . $inflections;
 			}
-			
 		}
 
 		/* Reset items if base compact name is invalid */
-		if(!Validator::isValidBaseCompactName($components['baseCompactName'])){
+		if (!Validator::isValidBaseCompactName($components['baseCompactName'])) {
 			$components = [
 				'resolverService' => '',
 				'naan' => '',
@@ -195,10 +180,9 @@ class Ark
 				'suffixes' => '',
 				'inflections' => []
 			];
-		}	
-		
-		return $components;
+		}
 
+		return $components;
 	}
 
 	/**
@@ -216,7 +200,7 @@ class Ark
 
 		/** The NMA part (everything up to the first occurrence of "/ark:"), if present is removed. */
 		$ark = preg_replace('/.*?\/(?=ark:)/i', '', $ark, limit: 1);
-				
+
 		/** Any URI query string is removed (everything from the first literal '?' to the end of the string). */
 		$ark = preg_replace('/\?.*/', '', $ark);
 
@@ -227,10 +211,10 @@ class Ark
 		$ark = preg_replace('/(?:^ark:\/?)/i', 'ark:', $ark);
 
 		/** Any uppercase letters in the NAAN are converted to lowercase */
-		$ark = preg_replace_callback('/(?:ark:[0-9A-z]{5})/', fn ($matches) => strtolower($matches[0]), $ark, 1);
+		$ark = preg_replace_callback('/(?:ark:[0-9A-z]{5})/', fn($matches) => strtolower($matches[0]), $ark, 1);
 
 		/** the two characters following every occurrence of '%' are converted to uppercase */
-		$ark = preg_replace_callback('/(?:%..)/', fn ($matches) => strtoupper($matches[0]), $ark);
+		$ark = preg_replace_callback('/(?:%..)/', fn($matches) => strtoupper($matches[0]), $ark);
 
 		/** Structural characters (slash and period) are normalized: 
 		 *  initial and final occurrences are removed, and two structural characters in a row (e.g., // or ./) 
@@ -240,7 +224,7 @@ class Ark
 		$ark = rtrim($ark, '/');
 		$rgxp = '/(?:[\.\/]{2})/';
 		while (preg_match($rgxp, $ark) > 0) {
-			$ark = preg_replace_callback($rgxp, fn ($matches) => substr($matches[0], 0, 1), $ark);
+			$ark = preg_replace_callback($rgxp, fn($matches) => substr($matches[0], 0, 1), $ark);
 		}
 
 		return $ark;
@@ -257,7 +241,7 @@ class Ark
 	 * $eq = Ark::areLexicalEquivalent(['ark:/ABC456/xyz?info', 'ARK:ABC456/xyz??']);
 	 * var_dump($eq) // Outputs: bool(true)
 	 * @return bool True if all ARKs in list are lexically equivalent, false otherwise
- 	 */
+	 */
 	public static function areLexicalEquivalent(array $arks): bool
 	{
 		$check = [];
@@ -267,5 +251,4 @@ class Ark
 
 		return count(array_unique($check)) == count($arks) ? false : true;
 	}
-
 }

@@ -34,7 +34,7 @@ class Ncda extends Ark
 		$xdigits = self::removeDuplicateChars($xdigits, true);
 
 		if (strlen(str_replace('/','',$id)) >= strlen($xdigits)) {
-			throw new Exception('Length of $id must be less than the number of xdigits in order for the NCDA to work.');
+			throw new Exception('Length of $id must be less than the number of $xdigits in order for the NCDA to work.');
 		}
 
 		/** Check if $id contains only characters that are in $xdigits */

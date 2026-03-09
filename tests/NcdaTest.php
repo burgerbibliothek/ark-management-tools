@@ -74,7 +74,6 @@ class NcdaTest extends TestCase
         
         $checkdigit = Ncda::calc($this->checkZone, $this->xdigits);
         $this->assertSame('q', $checkdigit, 'NCDA failed.');
-
         $this->assertTrue(Ncda::verify($this->checkZone.$checkdigit, $this->xdigits), 'Failed to verify that the NCDA is true.');
 
     }
