@@ -165,7 +165,7 @@ class Ark
 				unset($ark[0]);
 			}
 
-			if (count($ark) > 0 || $inflections) {
+			if (count($ark) > 0 || $inflection) {
 				$components['suffixes'] = implode('/', $ark) . $components['inflection'];
 			}
 		}
