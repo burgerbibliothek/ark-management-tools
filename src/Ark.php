@@ -122,7 +122,7 @@ class Ark
 			'baseCompactName' => '',
 			'checkZone' => '',
 			'suffixes' => '',
-			'inflections' => []
+			'inflection' => ''
 		];
 
 		/** Remove whitespace on beginning and end of string. */
@@ -141,9 +141,8 @@ class Ark
 		if (preg_match('/ark:/', substr($ark, 0, 4)) === 1) {
 
 			/** Extract inflections (everything starting with ?) */
-			preg_match('/\?.*/', $ark, $inflections);
-			$inflections = implode($inflections);
-			parse_str($inflections, $components['inflections']);
+			preg_match('/\?.*/', $ark, $inflection);
+			$components['inflection'] = implode($inflection);
 			$ark = preg_replace('/\?.*/', '', $ark);
 
 			/** Extract baseName */
@@ -164,8 +163,8 @@ class Ark
 				unset($ark[0]);
 			}
 
-			if (count($ark) > 0 || $inflections) {
-				$components['suffixes'] = implode('/', $ark) . $inflections;
+			if (count($ark) > 0 || $components['inflection']) {
+				$components['suffixes'] = implode('/', $ark) . $components['inflection'];
 			}
 		}
 
