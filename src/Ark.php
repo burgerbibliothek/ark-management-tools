@@ -106,6 +106,95 @@ class Ark
 	}
 
 	/**
+	 * Normalization: removal of hyphen characters.
+	 * Reformats string by removing all hypen characters.
+	 * @link https://www.ietf.org/archive/id/draft-kunze-ark-39.html#name-normalization-and-lexical-e
+	 * @param $seq Text sequence from which to remove the hyphens.
+	 * @example echo Ark::normalizationHyphenRemoval('q15---FK5z-szx') // Outputs: "q15fk5zszx"
+	 * @return string
+	 */
+	public static function normalizationHyphenRemoval(string $seq){
+		return preg_replace('/[\x{0020}|\x{00a0}|\x{002d}|\x{00ad}|\x{2000}-\x{2015}]/u', '', $seq);
+	}
+
+	/**
+	 * Normalization: label reformatting.
+	 * The first case-insensitive match on "ark:/" or "ark:" is converted to "ark:" (replacing any uppercase letters and removing any terminal '/').
+	 * @link https://www.ietf.org/archive/id/draft-kunze-ark-39.html#name-normalization-and-lexical-e
+	 * @param $seq Text sequence containing the label.
+	 * @example echo Ark::normalizationLabel('Ark:/') // Outputs: "ark:"
+	 * @return string
+	 */
+	public static function normalizationLabel(string $seq){
+		return preg_replace('/(?:^ark:\/?)/i', 'ark:', $seq);
+	}
+
+	/**
+	 * Normalization: NAAN.
+	 * Any uppercase letters in the NAAN are converted to lowercase.
+	 * @link https://www.ietf.org/archive/id/draft-kunze-ark-39.html#name-normalization-and-lexical-e
+	 * @param $seq Text sequence containing the NAAN.
+	 * @example echo Ark::normalizationNaan('ark:9ABC') // Outputs: "ark:9abc"
+	 * @return string
+	 */
+	public static function normalizationNaan(string $seq){
+		return preg_replace_callback('/(?:ark:[0-9A-z]{5})/', fn($matches) => strtolower($matches[0]), $seq, 1);
+	}
+
+	/**
+	 * Normalization: removal of NMA part.
+	 * The NMA part (everything up to the first occurrence of "/ark:"), if present is removed.
+	 * @link https://www.ietf.org/archive/id/draft-kunze-ark-39.html#name-normalization-and-lexical-e
+	 * @param $seq Text sequence containing NMA part.
+	 * @example echo Ark::normalizationNaan('ark:9ABC') // Outputs: "ark:9abc"
+	 * @return string
+	 */
+	public static function normalizationRemovalNMA(string $seq){
+		return preg_replace('/.*?\/(?=ark:)/i', '', $seq, limit: 1);
+	}
+
+	/**
+	 * Normalization for ARK.
+	 * Reformats string containing an ARK into a normalized form.
+	 * @link https://www.ietf.org/archive/id/draft-kunze-ark-39.html#name-normalization-and-lexical-e
+	 * @param $ark ARK or URI containing an ARK.
+	 * @example echo Ark::normalize(' https://n2t.org/Ark:/1A2b/q15---FK5z-szx?info ') // Outputs: "ark:/1a2b/q15fk5zszx"
+	 * @return string
+	 */
+	public static function normalize(string $ark): string
+	{
+		/** Remove whitespace on beginning and end of string */
+		$ark = trim($ark);
+
+		$ark = self::normalizationRemovalNMA($ark);
+
+		/** Any URI query string is removed (everything from the first literal '?' to the end of the string). */
+		$ark = preg_replace('/\?.*/', '', $ark);
+
+		$ark = self::normalizationHyphenRemoval($ark);
+
+		$ark = self::normalizationLabel($ark);
+
+		$ark = self::normalizationNaan($ark);
+
+		/** the two characters following every occurrence of '%' are converted to uppercase */
+		$ark = preg_replace_callback('/(?:%..)/', fn($matches) => strtoupper($matches[0]), $ark);
+
+		/** Structural characters (slash and period) are normalized: 
+		 *  initial and final occurrences are removed, and two structural characters in a row (e.g., // or ./) 
+		 *  are replaced by the first character, iterating until each occurrence has at least one 
+		 * 	non-structural character on either side.
+		 */
+		$ark = rtrim($ark, '/');
+		$rgxp = '/(?:[\.\/]{2})/';
+		while (preg_match($rgxp, $ark) > 0) {
+			$ark = preg_replace_callback($rgxp, fn($matches) => substr($matches[0], 0, 1), $ark);
+		}
+
+		return $ark;
+	}
+
+	/**
 	 * Split ARK into components.
 	 * Splits an ARK into the following components: Resolver Service, NAAN, Base Name, Base Compact Name, Check Zone and Suffixes.
 	 * @param string $ark
@@ -133,10 +222,15 @@ class Ark
 			preg_match('/.*?(?=ark:)/i', $ark, $resolverService);
 			$components['resolverService'] = $resolverService[0];
 		}
-		
-		/** The NMA part (everything up to the first occurrence of "/ark:"), if present is removed. */
-		$ark = preg_replace('/.*?(?=ark:)/i', '', $ark, limit: 1);
 
+		$ark = self::normalizationRemovalNMA($ark);
+		
+		$ark = self::normalizationHyphenRemoval($ark);
+
+		$ark = self::normalizationLabel($ark);
+
+		$ark = self::normalizationNaan($ark);
+		
 		/** Extract the remaining parts */
 		if (preg_match('/ark:/', substr($ark, 0, 4)) === 1) {
 
@@ -171,7 +265,7 @@ class Ark
 		}
 
 		/* Reset items if base compact name is invalid */
-		if (!Validator::isValidBaseCompactName($components['baseCompactName'])) {
+		if (Validator::isValidBaseCompactName($components['baseCompactName']) === false) {
 			$components = [
 				'resolverService' => '',
 				'naan' => '',
@@ -184,51 +278,6 @@ class Ark
 		}
 
 		return $components;
-	}
-
-	/**
-	 * Normalization for ARK.
-	 * Reformats string containing an ARK into a normalized form.
-	 * @link https://www.ietf.org/archive/id/draft-kunze-ark-39.html#name-normalization-and-lexical-e
-	 * @param $ark ARK or URI containing an ARK.
-	 * @example echo Ark::normalize(' https://n2t.org/Ark:/9999/q15---FK5z-szx?info ') // Outputs: "ark:/9999/q15fk5zszx"
-	 * @return string
-	 */
-	public static function normalize(string $ark): string
-	{
-		/** Remove whitespace on beginning and end of string */
-		$ark = trim($ark);
-
-		/** The NMA part (everything up to the first occurrence of "/ark:"), if present is removed. */
-		$ark = preg_replace('/.*?\/(?=ark:)/i', '', $ark, limit: 1);
-
-		/** Any URI query string is removed (everything from the first literal '?' to the end of the string). */
-		$ark = preg_replace('/\?.*/', '', $ark);
-
-		/** All hyphens are removed */
-		$ark = preg_replace('/[\x{0020}|\x{00a0}|\x{002d}|\x{00ad}|\x{2000}-\x{2015}]/u', '', $ark);
-
-		/** The first case-insensitive match on "ark:/" or "ark:" is converted to "ark:" (replacing any uppercase letters and removing any terminal '/'). */
-		$ark = preg_replace('/(?:^ark:\/?)/i', 'ark:', $ark);
-
-		/** Any uppercase letters in the NAAN are converted to lowercase */
-		$ark = preg_replace_callback('/(?:ark:[0-9A-z]{5})/', fn($matches) => strtolower($matches[0]), $ark, 1);
-
-		/** the two characters following every occurrence of '%' are converted to uppercase */
-		$ark = preg_replace_callback('/(?:%..)/', fn($matches) => strtoupper($matches[0]), $ark);
-
-		/** Structural characters (slash and period) are normalized: 
-		 *  initial and final occurrences are removed, and two structural characters in a row (e.g., // or ./) 
-		 *  are replaced by the first character, iterating until each occurrence has at least one 
-		 * 	non-structural character on either side.
-		 */
-		$ark = rtrim($ark, '/');
-		$rgxp = '/(?:[\.\/]{2})/';
-		while (preg_match($rgxp, $ark) > 0) {
-			$ark = preg_replace_callback($rgxp, fn($matches) => substr($matches[0], 0, 1), $ark);
-		}
-
-		return $ark;
 	}
 
 	/**
