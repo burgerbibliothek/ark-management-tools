@@ -192,6 +192,34 @@
 <dd>Generate an ARK of desired length with given NAAN and character repetoire.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a class="" href="classes/Burgerbibliothek-ArkManagementTools-Ark.html#method_normalizationHyphenRemoval">normalizationHyphenRemoval()</a>
+    <span>
+                                &nbsp;: string    </span>
+</dt>
+<dd>Normalization: removal of hyphen characters.</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a class="" href="classes/Burgerbibliothek-ArkManagementTools-Ark.html#method_normalizationLabel">normalizationLabel()</a>
+    <span>
+                                &nbsp;: string    </span>
+</dt>
+<dd>Normalization: label reformatting.</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a class="" href="classes/Burgerbibliothek-ArkManagementTools-Ark.html#method_normalizationNaan">normalizationNaan()</a>
+    <span>
+                                &nbsp;: string    </span>
+</dt>
+<dd>Normalization: NAAN.</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a class="" href="classes/Burgerbibliothek-ArkManagementTools-Ark.html#method_normalizationRemovalNMA">normalizationRemovalNMA()</a>
+    <span>
+                                &nbsp;: string    </span>
+</dt>
+<dd>Normalization: removal of NMA part.</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a class="" href="classes/Burgerbibliothek-ArkManagementTools-Ark.html#method_normalize">normalize()</a>
     <span>
                                 &nbsp;: string    </span>
@@ -247,7 +275,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Ark.php"><a href="files/src-ark.html"><abbr title="src/Ark.php">Ark.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">245</span>
+    <span class="phpdocumentor-element-found-in__line">295</span>
 
     </aside>
 
@@ -525,6 +553,310 @@ var_dump($eq) // Outputs: bool(true)</p>
             -public
                                     -static                    "
 >
+    <h4 class="phpdocumentor-element__name" id="method_normalizationHyphenRemoval">
+        normalizationHyphenRemoval()
+        <a href="classes/Burgerbibliothek-ArkManagementTools-Ark.html#method_normalizationHyphenRemoval" class="headerlink"><i class="fas fa-link"></i></a>
+
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/Ark.php"><a href="files/src-ark.html"><abbr title="src/Ark.php">Ark.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">116</span>
+
+    </aside>
+
+        <p class="phpdocumentor-summary">Normalization: removal of hyphen characters.</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+            <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">normalizationHyphenRemoval</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__type">mixed&nbsp;</span><span class="phpdocumentor-signature__argument__name">$seq</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">string</span></code>
+
+    <div class="phpdocumentor-label-line">
+        </div>
+    
+        <section class="phpdocumentor-description"><p>Reformats string by removing all hypen characters.</p>
+</section>
+
+        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-argument-list__argument__name">$seq</span>
+                : <span class="phpdocumentor-argument-list__argument__type">mixed</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"><p>Text sequence from which to remove the hyphens.</p>
+</section>
+
+            </dd>
+            </dl>
+
+    
+    <h5 class="phpdocumentor-tag-list__heading" id="tags">
+        Tags
+        <a href="classes/Burgerbibliothek-ArkManagementTools-Ark.html#method_normalizationHyphenRemoval#tags" class="headerlink"><i class="fas fa-link"></i></a>
+
+    </h5>
+    <dl class="phpdocumentor-tag-list">
+                                    <dt class="phpdocumentor-tag-list__entry">
+                    <span class="phpdocumentor-tag__name">link</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                                                                                                        <a class="phpdocumentor-tag-link" href="https://www.ietf.org/archive/id/draft-kunze-ark-39.html#name-normalization-and-lexical-e"> https://www.ietf.org/archive/id/draft-kunze-ark-39.html#name-normalization-and-lexical-e </a>
+                    
+                                    </dd>
+                                                <dt class="phpdocumentor-tag-list__entry">
+                    <span class="phpdocumentor-tag__name">example</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                                                                                
+                                                 <section class="phpdocumentor-description"><p>echo Ark::normalizationHyphenRemoval('q15---FK5z-szx') // Outputs: &quot;q15fk5zszx&quot;</p>
+</section>
+
+                                    </dd>
+                                            </dl>
+
+        
+    
+            <section>
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">string</span>
+            </section>
+
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                    -static                    "
+>
+    <h4 class="phpdocumentor-element__name" id="method_normalizationLabel">
+        normalizationLabel()
+        <a href="classes/Burgerbibliothek-ArkManagementTools-Ark.html#method_normalizationLabel" class="headerlink"><i class="fas fa-link"></i></a>
+
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/Ark.php"><a href="files/src-ark.html"><abbr title="src/Ark.php">Ark.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">128</span>
+
+    </aside>
+
+        <p class="phpdocumentor-summary">Normalization: label reformatting.</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+            <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">normalizationLabel</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__type">mixed&nbsp;</span><span class="phpdocumentor-signature__argument__name">$seq</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">string</span></code>
+
+    <div class="phpdocumentor-label-line">
+        </div>
+    
+        <section class="phpdocumentor-description"><p>The first case-insensitive match on &quot;ark:/&quot; or &quot;ark:&quot; is converted to &quot;ark:&quot; (replacing any uppercase letters and removing any terminal '/').</p>
+</section>
+
+        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-argument-list__argument__name">$seq</span>
+                : <span class="phpdocumentor-argument-list__argument__type">mixed</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"><p>Text sequence containing the label.</p>
+</section>
+
+            </dd>
+            </dl>
+
+    
+    <h5 class="phpdocumentor-tag-list__heading" id="tags">
+        Tags
+        <a href="classes/Burgerbibliothek-ArkManagementTools-Ark.html#method_normalizationLabel#tags" class="headerlink"><i class="fas fa-link"></i></a>
+
+    </h5>
+    <dl class="phpdocumentor-tag-list">
+                                    <dt class="phpdocumentor-tag-list__entry">
+                    <span class="phpdocumentor-tag__name">link</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                                                                                                        <a class="phpdocumentor-tag-link" href="https://www.ietf.org/archive/id/draft-kunze-ark-39.html#name-normalization-and-lexical-e"> https://www.ietf.org/archive/id/draft-kunze-ark-39.html#name-normalization-and-lexical-e </a>
+                    
+                                    </dd>
+                                                <dt class="phpdocumentor-tag-list__entry">
+                    <span class="phpdocumentor-tag__name">example</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                                                                                
+                                                 <section class="phpdocumentor-description"><p>echo Ark::normalizationLabel('Ark:/') // Outputs: &quot;ark:&quot;</p>
+</section>
+
+                                    </dd>
+                                            </dl>
+
+        
+    
+            <section>
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">string</span>
+            </section>
+
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                    -static                    "
+>
+    <h4 class="phpdocumentor-element__name" id="method_normalizationNaan">
+        normalizationNaan()
+        <a href="classes/Burgerbibliothek-ArkManagementTools-Ark.html#method_normalizationNaan" class="headerlink"><i class="fas fa-link"></i></a>
+
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/Ark.php"><a href="files/src-ark.html"><abbr title="src/Ark.php">Ark.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">140</span>
+
+    </aside>
+
+        <p class="phpdocumentor-summary">Normalization: NAAN.</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+            <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">normalizationNaan</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__type">mixed&nbsp;</span><span class="phpdocumentor-signature__argument__name">$seq</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">string</span></code>
+
+    <div class="phpdocumentor-label-line">
+        </div>
+    
+        <section class="phpdocumentor-description"><p>Any uppercase letters in the NAAN are converted to lowercase.</p>
+</section>
+
+        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-argument-list__argument__name">$seq</span>
+                : <span class="phpdocumentor-argument-list__argument__type">mixed</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"><p>Text sequence containing the NAAN.</p>
+</section>
+
+            </dd>
+            </dl>
+
+    
+    <h5 class="phpdocumentor-tag-list__heading" id="tags">
+        Tags
+        <a href="classes/Burgerbibliothek-ArkManagementTools-Ark.html#method_normalizationNaan#tags" class="headerlink"><i class="fas fa-link"></i></a>
+
+    </h5>
+    <dl class="phpdocumentor-tag-list">
+                                    <dt class="phpdocumentor-tag-list__entry">
+                    <span class="phpdocumentor-tag__name">link</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                                                                                                        <a class="phpdocumentor-tag-link" href="https://www.ietf.org/archive/id/draft-kunze-ark-39.html#name-normalization-and-lexical-e"> https://www.ietf.org/archive/id/draft-kunze-ark-39.html#name-normalization-and-lexical-e </a>
+                    
+                                    </dd>
+                                                <dt class="phpdocumentor-tag-list__entry">
+                    <span class="phpdocumentor-tag__name">example</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                                                                                
+                                                 <section class="phpdocumentor-description"><p>echo Ark::normalizationNaan('ark:9ABC') // Outputs: &quot;ark:9abc&quot;</p>
+</section>
+
+                                    </dd>
+                                            </dl>
+
+        
+    
+            <section>
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">string</span>
+            </section>
+
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                    -static                    "
+>
+    <h4 class="phpdocumentor-element__name" id="method_normalizationRemovalNMA">
+        normalizationRemovalNMA()
+        <a href="classes/Burgerbibliothek-ArkManagementTools-Ark.html#method_normalizationRemovalNMA" class="headerlink"><i class="fas fa-link"></i></a>
+
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/Ark.php"><a href="files/src-ark.html"><abbr title="src/Ark.php">Ark.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">152</span>
+
+    </aside>
+
+        <p class="phpdocumentor-summary">Normalization: removal of NMA part.</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+            <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">normalizationRemovalNMA</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__type">mixed&nbsp;</span><span class="phpdocumentor-signature__argument__name">$seq</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">string</span></code>
+
+    <div class="phpdocumentor-label-line">
+        </div>
+    
+        <section class="phpdocumentor-description"><p>The NMA part (everything up to the first occurrence of &quot;/ark:&quot;), if present is removed.</p>
+</section>
+
+        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-argument-list__argument__name">$seq</span>
+                : <span class="phpdocumentor-argument-list__argument__type">mixed</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"><p>Text sequence containing NMA part.</p>
+</section>
+
+            </dd>
+            </dl>
+
+    
+    <h5 class="phpdocumentor-tag-list__heading" id="tags">
+        Tags
+        <a href="classes/Burgerbibliothek-ArkManagementTools-Ark.html#method_normalizationRemovalNMA#tags" class="headerlink"><i class="fas fa-link"></i></a>
+
+    </h5>
+    <dl class="phpdocumentor-tag-list">
+                                    <dt class="phpdocumentor-tag-list__entry">
+                    <span class="phpdocumentor-tag__name">link</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                                                                                                        <a class="phpdocumentor-tag-link" href="https://www.ietf.org/archive/id/draft-kunze-ark-39.html#name-normalization-and-lexical-e"> https://www.ietf.org/archive/id/draft-kunze-ark-39.html#name-normalization-and-lexical-e </a>
+                    
+                                    </dd>
+                                                <dt class="phpdocumentor-tag-list__entry">
+                    <span class="phpdocumentor-tag__name">example</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                                                                                
+                                                 <section class="phpdocumentor-description"><p>echo Ark::normalizationNaan('ark:9ABC') // Outputs: &quot;ark:9abc&quot;</p>
+</section>
+
+                                    </dd>
+                                            </dl>
+
+        
+    
+            <section>
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">string</span>
+            </section>
+
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                    -static                    "
+>
     <h4 class="phpdocumentor-element__name" id="method_normalize">
         normalize()
         <a href="classes/Burgerbibliothek-ArkManagementTools-Ark.html#method_normalize" class="headerlink"><i class="fas fa-link"></i></a>
@@ -533,7 +865,7 @@ var_dump($eq) // Outputs: bool(true)</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Ark.php"><a href="files/src-ark.html"><abbr title="src/Ark.php">Ark.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">196</span>
+    <span class="phpdocumentor-element-found-in__line">164</span>
 
     </aside>
 
@@ -581,7 +913,7 @@ var_dump($eq) // Outputs: bool(true)</p>
                 </dt>
                 <dd class="phpdocumentor-tag-list__definition">
                                                                                 
-                                                 <section class="phpdocumentor-description"><p>echo Ark::normalize(' https://n2t.org/Ark:/9999/q15---FK5z-szx?info ') // Outputs: &quot;ark:/9999/q15fk5zszx&quot;</p>
+                                                 <section class="phpdocumentor-description"><p>echo Ark::normalize(' https://n2t.org/Ark:/1A2b/q15---FK5z-szx?info ') // Outputs: &quot;ark:/1a2b/q15fk5zszx&quot;</p>
 </section>
 
                                     </dd>
@@ -696,7 +1028,7 @@ var_dump($eq) // Outputs: bool(true)</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Ark.php"><a href="files/src-ark.html"><abbr title="src/Ark.php">Ark.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">115</span>
+    <span class="phpdocumentor-element-found-in__line">204</span>
 
     </aside>
 
@@ -933,6 +1265,10 @@ var_dump($eq) // Outputs: bool(true)</p>
                                             <li class=""><a href="classes/Burgerbibliothek-ArkManagementTools-Ark.html#method_areLexicalEquivalent">areLexicalEquivalent()</a></li>
                                             <li class=""><a href="classes/Burgerbibliothek-ArkManagementTools-Ncda.html#method_calc">calc()</a></li>
                                             <li class=""><a href="classes/Burgerbibliothek-ArkManagementTools-Ark.html#method_generate">generate()</a></li>
+                                            <li class=""><a href="classes/Burgerbibliothek-ArkManagementTools-Ark.html#method_normalizationHyphenRemoval">normalizationHyphenRemoval()</a></li>
+                                            <li class=""><a href="classes/Burgerbibliothek-ArkManagementTools-Ark.html#method_normalizationLabel">normalizationLabel()</a></li>
+                                            <li class=""><a href="classes/Burgerbibliothek-ArkManagementTools-Ark.html#method_normalizationNaan">normalizationNaan()</a></li>
+                                            <li class=""><a href="classes/Burgerbibliothek-ArkManagementTools-Ark.html#method_normalizationRemovalNMA">normalizationRemovalNMA()</a></li>
                                             <li class=""><a href="classes/Burgerbibliothek-ArkManagementTools-Ark.html#method_normalize">normalize()</a></li>
                                             <li class=""><a href="classes/Burgerbibliothek-ArkManagementTools-Ark.html#method_removeDuplicateChars">removeDuplicateChars()</a></li>
                                             <li class=""><a href="classes/Burgerbibliothek-ArkManagementTools-Ark.html#method_splitIntoComponents">splitIntoComponents()</a></li>

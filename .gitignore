@@ -11,6 +11,7 @@ Homestead.json
 .phpdoc/
 error_log
 test.php
+.htaccess
 
 # Sublime Text
 *.sublime-*

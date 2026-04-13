@@ -41,15 +41,35 @@ Search.appendIndex(
             "summary": "Generate\u0020an\u0020ARK\u0020of\u0020desired\u0020length\u0020with\u0020given\u0020NAAN\u0020and\u0020character\u0020repetoire.",
             "url": "classes/Burgerbibliothek-ArkManagementTools-Ark.html#method_generate"
         },                {
-            "fqsen": "\\Burgerbibliothek\\ArkManagementTools\\Ark\u003A\u003AsplitIntoComponents\u0028\u0029",
-            "name": "splitIntoComponents",
-            "summary": "Split\u0020ARK\u0020into\u0020components.",
-            "url": "classes/Burgerbibliothek-ArkManagementTools-Ark.html#method_splitIntoComponents"
+            "fqsen": "\\Burgerbibliothek\\ArkManagementTools\\Ark\u003A\u003AnormalizationHyphenRemoval\u0028\u0029",
+            "name": "normalizationHyphenRemoval",
+            "summary": "Normalization\u003A\u0020removal\u0020of\u0020hyphen\u0020characters.",
+            "url": "classes/Burgerbibliothek-ArkManagementTools-Ark.html#method_normalizationHyphenRemoval"
+        },                {
+            "fqsen": "\\Burgerbibliothek\\ArkManagementTools\\Ark\u003A\u003AnormalizationLabel\u0028\u0029",
+            "name": "normalizationLabel",
+            "summary": "Normalization\u003A\u0020label\u0020reformatting.",
+            "url": "classes/Burgerbibliothek-ArkManagementTools-Ark.html#method_normalizationLabel"
+        },                {
+            "fqsen": "\\Burgerbibliothek\\ArkManagementTools\\Ark\u003A\u003AnormalizationNaan\u0028\u0029",
+            "name": "normalizationNaan",
+            "summary": "Normalization\u003A\u0020NAAN.",
+            "url": "classes/Burgerbibliothek-ArkManagementTools-Ark.html#method_normalizationNaan"
+        },                {
+            "fqsen": "\\Burgerbibliothek\\ArkManagementTools\\Ark\u003A\u003AnormalizationRemovalNMA\u0028\u0029",
+            "name": "normalizationRemovalNMA",
+            "summary": "Normalization\u003A\u0020removal\u0020of\u0020NMA\u0020part.",
+            "url": "classes/Burgerbibliothek-ArkManagementTools-Ark.html#method_normalizationRemovalNMA"
         },                {
             "fqsen": "\\Burgerbibliothek\\ArkManagementTools\\Ark\u003A\u003Anormalize\u0028\u0029",
             "name": "normalize",
             "summary": "Normalization\u0020for\u0020ARK.",
             "url": "classes/Burgerbibliothek-ArkManagementTools-Ark.html#method_normalize"
+        },                {
+            "fqsen": "\\Burgerbibliothek\\ArkManagementTools\\Ark\u003A\u003AsplitIntoComponents\u0028\u0029",
+            "name": "splitIntoComponents",
+            "summary": "Split\u0020ARK\u0020into\u0020components.",
+            "url": "classes/Burgerbibliothek-ArkManagementTools-Ark.html#method_splitIntoComponents"
         },                {
             "fqsen": "\\Burgerbibliothek\\ArkManagementTools\\Ark\u003A\u003AareLexicalEquivalent\u0028\u0029",
             "name": "areLexicalEquivalent",

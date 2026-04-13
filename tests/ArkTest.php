@@ -90,7 +90,7 @@ class ArkTest extends TestCase
             'baseCompactName' => 'ark:99999/a1b2c3d4e5f6g',
             'checkZone' => '99999/a1b2c3d4e5f6g',
             'suffixes' => 'suffix?info',
-            'inflections' => ['?info' => '']
+            'inflection' => '?info'
         ];
 
         $ark_w_nma = Ark::splitIntoComponents($ark_w_nma);
@@ -105,7 +105,7 @@ class ArkTest extends TestCase
             'baseCompactName' => 'ark:99999/a1b2c3d4e5f6g',
             'checkZone' => '99999/a1b2c3d4e5f6g',
             'suffixes' => 'suffix?info',
-            'inflections' => ['?info' => '']
+            'inflection' => '?info'
         ];
 
         $ark = Ark::splitIntoComponents($ark);
@@ -120,7 +120,7 @@ class ArkTest extends TestCase
             'baseCompactName' => '',
             'checkZone' => '',
             'suffixes' => '',
-            'inflections' => []
+            'inflection' => ''
         ];
 
         $scrambled_url = Ark::splitIntoComponents($scrambled_url);
@@ -135,7 +135,7 @@ class ArkTest extends TestCase
             'baseCompactName' => '',
             'checkZone' => '',
             'suffixes' => '',
-            'inflections' => []
+            'inflection' => ''
         ];
 
         $invalid_ark = Ark::splitIntoComponents($invalid_ark);

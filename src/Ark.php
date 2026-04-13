@@ -211,7 +211,7 @@ class Ark
 			'baseCompactName' => '',
 			'checkZone' => '',
 			'suffixes' => '',
-			'inflection' => []
+			'inflection' => ''
 		];
 
 		/** Remove whitespace on beginning and end of string. */
@@ -273,7 +273,7 @@ class Ark
 				'baseCompactName' => '',
 				'checkZone' => '',
 				'suffixes' => '',
-				'inflections' => []
+				'inflection' => ''
 			];
 		}
 
