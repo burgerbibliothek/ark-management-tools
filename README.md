@@ -39,9 +39,7 @@ array(7) {
   ["baseCompactName"]=> string(23) "ark:99999/a1b2c3d4e5f6g"
   ["checkZone"]=> string(19) "99999/a1b2c3d4e5f6g"
   ["suffixes"]=> string(11) "suffix?info"
-  ["inflections"]=> array(1) {
-    ["?info"]=> string(0) ""
-  }
-} 
+  ["inflection"]=> string(5) "?info"
+}
 ```
 
