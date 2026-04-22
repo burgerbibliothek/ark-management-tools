@@ -67,28 +67,5 @@ class Validator{
     {
         return preg_match('/^[0-9bcdfghjkmnpqrstvwxz]{5,14}\/[0-9A-z=~*+@_$]+$/', $subject) === 1 ? true : false;
     }
-
-    /**
-     * Shoulder Validator.
-     * Check if shoulder contains only character which are also in the character repetoire.
-     * @param string $shoulder Shoulder
-     * @param string $xdigits character repetoire.
-     * @return bool
-     */
-    public static function shoulderInXdigits(string $shoulder, string $xdigits): bool
-    {
-        
-        $shoulder = str_split($shoulder);
-        $xdigits = str_split($xdigits);
-
-        foreach($shoulder as &$s)
-        {
-            if(!in_array($s, $xdigits)){
-                return false;
-            }
-        }
-
-        return true;
-    }
     
 }

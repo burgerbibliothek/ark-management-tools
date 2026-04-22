@@ -186,11 +186,6 @@ Search.appendIndex(
             "summary": "Check\u0020Zone\u0020Validator.",
             "url": "classes/Burgerbibliothek-ArkManagementTools-Validator.html#method_isValidCheckZone"
         },                {
-            "fqsen": "\\Burgerbibliothek\\ArkManagementTools\\Validator\u003A\u003AshoulderInXdigits\u0028\u0029",
-            "name": "shoulderInXdigits",
-            "summary": "Shoulder\u0020Validator.",
-            "url": "classes/Burgerbibliothek-ArkManagementTools-Validator.html#method_shoulderInXdigits"
-        },                {
             "fqsen": "\\",
             "name": "\\",
             "summary": "",

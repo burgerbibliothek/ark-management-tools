@@ -24,9 +24,6 @@ class ArkTest extends TestCase
         /** Follows the ARK character repetoire */
         $this->assertTrue(Validator::followsArkCharacterRepetoire($xdigits), 'Illegal characters detected.');
 
-        /** Shoulder in xdigits */
-        $this->assertTrue(Validator::shoulderInXdigits($shoulder, $xdigits), 'Illegal characters detected.');
-
         /** Generate ARK */
         $ark = Ark::generate($naan, $xdigits, 5, shoulder: $shoulder, ncda: true);
         $components = Ark::splitIntoComponents($ark);

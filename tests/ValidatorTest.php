@@ -35,8 +35,5 @@ class ValidatorTest extends TestCase
 		$this->assertFalse(Validator::isValidCheckZone($checkZone . '9999/abcdef'), 'Failed to assert that $checkZone is invalid.');
 		$this->assertFalse(Validator::isValidCheckZone($checkZone . 'ark:99999/abcdef'), 'Failed to assert that $checkZone is invalid.');
 
-		$this->assertTrue(Validator::shoulderInXdigits($shoulder, $xdigits), 'Failed to assert $shoulder is in $xdigits.');
-		$this->assertFalse(Validator::shoulderInXdigits($shoulder . 'ö', $xdigits), 'Failed to assert $shoulder is not in $xdigits.');
-
 	}
 }

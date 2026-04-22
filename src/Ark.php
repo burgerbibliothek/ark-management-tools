@@ -75,8 +75,14 @@ class Ark
 		 * Prepend Shoulder.
 		 * Shoulder is prepended to assigned name if characters are valid.
 		 */
-		if ($shoulder && Validator::shoulderInXdigits($shoulder, $xdigits)) {
+		if ($shoulder) {
+
+			if (Validator::followsArkCharacterRepetoire($shoulder) === false) {
+				throw new Exception('ARKs may be built using letters, digits, or any of these seven characters: = ~ * + @ _ $');
+			}
+			
 			$ark .= $shoulder;
+		
 		}
 
 		/** Generate random ID */
