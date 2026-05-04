@@ -18,9 +18,9 @@ class Validator{
     public static function followsArkCharacterRepetoire(string $subject, bool $reservedChars = true): bool
     {
         if($reservedChars){
-            return preg_match('/[^0-9A-z=~*+@_$%-.\/]/', $subject) > 0 ? false : true;
+            return preg_match('/[^0-9A-Za-z=~*+@_$%-.\/]/', $subject) > 0 ? false : true;
         }
-        return preg_match('/[^0-9A-z=~*+@_$]/', $subject) > 0 ? false : true;
+        return preg_match('/[^0-9A-Za-z=~*+@_$]/', $subject) > 0 ? false : true;
     }
 
     /**
@@ -54,7 +54,7 @@ class Validator{
      */
     public static function isValidBaseCompactName(string $subject): bool
     {
-        return preg_match('/^ark:\/?[0-9bcdfghjkmnpqrstvwxz]{5,14}\/[0-9A-z=~*+@_$]+$/', $subject) === 1 ? true : false;
+        return preg_match('/^ark:\/?[0-9bcdfghjkmnpqrstvwxz]{5,14}\/[0-9A-Za-z=~*+@_$]+$/', $subject) === 1 ? true : false;
     }
 
     /**
@@ -65,7 +65,7 @@ class Validator{
      */
     public static function isValidCheckZone(string $subject): bool
     {
-        return preg_match('/^[0-9bcdfghjkmnpqrstvwxz]{5,14}\/[0-9A-z=~*+@_$]+$/', $subject) === 1 ? true : false;
+        return preg_match('/^[0-9bcdfghjkmnpqrstvwxz]{5,14}\/[0-9A-Za-z=~*+@_$]+$/', $subject) === 1 ? true : false;
     }
     
 }

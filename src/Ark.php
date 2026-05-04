@@ -144,7 +144,7 @@ class Ark
 	 * @return string
 	 */
 	public static function normalizationNaan(string $seq){
-		return preg_replace_callback('/(?:ark:[0-9A-z]{5})/', fn($matches) => strtolower($matches[0]), $seq, 1);
+		return preg_replace_callback('/(?:ark:[0-9A-Za-z]{5})/', fn($matches) => strtolower($matches[0]), $seq, 1);
 	}
 
 	/**

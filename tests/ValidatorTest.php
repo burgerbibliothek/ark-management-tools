@@ -13,7 +13,7 @@ class ValidatorTest extends TestCase
 	public function test_validator(): void
 	{
 
-		$xdigits = '0123456789abcdefghijklmnopqrstuvwxyz=~*+@_$%-.\/';
+		$xdigits = '0123456789abcdefghijklmnopqrstuvwxyz=~*+@_$%-./';
 		$label = 'ark:';
 		$naan = '12345';
 		$shoulder = 'x0';
