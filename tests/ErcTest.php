@@ -36,7 +36,7 @@ class ErcTest extends TestCase
      */
     public function test_valid_kernel_element_label(): void
     {
-        
+
         $valid = ['# Comment', 'wer(h1)', 'test-1', 'test_2'];
 
         foreach ($valid as $v) {
@@ -45,8 +45,8 @@ class ErcTest extends TestCase
 
         $invalid = ['12345', 'test.1', 'test 2'];
 
-        foreach ($invalid as $v) {
-            $this->assertFalse(Erc::isValidKernelElementLabel($v));
+        foreach ($invalid as $iv) {
+            $this->assertFalse(Erc::isValidKernelElementLabel($iv));
         }
         
     }

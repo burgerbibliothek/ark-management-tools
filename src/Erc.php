@@ -25,7 +25,7 @@ class Erc extends Anvl
     function __construct($lineLength = 72)
     {
         parent::__construct($lineLength);
-        $this->add('erc');
+        $this->add('erc', '');
     }
 
     /**
@@ -49,12 +49,12 @@ class Erc extends Anvl
      * @param array<string> $labelList Optionally pass a list of allowed labels.
      * @return bool Returns TRUE if record is valid.
      */
-    public static function isValidRecord(string $record, array $labelList = null): bool
-    {   
+    public static function isValidRecord(string $record, ?array $labelList = null): bool
+    {
         $record = ltrim($record);
 
-        if(substr($record, 0, 4) === 'erc:'){
-        
+        if (substr($record, 0, 4) === 'erc:') {
+
             /** Remove indentations. */
             $record = preg_replace('/\r\n\t|\n\t/', ' ', $record);
 
@@ -63,35 +63,30 @@ class Erc extends Anvl
 
             /** The length of a valid record is at least 3 and the last two elements are void */
             $recordLength = count($record);
-            if($recordLength >= 3 && $record[$recordLength - 1] == '' && $record[$recordLength - 2] == ''){
+            if ($recordLength >= 3 && $record[$recordLength - 1] == '' && $record[$recordLength - 2] == '') {
 
                 $record = array_slice($record, 1, -2);
 
                 /** Check if labels are valid */
                 foreach ($record as $r) {
 
-                    if(str_contains($r, ':')){   
+                    if (str_contains($r, ':')) {
                         $labelValue = preg_split('/:/', $r, 2);
-                        if(!self::isValidKernelElementLabel($labelValue[0])){
+                        if (!self::isValidKernelElementLabel($labelValue[0])) {
                             return false;
                         }
 
-                        if($labelList && !in_array($labelValue[0], $labelList)){
-                            return false;                           
+                        if ($labelList && !in_array($labelValue[0], $labelList)) {
+                            return false;
                         }
-
-                    }else if($r != ''){
+                    } else if ($r != '') {
 
                         return false;
-                    
                     }
                 }
-
                 return true;
-
-            } 
+            }
         }
-
         return false;
     }
 
@@ -126,17 +121,17 @@ class Erc extends Anvl
      * @param string $value Value of the element will be encoded.
      * @return void
      */
-    public function addElement(string $label, string $value): void
+    public function add(string $elementName, string $elementBody, $trim = true): void
     {
-        if (self::isValidKernelElementLabel($label)) {
+        if (self::isValidKernelElementLabel($elementName)) {
 
-            $value = self::encodeElementValue($value);
+            $elementBody = self::encodeElementValue($elementBody);
 
-            if (key_exists($label, $this->record)) {
-                $value .= '; ' . $this->record[$label];
+            if (key_exists($elementName, $this->record)) {
+                $elementBody .= '; ' . $this->record[$elementName];
             }
 
-            parent::add($label, $value);
+            parent::add($elementName, $elementBody, $trim);
         }
     }
 
@@ -155,52 +150,9 @@ class Erc extends Anvl
      * @param string $label Story type e.g. 'about', 'neta', 'support', 'depositor'.
      * @param bool $append Append to story instead of overwriting.
      */
-    public function addStory(array $storyValues, ?string $label = null, bool $append = true): void
+    public function addStory(string $label, string $value, bool $append = true): void
     {
-
-        $labels = ['who', 'what', 'when', 'where'];
-        $stories = array_slice($storyValues, 0, 4);
-        
-        if(isset($label)){
-            $labels = array_map(fn($value) => $label.'-'.$value, $labels);
-        }
- 
-        foreach($stories as $i => $story) {
-            self::addElement($labels[$i], $story);
-        }
-        
-    }
-
-    /**
-     * Parse ERC record to array.
-     * @param string $erc ERC record.
-     * @param array<string> $labelList Optionally pass a list of allowed labels.
-     * @return null|array<string> In case of a valid erc record, the parsed metadata is returned.
-     */
-    public static function parseRecord(string $erc, array &$labelList = null): ?array
-    {
-        
-        // Check if record is valid
-        if(!self::isValidRecord($erc, $labelList)){
-            return null;
-        }    
-
-        /** Remove linebreaks in values */
-        $erc = str_replace(chr(13) . chr(10) . chr(9), ' ', $erc);
-
-        /** Split into elements */
-        $rows = array_slice(preg_split('/\r\n|\n/', $erc), 0, -2);
-
-        $record = [];
-
-        foreach ($rows as $row) {
-            if(!empty($row)){
-                $element = explode(':', trim($row), 2);
-                $record[$element[0]] = trim($element[1]);
-            }
-        }
-        
-        return $record;
+        self::addElement($labels[$i], $story);
     }
 
     /**
@@ -211,17 +163,16 @@ class Erc extends Anvl
      */
     public static function decodeRecord(string $record): string
     {
-        if(!self::isValidRecord($record)){
+        if (!self::isValidRecord($record)) {
             throw new \InvalidArgumentException('ERC record is not valid.');
         }
 
         $record = array_map(fn($value) => self::decodeElementValue($value), self::parseRecord($record));
-        
+
         $anvl = new Anvl;
         $anvl->record = $record;
 
         return $anvl->record();
-        
     }
 
     /**
@@ -237,5 +188,15 @@ class Erc extends Anvl
         }
 
         return parent::record($comments);
+    }
+
+    /**
+     * Load ERC record.
+     * @param string $record
+     */
+    public function load(string $record): void
+    {
+        $this->record = [];
+        parent::load($record);
     }
 }

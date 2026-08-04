@@ -21,6 +21,11 @@ Search.appendIndex(
             "summary": "",
             "url": "classes/Burgerbibliothek-ArkManagementTools-Anvl.html#property_record"
         },                {
+            "fqsen": "\\Burgerbibliothek\\ArkManagementTools\\Anvl\u003A\u003Aload\u0028\u0029",
+            "name": "load",
+            "summary": "Load\u0020ANVL\u0020record.",
+            "url": "classes/Burgerbibliothek-ArkManagementTools-Anvl.html#method_load"
+        },                {
             "fqsen": "\\Burgerbibliothek\\ArkManagementTools\\Anvl\u003A\u003A\u0024lineLength",
             "name": "lineLength",
             "summary": "",
@@ -106,10 +111,10 @@ Search.appendIndex(
             "summary": "Decode\u0020element\u0020value.",
             "url": "classes/Burgerbibliothek-ArkManagementTools-Erc.html#method_decodeElementValue"
         },                {
-            "fqsen": "\\Burgerbibliothek\\ArkManagementTools\\Erc\u003A\u003AaddElement\u0028\u0029",
-            "name": "addElement",
+            "fqsen": "\\Burgerbibliothek\\ArkManagementTools\\Erc\u003A\u003Aadd\u0028\u0029",
+            "name": "add",
             "summary": "Add\u0020Kernel\u0020element.",
-            "url": "classes/Burgerbibliothek-ArkManagementTools-Erc.html#method_addElement"
+            "url": "classes/Burgerbibliothek-ArkManagementTools-Erc.html#method_add"
         },                {
             "fqsen": "\\Burgerbibliothek\\ArkManagementTools\\Erc\u003A\u003AaddComment\u0028\u0029",
             "name": "addComment",
@@ -121,11 +126,6 @@ Search.appendIndex(
             "summary": "Add\u0020story\u0020to\u0020record.",
             "url": "classes/Burgerbibliothek-ArkManagementTools-Erc.html#method_addStory"
         },                {
-            "fqsen": "\\Burgerbibliothek\\ArkManagementTools\\Erc\u003A\u003AparseRecord\u0028\u0029",
-            "name": "parseRecord",
-            "summary": "Parse\u0020ERC\u0020record\u0020to\u0020array.",
-            "url": "classes/Burgerbibliothek-ArkManagementTools-Erc.html#method_parseRecord"
-        },                {
             "fqsen": "\\Burgerbibliothek\\ArkManagementTools\\Erc\u003A\u003AdecodeRecord\u0028\u0029",
             "name": "decodeRecord",
             "summary": "Decode\u0020record.",
@@ -135,6 +135,11 @@ Search.appendIndex(
             "name": "record",
             "summary": "Retrieve\u0020record.",
             "url": "classes/Burgerbibliothek-ArkManagementTools-Erc.html#method_record"
+        },                {
+            "fqsen": "\\Burgerbibliothek\\ArkManagementTools\\Erc\u003A\u003Aload\u0028\u0029",
+            "name": "load",
+            "summary": "Load\u0020ERC\u0020record.",
+            "url": "classes/Burgerbibliothek-ArkManagementTools-Erc.html#method_load"
         },                {
             "fqsen": "\\Burgerbibliothek\\ArkManagementTools\\Erc\u003A\u003AENCODINGSCHEME",
             "name": "ENCODINGSCHEME",

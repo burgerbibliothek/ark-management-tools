@@ -210,11 +210,11 @@
 <dd>ERC Record.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
-    <a class="" href="classes/Burgerbibliothek-ArkManagementTools-Anvl.html#method_add">add()</a>
+    <a class="" href="classes/Burgerbibliothek-ArkManagementTools-Erc.html#method_add">add()</a>
     <span>
                                 &nbsp;: void    </span>
 </dt>
-<dd>Add element.</dd>
+<dd>Add Kernel element.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a class="" href="classes/Burgerbibliothek-ArkManagementTools-Erc.html#method_addComment">addComment()</a>
@@ -222,13 +222,6 @@
                                 &nbsp;: void    </span>
 </dt>
 <dd>Add Comment</dd>
-
-            <dt class="phpdocumentor-table-of-contents__entry -method -public">
-    <a class="" href="classes/Burgerbibliothek-ArkManagementTools-Erc.html#method_addElement">addElement()</a>
-    <span>
-                                &nbsp;: void    </span>
-</dt>
-<dd>Add Kernel element.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a class="" href="classes/Burgerbibliothek-ArkManagementTools-Erc.html#method_addStory">addStory()</a>
@@ -273,11 +266,11 @@
 <dd>Validate ERC record.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
-    <a class="" href="classes/Burgerbibliothek-ArkManagementTools-Erc.html#method_parseRecord">parseRecord()</a>
+    <a class="" href="classes/Burgerbibliothek-ArkManagementTools-Erc.html#method_load">load()</a>
     <span>
-                                &nbsp;: null|array&lt;string|int, string&gt;    </span>
+                                &nbsp;: void    </span>
 </dt>
-<dd>Parse ERC record to array.</dd>
+<dd>Load ERC record.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a class="" href="classes/Burgerbibliothek-ArkManagementTools-Erc.html#method_record">record()</a>
@@ -353,7 +346,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Anvl.php"><a href="files/src-anvl.html"><abbr title="src/Anvl.php">Anvl.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">16</span>
+    <span class="phpdocumentor-element-found-in__line">20</span>
 
     </aside>
 
@@ -390,7 +383,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Anvl.php"><a href="files/src-anvl.html"><abbr title="src/Anvl.php">Anvl.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">17</span>
+    <span class="phpdocumentor-element-found-in__line">21</span>
 
     </aside>
 
@@ -473,47 +466,50 @@
 >
     <h4 class="phpdocumentor-element__name" id="method_add">
         add()
-        <a href="classes/Burgerbibliothek-ArkManagementTools-Anvl.html#method_add" class="headerlink"><i class="fas fa-link"></i></a>
+        <a href="classes/Burgerbibliothek-ArkManagementTools-Erc.html#method_add" class="headerlink"><i class="fas fa-link"></i></a>
 
     </h4>
     <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="src/Anvl.php"><a href="files/src-anvl.html"><abbr title="src/Anvl.php">Anvl.php</abbr></a></abbr>
+    <abbr class="phpdocumentor-element-found-in__file" title="src/Erc.php"><a href="files/src-erc.html"><abbr title="src/Erc.php">Erc.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">32</span>
+    <span class="phpdocumentor-element-found-in__line">124</span>
 
     </aside>
 
-        <p class="phpdocumentor-summary">Add element.</p>
+        <p class="phpdocumentor-summary">Add Kernel element.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
-                    <span class="phpdocumentor-signature__name">add</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$label</span></span><span class="phpdocumentor-signature__argument"><span>[</span><span>, </span><span class="phpdocumentor-signature__argument__type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$value</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">''</span><span> ]</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">void</span></code>
+                    <span class="phpdocumentor-signature__name">add</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$elementName</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$elementBody</span></span><span class="phpdocumentor-signature__argument"><span>[</span><span>, </span><span class="phpdocumentor-signature__argument__type">mixed&nbsp;</span><span class="phpdocumentor-signature__argument__name">$trim</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">true</span><span> ]</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">void</span></code>
 
     <div class="phpdocumentor-label-line">
         </div>
     
-        <section class="phpdocumentor-description"><p>Add a new data element to the ANVL record.</p>
+        <section class="phpdocumentor-description"><p>Adds a Kernel element to the record.</p>
 </section>
 
         <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
     <dl class="phpdocumentor-argument-list">
                     <dt class="phpdocumentor-argument-list__entry">
-                <span class="phpdocumentor-argument-list__argument__name">$label</span>
+                <span class="phpdocumentor-argument-list__argument__name">$elementName</span>
                 : <span class="phpdocumentor-argument-list__argument__type">string</span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                    <section class="phpdocumentor-description"><p>1*&lt;any CHAR, excluding control-chars and &quot;:&quot;&gt;</p>
-</section>
-
+                
             </dd>
                     <dt class="phpdocumentor-argument-list__entry">
-                <span class="phpdocumentor-argument-list__argument__name">$value</span>
+                <span class="phpdocumentor-argument-list__argument__name">$elementBody</span>
                 : <span class="phpdocumentor-argument-list__argument__type">string</span>
-                 = <span class="phpdocumentor-argument-list__argument__default-value">''</span>            </dt>
+                            </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                    <section class="phpdocumentor-description"><p>text</p>
-</section>
-
+                
+            </dd>
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-argument-list__argument__name">$trim</span>
+                : <span class="phpdocumentor-argument-list__argument__type">mixed</span>
+                 = <span class="phpdocumentor-argument-list__argument__default-value">true</span>            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                
             </dd>
             </dl>
 
@@ -537,7 +533,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Erc.php"><a href="files/src-erc.html"><abbr title="src/Erc.php">Erc.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">147</span>
+    <span class="phpdocumentor-element-found-in__line">142</span>
 
     </aside>
 
@@ -574,64 +570,6 @@
             -public
                                                         "
 >
-    <h4 class="phpdocumentor-element__name" id="method_addElement">
-        addElement()
-        <a href="classes/Burgerbibliothek-ArkManagementTools-Erc.html#method_addElement" class="headerlink"><i class="fas fa-link"></i></a>
-
-    </h4>
-    <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="src/Erc.php"><a href="files/src-erc.html"><abbr title="src/Erc.php">Erc.php</abbr></a></abbr>
-    :
-    <span class="phpdocumentor-element-found-in__line">129</span>
-
-    </aside>
-
-        <p class="phpdocumentor-summary">Add Kernel element.</p>
-
-    <code class="phpdocumentor-code phpdocumentor-signature ">
-    <span class="phpdocumentor-signature__visibility">public</span>
-                    <span class="phpdocumentor-signature__name">addElement</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$label</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$value</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">void</span></code>
-
-    <div class="phpdocumentor-label-line">
-        </div>
-    
-        <section class="phpdocumentor-description"><p>Adds a Kernel element to the record.</p>
-</section>
-
-        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
-    <dl class="phpdocumentor-argument-list">
-                    <dt class="phpdocumentor-argument-list__entry">
-                <span class="phpdocumentor-argument-list__argument__name">$label</span>
-                : <span class="phpdocumentor-argument-list__argument__type">string</span>
-                            </dt>
-            <dd class="phpdocumentor-argument-list__definition">
-                    <section class="phpdocumentor-description"><p>String beginning with a letter that may contain any combination of letters, numbers, hyphens, and underscores. An element label may also be accompanied by its coded synonym e. g. wer(h1)</p>
-</section>
-
-            </dd>
-                    <dt class="phpdocumentor-argument-list__entry">
-                <span class="phpdocumentor-argument-list__argument__name">$value</span>
-                : <span class="phpdocumentor-argument-list__argument__type">string</span>
-                            </dt>
-            <dd class="phpdocumentor-argument-list__definition">
-                    <section class="phpdocumentor-description"><p>Value of the element will be encoded.</p>
-</section>
-
-            </dd>
-            </dl>
-
-    
-
-        
-    
-    
-</article>
-                    <article
-        class="phpdocumentor-element
-            -method
-            -public
-                                                        "
->
     <h4 class="phpdocumentor-element__name" id="method_addStory">
         addStory()
         <a href="classes/Burgerbibliothek-ArkManagementTools-Erc.html#method_addStory" class="headerlink"><i class="fas fa-link"></i></a>
@@ -640,7 +578,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Erc.php"><a href="files/src-erc.html"><abbr title="src/Erc.php">Erc.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">158</span>
+    <span class="phpdocumentor-element-found-in__line">153</span>
 
     </aside>
 
@@ -648,7 +586,7 @@
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
-                    <span class="phpdocumentor-signature__name">addStory</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__type">array&lt;string|int, string&gt;&nbsp;</span><span class="phpdocumentor-signature__argument__name">$storyValues</span></span><span class="phpdocumentor-signature__argument"><span>[</span><span>, </span><span class="phpdocumentor-signature__argument__type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$label</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">null</span><span> ]</span></span><span class="phpdocumentor-signature__argument"><span>[</span><span>, </span><span class="phpdocumentor-signature__argument__type">bool&nbsp;</span><span class="phpdocumentor-signature__argument__name">$append</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">true</span><span> ]</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">void</span></code>
+                    <span class="phpdocumentor-signature__name">addStory</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$label</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$value</span></span><span class="phpdocumentor-signature__argument"><span>[</span><span>, </span><span class="phpdocumentor-signature__argument__type">bool&nbsp;</span><span class="phpdocumentor-signature__argument__name">$append</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">true</span><span> ]</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">void</span></code>
 
     <div class="phpdocumentor-label-line">
         </div>
@@ -657,22 +595,20 @@
         <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
     <dl class="phpdocumentor-argument-list">
                     <dt class="phpdocumentor-argument-list__entry">
-                <span class="phpdocumentor-argument-list__argument__name">$storyValues</span>
-                : <span class="phpdocumentor-argument-list__argument__type">array&lt;string|int, string&gt;</span>
-                            </dt>
-            <dd class="phpdocumentor-argument-list__definition">
-                    <section class="phpdocumentor-description"><p>e.g. ['Gibbon, Edward', 'The Decline and Fall of the Roman Empire', 1781, 'http://www.ccel.org/g/gibbon/decline/']</p>
-</section>
-
-            </dd>
-                    <dt class="phpdocumentor-argument-list__entry">
                 <span class="phpdocumentor-argument-list__argument__name">$label</span>
                 : <span class="phpdocumentor-argument-list__argument__type">string</span>
-                 = <span class="phpdocumentor-argument-list__argument__default-value">null</span>            </dt>
+                            </dt>
             <dd class="phpdocumentor-argument-list__definition">
                     <section class="phpdocumentor-description"><p>Story type e.g. 'about', 'neta', 'support', 'depositor'.</p>
 </section>
 
+            </dd>
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-argument-list__argument__name">$value</span>
+                : <span class="phpdocumentor-argument-list__argument__type">string</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                
             </dd>
                     <dt class="phpdocumentor-argument-list__entry">
                 <span class="phpdocumentor-argument-list__argument__name">$append</span>
@@ -705,7 +641,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Erc.php"><a href="files/src-erc.html"><abbr title="src/Erc.php">Erc.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">116</span>
+    <span class="phpdocumentor-element-found-in__line">111</span>
 
     </aside>
 
@@ -770,7 +706,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Erc.php"><a href="files/src-erc.html"><abbr title="src/Erc.php">Erc.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">212</span>
+    <span class="phpdocumentor-element-found-in__line">164</span>
 
     </aside>
 
@@ -823,7 +759,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Erc.php"><a href="files/src-erc.html"><abbr title="src/Erc.php">Erc.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">104</span>
+    <span class="phpdocumentor-element-found-in__line">99</span>
 
     </aside>
 
@@ -997,25 +933,25 @@ by its coded synonym e. g. wer(h1).</p>
         class="phpdocumentor-element
             -method
             -public
-                                    -static                    "
+                                                        "
 >
-    <h4 class="phpdocumentor-element__name" id="method_parseRecord">
-        parseRecord()
-        <a href="classes/Burgerbibliothek-ArkManagementTools-Erc.html#method_parseRecord" class="headerlink"><i class="fas fa-link"></i></a>
+    <h4 class="phpdocumentor-element__name" id="method_load">
+        load()
+        <a href="classes/Burgerbibliothek-ArkManagementTools-Erc.html#method_load" class="headerlink"><i class="fas fa-link"></i></a>
 
     </h4>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Erc.php"><a href="files/src-erc.html"><abbr title="src/Erc.php">Erc.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">180</span>
+    <span class="phpdocumentor-element-found-in__line">197</span>
 
     </aside>
 
-        <p class="phpdocumentor-summary">Parse ERC record to array.</p>
+        <p class="phpdocumentor-summary">Load ERC record.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
-            <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">parseRecord</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$erc</span></span><span class="phpdocumentor-signature__argument"><span>[</span><span>, </span><span class="phpdocumentor-signature__argument__type">array&lt;string|int, string&gt;&nbsp;</span><span class="phpdocumentor-signature__argument__reference-operator">&amp;</span><span class="phpdocumentor-signature__argument__name">$labelList</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">null</span><span> ]</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">null|array&lt;string|int, string&gt;</span></code>
+                    <span class="phpdocumentor-signature__name">load</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$record</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">void</span></code>
 
     <div class="phpdocumentor-label-line">
         </div>
@@ -1024,22 +960,11 @@ by its coded synonym e. g. wer(h1).</p>
         <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
     <dl class="phpdocumentor-argument-list">
                     <dt class="phpdocumentor-argument-list__entry">
-                <span class="phpdocumentor-argument-list__argument__name">$erc</span>
+                <span class="phpdocumentor-argument-list__argument__name">$record</span>
                 : <span class="phpdocumentor-argument-list__argument__type">string</span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                    <section class="phpdocumentor-description"><p>ERC record.</p>
-</section>
-
-            </dd>
-                    <dt class="phpdocumentor-argument-list__entry">
-                <span class="phpdocumentor-argument-list__argument__name">$labelList</span>
-                : <span class="phpdocumentor-argument-list__argument__type">array&lt;string|int, string&gt;</span>
-                 = <span class="phpdocumentor-argument-list__argument__default-value">null</span>            </dt>
-            <dd class="phpdocumentor-argument-list__definition">
-                    <section class="phpdocumentor-description"><p>Optionally pass a list of allowed labels.</p>
-</section>
-
+                
             </dd>
             </dl>
 
@@ -1047,15 +972,7 @@ by its coded synonym e. g. wer(h1).</p>
 
         
     
-            <section>
-        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-        <span class="phpdocumentor-signature__response_type">null|array&lt;string|int, string&gt;</span>
-                    &mdash;
-                <section class="phpdocumentor-description"><p>In case of a valid erc record, the parsed metadata is returned.</p>
-</section>
-
-            </section>
-
+    
 </article>
                     <article
         class="phpdocumentor-element
@@ -1071,7 +988,7 @@ by its coded synonym e. g. wer(h1).</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Erc.php"><a href="files/src-erc.html"><abbr title="src/Erc.php">Erc.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">233</span>
+    <span class="phpdocumentor-element-found-in__line">184</span>
 
     </aside>
 
@@ -1248,16 +1165,15 @@ by its coded synonym e. g. wer(h1).</p>
             <li>
                 <ul class="phpdocumentor-list -clean">
                                             <li class=""><a href="classes/Burgerbibliothek-ArkManagementTools-Erc.html#method___construct">__construct()</a></li>
-                                            <li class=""><a href="classes/Burgerbibliothek-ArkManagementTools-Anvl.html#method_add">add()</a></li>
+                                            <li class=""><a href="classes/Burgerbibliothek-ArkManagementTools-Erc.html#method_add">add()</a></li>
                                             <li class=""><a href="classes/Burgerbibliothek-ArkManagementTools-Erc.html#method_addComment">addComment()</a></li>
-                                            <li class=""><a href="classes/Burgerbibliothek-ArkManagementTools-Erc.html#method_addElement">addElement()</a></li>
                                             <li class=""><a href="classes/Burgerbibliothek-ArkManagementTools-Erc.html#method_addStory">addStory()</a></li>
                                             <li class=""><a href="classes/Burgerbibliothek-ArkManagementTools-Erc.html#method_decodeElementValue">decodeElementValue()</a></li>
                                             <li class=""><a href="classes/Burgerbibliothek-ArkManagementTools-Erc.html#method_decodeRecord">decodeRecord()</a></li>
                                             <li class=""><a href="classes/Burgerbibliothek-ArkManagementTools-Erc.html#method_encodeElementValue">encodeElementValue()</a></li>
                                             <li class=""><a href="classes/Burgerbibliothek-ArkManagementTools-Erc.html#method_isValidKernelElementLabel">isValidKernelElementLabel()</a></li>
                                             <li class=""><a href="classes/Burgerbibliothek-ArkManagementTools-Erc.html#method_isValidRecord">isValidRecord()</a></li>
-                                            <li class=""><a href="classes/Burgerbibliothek-ArkManagementTools-Erc.html#method_parseRecord">parseRecord()</a></li>
+                                            <li class=""><a href="classes/Burgerbibliothek-ArkManagementTools-Erc.html#method_load">load()</a></li>
                                             <li class=""><a href="classes/Burgerbibliothek-ArkManagementTools-Erc.html#method_record">record()</a></li>
                                     </ul>
             </li>

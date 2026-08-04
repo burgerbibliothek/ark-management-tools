@@ -2,6 +2,9 @@
 
 namespace Burgerbibliothek\ArkManagementTools;
 
+use ErrorException as GlobalErrorException;
+use Exception\ErrorException;
+
 /**
  * Name-Value Language (ANVL).
  * Methods for creating and interacting with ANVL records.
@@ -11,7 +14,8 @@ namespace Burgerbibliothek\ArkManagementTools;
 class Anvl{
 
     /**
-     * @param array<string> $record
+     * @param array<string> $record Contains the loaded record.$
+     * @param int $lineLenght Max count of chars per line in element-body
      */
     public array $record;
     protected int $lineLength;
@@ -29,37 +33,37 @@ class Anvl{
      * @param string $value text
      * @return void
      */
-    public function add(string $label, ?string $value = ''): void
+    public function add(string $elementName, string $elementBody, $trim = true): void
     {         
-        // TODO add check if label only contains valid characters
-        $this->record[$label] = trim($value);
+        /** CRLF are not allowed in element-body */
+        $elementBody = preg_replace('/\r\n/', '', $elementBody);
+        $elementBody = $trim ? trim($elementBody) : $elementBody;
+        $this->record[$elementName] = $elementBody;
     }
 
     /**
-     * ANVL record.
-     * Parse anvl record.
-     * @param bool $comments Set to true to output comments.
+     * Output ANVL record.
+     * @param bool $comments Set to false to prevent output of comments.
      * @return string
      */
-    public function record(bool $comments = false): string
+    public function record(bool $comments = true): string
     {
 
         $record = '';
 
-        foreach($this->record as $name => $value){
+        foreach($this->record as $elementName => $elementBody){
 
-            if(!$comments && $name === '#'){
-                continue; 
+            if($comments === false && $elementName === '#'){
+                continue;
             }
             
-            $separator = $name === '#' ? chr(32) : chr(58).chr(32);
+            $separator = $elementName === '#' ? chr(32) : chr(58).chr(32);
             
             if($this->lineLength){
-                $value =  wordwrap($value, $this->lineLength, chr(13).chr(10).chr(9));
+                $elementBody =  wordwrap($elementBody, $this->lineLength, chr(13).chr(10).chr(9));
             }
             
-            
-            $record .= $name.$separator.$value.chr(13).chr(10);
+            $record .= $elementName.$separator.$elementBody.chr(13).chr(10);
         
         }
 
@@ -68,5 +72,30 @@ class Anvl{
         return $record;
     }
 
-
+    /**
+     * Load ANVL record.
+     * @param string $record
+     */
+    public function load(string $record): void
+    {
+        /** Remove indentations from linewraps */
+        $record = preg_replace('/\r\n\t/', ' ', $record);
+        $record = explode("\r\n", $record);
+        
+        foreach($record as $element){
+            
+            $elementNameDelimiter = strpos($element, ':');
+            
+            if($elementNameDelimiter !== false){
+                $elementName = substr($element, 0, $elementNameDelimiter);
+                $elementBody = substr($element, $elementNameDelimiter + 1);
+                $this->add($elementName, $elementBody);
+            } else {
+                // Add comments
+                if(str_starts_with($element, '#')){
+                    $this->add('#', substr($element, 1));
+                }
+            }
+        }
+    }
 }
