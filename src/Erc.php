@@ -121,6 +121,7 @@ class Erc extends Anvl
      * @param string $value Value of the element will be encoded.
      * @return void
      */
+    #[\Override]
     public function add(string $elementName, string $elementBody, $trim = true): void
     {
         if (self::isValidKernelElementLabel($elementName)) {
@@ -191,9 +192,41 @@ class Erc extends Anvl
     }
 
     /**
+     * Merge two Records.
+     * @param string $primaryRecord 
+     * @param string $secondaryRecord
+     * @param ?string $strategy Strategy how element-bodies should be merged. Possible strategies "keep", "overwrite".
+     */
+    public static function mergeRecords(string $primaryRecord, string $secondaryRecord, ?string $strategy = null): ?string
+    {
+        $pR = new Erc;
+        $sR = new Erc;
+        $pR->load($primaryRecord);
+        $sR->load($secondaryRecord);
+        unset($sR->record['erc']);
+
+        if($strategy === null || $strategy === "keep"){
+            foreach($sR->record as $elName => $elBody){
+                $pR->add($elName, $elBody);
+            }
+
+            return $pR->record();
+        }
+
+        if($strategy === 'overwrite'){
+            $pR->record = array_merge($pR->record, $sR->record);
+            return $pR->record();
+        }
+
+        return null;
+
+    }
+
+    /**
      * Load ERC record.
      * @param string $record
      */
+    #[\Override]
     public function load(string $record): void
     {
         $this->record = [];

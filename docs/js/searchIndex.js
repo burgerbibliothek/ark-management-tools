@@ -136,6 +136,11 @@ Search.appendIndex(
             "summary": "Retrieve\u0020record.",
             "url": "classes/Burgerbibliothek-ArkManagementTools-Erc.html#method_record"
         },                {
+            "fqsen": "\\Burgerbibliothek\\ArkManagementTools\\Erc\u003A\u003AmergeRecords\u0028\u0029",
+            "name": "mergeRecords",
+            "summary": "Merge\u0020two\u0020Records.",
+            "url": "classes/Burgerbibliothek-ArkManagementTools-Erc.html#method_mergeRecords"
+        },                {
             "fqsen": "\\Burgerbibliothek\\ArkManagementTools\\Erc\u003A\u003Aload\u0028\u0029",
             "name": "load",
             "summary": "Load\u0020ERC\u0020record.",
