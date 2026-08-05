@@ -121,11 +121,6 @@ Search.appendIndex(
             "summary": "Add\u0020Comment",
             "url": "classes/Burgerbibliothek-ArkManagementTools-Erc.html#method_addComment"
         },                {
-            "fqsen": "\\Burgerbibliothek\\ArkManagementTools\\Erc\u003A\u003AaddStory\u0028\u0029",
-            "name": "addStory",
-            "summary": "Add\u0020story\u0020to\u0020record.",
-            "url": "classes/Burgerbibliothek-ArkManagementTools-Erc.html#method_addStory"
-        },                {
             "fqsen": "\\Burgerbibliothek\\ArkManagementTools\\Erc\u003A\u003AdecodeRecord\u0028\u0029",
             "name": "decodeRecord",
             "summary": "Decode\u0020record.",
