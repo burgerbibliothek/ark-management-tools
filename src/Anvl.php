@@ -14,8 +14,8 @@ use Exception\ErrorException;
 class Anvl{
 
     /**
-     * @param array<string> $record Contains the loaded record.$
-     * @param int $lineLenght Max count of chars per line in element-body
+     * @param array<string> $record Container for record.
+     * @param int $lineLength The number of characters at which the element-bodies will be wrapped (default: 72).
      */
     public array $record;
     protected int $lineLength;
@@ -28,22 +28,29 @@ class Anvl{
 
     /**
      * Add element.
-     * Add a new data element to the ANVL record.
-     * @param string $label 1*<any CHAR, excluding control-chars and ":"> 
-     * @param string $value text
-     * @return void
+     * Add a new element to record.
+     * @param string $elementName 1*<any CHAR, excluding control-chars and ":"> 
+     * @param string $elementBody 1*<any UTF-8 character, including bare CR and bare LF, but NOT including CRLF>
+     * @link https://www.ietf.org/archive/id/draft-kunze-anvl-02.txt
      */
     public function add(string $elementName, string $elementBody): void
-    {         
-        /** CRLF are not allowed in element-body */
+    {
         $elementBody = preg_replace('/\r\n/', '', $elementBody);
         $this->record[$elementName] = trim($elementBody);
     }
 
     /**
-     * Output ANVL record.
-     * @param bool $comments Set to false to prevent output of comments.
-     * @return string
+     * Add Comment
+     * @param string $comment Any text.
+     */
+    public function addComment(string $comment): void
+    {
+        $this->add('#', $comment);
+    }
+
+    /**
+     * Output record.
+     * @param bool $comments Set to false to prevent output of comments (default: true).
      */
     public function record(bool $comments = true): string
     {
@@ -72,7 +79,7 @@ class Anvl{
     }
 
     /**
-     * Load ANVL record.
+     * Load record.
      * @param string $record
      */
     public function load(string $record): void
@@ -90,7 +97,7 @@ class Anvl{
                 $elementBody = substr($element, $elementNameDelimiter + 1);
                 $this->add($elementName, $elementBody);
             } else {
-                // Add comments
+                /** Add comments */
                 if(str_starts_with($element, '#')){
                     $this->add('#', substr($element, 1));
                 }

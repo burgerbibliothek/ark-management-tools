@@ -20,21 +20,21 @@ class Erc extends Anvl
 
     /**
      * ERC Record.
-     * @param int $lineLength After how many words to wrap text.
+     * @param int $lineLength The number of characters at which the element-bodies will be wrapped (default: 72).
      */
-    function __construct($lineLength = 72)
+    function __construct(int $lineLength = 72)
     {
         parent::__construct($lineLength);
         $this->add('erc', '');
     }
 
     /**
-     * Check if string is valid kernel element label.
+     * Kernel Element Label Validation.
      * Kernel element labels are strings beginning with a letter that may contain any combination 
      * of letters, numbers, hyphens, and underscores ("_"). An element label may also be accompanied 
-     * by its coded synonym e. g. wer(h1). 
+     * by its coded synonym e. g. wer(h1).
      * @param string $label
-     * @return bool
+     * @link https://www.dublincore.org/groups/kernel/spec/#7--kernel-label-structure
      */
     public static function isValidKernelElementLabel(string $label): bool
     {
@@ -43,11 +43,10 @@ class Erc extends Anvl
     }
 
     /**
-     * Validate ERC record.
-     * Checks if string conforms to ERC.
+     * ERC record Validation.
+     * Checks if string is a valid ERC record.
      * @param string $record String to check.
-     * @param array<string> $labelList Optionally pass a list of allowed labels.
-     * @return bool Returns TRUE if record is valid.
+     * @param ?array<string> $labelList Optionally pass a list of allowed labels.
      */
     public static function isValidRecord(string $record, ?array $labelList = null): bool
     {
@@ -92,9 +91,8 @@ class Erc extends Anvl
 
     /**
      * Encode element value.
-     * @link https://www.dublincore.org/groups/kernel/spec/#95--element-value-encoding.
      * @param string $value String which should be encoded.
-     * @return string
+     * @link https://www.dublincore.org/groups/kernel/spec/#95--element-value-encoding
      */
     public static function encodeElementValue(string $value): string
     {
@@ -104,9 +102,8 @@ class Erc extends Anvl
 
     /**
      * Decode element value.
-     * @link https://www.dublincore.org/groups/kernel/spec/#95--element-value-encoding.
      * @param string $value String which should be decoded.
-     * @return string
+     * @link https://www.dublincore.org/groups/kernel/spec/#95--element-value-encoding.
      */
     public static function decodeElementValue(string $value): string
     {
@@ -116,10 +113,9 @@ class Erc extends Anvl
 
     /**
      * Add Kernel element.
-     * Adds a Kernel element to the record.
+     * Add a Kernel element to the record.
      * @param string $elementName String beginning with a letter that may contain any combination of letters, numbers, hyphens, and underscores. An element label may also be accompanied by its coded synonym e. g. wer(h1)
      * @param string $elementBody Value of the element will be encoded.
-     * @param bool $trim trim element body (default: true).
      */
     #[\Override]
     public function add(string $elementName, string $elementBody): void
@@ -137,20 +133,9 @@ class Erc extends Anvl
     }
 
     /**
-     * Add Comment
-     * @param string $comment Any text.
-     */
-    public function addComment(string $comment): void
-    {
-
-        $this->add('#', $comment);
-    }
-
-    /**
      * Decode record.
-     * Gets 
+     * Get record in decoded form.
      * @param string $record String containing a valid ERC record.
-     * @return string
      */
     public static function decodeRecord(string $record): string
     {
@@ -170,10 +155,9 @@ class Erc extends Anvl
      * Retrieve record.
      * @param bool $decode Decode values.
      * @param bool $comments Hide comments.
-     * @return string
      */
     #[\Override]
-    public function record(bool $decode = true, bool $comments = false): string
+    public function record(bool $comments = false, bool $decode = true): string
     {
         if ($decode) {
             $this->record = array_map(fn($value) => self::decodeElementValue($value), $this->record);
@@ -184,7 +168,7 @@ class Erc extends Anvl
 
     /**
      * Merge two Records.
-     * @param string $primaryRecord 
+     * @param string $primaryRecord
      * @param string $secondaryRecord
      * @param ?string $strategy Strategy how element-bodies should be merged. Possible strategies "keep", "overwrite".
      * @param bool $decode If the returned record should be decoded (default: false).

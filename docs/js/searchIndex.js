@@ -16,6 +16,11 @@ Search.appendIndex(
             "summary": "Add\u0020element.",
             "url": "classes/Burgerbibliothek-ArkManagementTools-Anvl.html#method_add"
         },                {
+            "fqsen": "\\Burgerbibliothek\\ArkManagementTools\\Anvl\u003A\u003AaddComment\u0028\u0029",
+            "name": "addComment",
+            "summary": "Add\u0020Comment",
+            "url": "classes/Burgerbibliothek-ArkManagementTools-Anvl.html#method_addComment"
+        },                {
             "fqsen": "\\Burgerbibliothek\\ArkManagementTools\\Anvl\u003A\u003A\u0024record",
             "name": "record",
             "summary": "",
@@ -23,7 +28,7 @@ Search.appendIndex(
         },                {
             "fqsen": "\\Burgerbibliothek\\ArkManagementTools\\Anvl\u003A\u003Aload\u0028\u0029",
             "name": "load",
-            "summary": "Load\u0020ANVL\u0020record.",
+            "summary": "Load\u0020record.",
             "url": "classes/Burgerbibliothek-ArkManagementTools-Anvl.html#method_load"
         },                {
             "fqsen": "\\Burgerbibliothek\\ArkManagementTools\\Anvl\u003A\u003A\u0024lineLength",
@@ -93,12 +98,12 @@ Search.appendIndex(
         },                {
             "fqsen": "\\Burgerbibliothek\\ArkManagementTools\\Erc\u003A\u003AisValidKernelElementLabel\u0028\u0029",
             "name": "isValidKernelElementLabel",
-            "summary": "Check\u0020if\u0020string\u0020is\u0020valid\u0020kernel\u0020element\u0020label.",
+            "summary": "Kernel\u0020Element\u0020Label\u0020Validation.",
             "url": "classes/Burgerbibliothek-ArkManagementTools-Erc.html#method_isValidKernelElementLabel"
         },                {
             "fqsen": "\\Burgerbibliothek\\ArkManagementTools\\Erc\u003A\u003AisValidRecord\u0028\u0029",
             "name": "isValidRecord",
-            "summary": "Validate\u0020ERC\u0020record.",
+            "summary": "ERC\u0020record\u0020Validation.",
             "url": "classes/Burgerbibliothek-ArkManagementTools-Erc.html#method_isValidRecord"
         },                {
             "fqsen": "\\Burgerbibliothek\\ArkManagementTools\\Erc\u003A\u003AencodeElementValue\u0028\u0029",
@@ -115,11 +120,6 @@ Search.appendIndex(
             "name": "add",
             "summary": "Add\u0020Kernel\u0020element.",
             "url": "classes/Burgerbibliothek-ArkManagementTools-Erc.html#method_add"
-        },                {
-            "fqsen": "\\Burgerbibliothek\\ArkManagementTools\\Erc\u003A\u003AaddComment\u0028\u0029",
-            "name": "addComment",
-            "summary": "Add\u0020Comment",
-            "url": "classes/Burgerbibliothek-ArkManagementTools-Erc.html#method_addComment"
         },                {
             "fqsen": "\\Burgerbibliothek\\ArkManagementTools\\Erc\u003A\u003AdecodeRecord\u0028\u0029",
             "name": "decodeRecord",
