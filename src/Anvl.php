@@ -33,12 +33,11 @@ class Anvl{
      * @param string $value text
      * @return void
      */
-    public function add(string $elementName, string $elementBody, $trim = true): void
+    public function add(string $elementName, string $elementBody): void
     {         
         /** CRLF are not allowed in element-body */
         $elementBody = preg_replace('/\r\n/', '', $elementBody);
-        $elementBody = $trim ? trim($elementBody) : $elementBody;
-        $this->record[$elementName] = $elementBody;
+        $this->record[$elementName] = trim($elementBody);
     }
 
     /**

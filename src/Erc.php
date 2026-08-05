@@ -38,7 +38,7 @@ class Erc extends Anvl
      */
     public static function isValidKernelElementLabel(string $label): bool
     {
-        preg_match('/^(#.+)|([A-z]{1}[\w\-]*)+(\(h\d{1,2}\))?$/', $label, $matches);
+        preg_match('/^#|([A-z]{1}[\w\-]*)+(\(h\d{1,2}\))?$/', $label, $matches);
         return $matches[0] === $label ? true : false;
     }
 
@@ -56,10 +56,10 @@ class Erc extends Anvl
         if (substr($record, 0, 4) === 'erc:') {
 
             /** Remove indentations. */
-            $record = preg_replace('/\r\n\t|\n\t/', ' ', $record);
+            $record = preg_replace('/\r\n\t/', ' ', $record);
 
             /** Create array from record. */
-            $record = preg_split('/\r\n|\n/', $record);
+            $record = preg_split('/\r\n/', $record);
 
             /** The length of a valid record is at least 3 and the last two elements are void */
             $recordLength = count($record);
@@ -117,43 +117,33 @@ class Erc extends Anvl
     /**
      * Add Kernel element.
      * Adds a Kernel element to the record.
-     * @param string $label String beginning with a letter that may contain any combination of letters, numbers, hyphens, and underscores. An element label may also be accompanied by its coded synonym e. g. wer(h1)
-     * @param string $value Value of the element will be encoded.
-     * @return void
+     * @param string $elementName String beginning with a letter that may contain any combination of letters, numbers, hyphens, and underscores. An element label may also be accompanied by its coded synonym e. g. wer(h1)
+     * @param string $elementBody Value of the element will be encoded.
+     * @param bool $trim trim element body (default: true).
      */
     #[\Override]
-    public function add(string $elementName, string $elementBody, $trim = true): void
+    public function add(string $elementName, string $elementBody): void
     {
         if (self::isValidKernelElementLabel($elementName)) {
-
-            $elementBody = self::encodeElementValue($elementBody);
 
             if (key_exists($elementName, $this->record)) {
                 $elementBody .= '; ' . $this->record[$elementName];
             }
 
-            parent::add($elementName, $elementBody, $trim);
+            $elementBody = self::encodeElementValue(trim($elementBody));
+
+            parent::add($elementName, $elementBody);
         }
     }
 
     /**
      * Add Comment
-     * @return void
+     * @param string $comment Any text.
      */
     public function addComment(string $comment): void
     {
-        $this->addElement('#', $comment);
-    }
 
-    /**
-     * Add story to record.
-     * @param array<string> $storyValues e.g. ['Gibbon, Edward', 'The Decline and Fall of the Roman Empire', 1781, 'http://www.ccel.org/g/gibbon/decline/']
-     * @param string $label Story type e.g. 'about', 'neta', 'support', 'depositor'.
-     * @param bool $append Append to story instead of overwriting.
-     */
-    public function addStory(string $label, string $value, bool $append = true): void
-    {
-        self::addElement($labels[$i], $story);
+        $this->add('#', $comment);
     }
 
     /**
@@ -182,6 +172,7 @@ class Erc extends Anvl
      * @param bool $comments Hide comments.
      * @return string
      */
+    #[\Override]
     public function record(bool $decode = true, bool $comments = false): string
     {
         if ($decode) {
@@ -196,8 +187,9 @@ class Erc extends Anvl
      * @param string $primaryRecord 
      * @param string $secondaryRecord
      * @param ?string $strategy Strategy how element-bodies should be merged. Possible strategies "keep", "overwrite".
+     * @param bool $decode If the returned record should be decoded (default: false).
      */
-    public static function mergeRecords(string $primaryRecord, string $secondaryRecord, ?string $strategy = null): ?string
+    public static function mergeRecords(string $primaryRecord, string $secondaryRecord, ?string $strategy = null, bool $decode = false): ?string
     {
         $pR = new Erc;
         $sR = new Erc;
@@ -210,12 +202,12 @@ class Erc extends Anvl
                 $pR->add($elName, $elBody);
             }
 
-            return $pR->record();
+            return $pR->record(decode: $decode);
         }
 
         if($strategy === 'overwrite'){
             $pR->record = array_merge($pR->record, $sR->record);
-            return $pR->record();
+            return $pR->record(decode: $decode);
         }
 
         return null;
