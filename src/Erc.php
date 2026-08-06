@@ -170,7 +170,7 @@ class Erc extends Anvl
      * Merge two Records.
      * @param string $primaryRecord
      * @param string $secondaryRecord
-     * @param ?string $strategy Strategy how element-bodies should be merged. Possible strategies "keep", "overwrite".
+     * @param ?string $strategy Strategy how element-bodies should be merged. Possible strategies "keep", "overwrite", "substitute".
      * @param bool $decode If the returned record should be decoded (default: false).
      */
     public static function mergeRecords(string $primaryRecord, string $secondaryRecord, ?string $strategy = null, bool $decode = false): ?string
@@ -181,6 +181,7 @@ class Erc extends Anvl
         $sR->load($secondaryRecord);
         unset($sR->record['erc']);
 
+        /** All existing values are kept, new values get appended */
         if($strategy === null || $strategy === "keep"){
             foreach($sR->record as $elName => $elBody){
                 $pR->add($elName, $elBody);
@@ -189,12 +190,18 @@ class Erc extends Anvl
             return $pR->record(decode: $decode);
         }
 
+        /** Existing values may get overwritten */
         if($strategy === 'overwrite'){
             $pR->record = array_merge($pR->record, $sR->record);
             return $pR->record(decode: $decode);
         }
 
-        return null;
+        /** Secondary record substitutes primary record */
+        if($strategy === 'substitute'){
+            return $sR->record(decode: $decode);
+        }
+
+        throw new \InvalidArgumentException('Strategy "'.$strategy.'" does not exist.');
 
     }
 
