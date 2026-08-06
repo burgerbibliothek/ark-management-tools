@@ -42,4 +42,21 @@ array(7) {
   ["inflection"]=> string(5) "?info"
 }
 ```
+### Create ERC record
+```php
+$record = new Erc;
+$record->add('who', 'Burgerbibliothek Bern');
+$record->add('what', 'Value 1');
+$record->add('what', 'Value 2');
+$record->add('when', '2026-08-06');
+echo $record->record();
+```
+
+Output
+```
+erc: 
+who: Burgerbibliothek Bern
+what: Value 2; Value 1
+when: 2026-08-06
+```
 
