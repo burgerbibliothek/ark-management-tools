@@ -78,7 +78,7 @@ class ErcTest extends TestCase
 
         $r1 = "erc: \r\nwho: PhpUnit\r\nwhat: Test\r\n\r\n";
         $r2 = "erc: \r\nwho: PhpUnit\r\nwhat: Test\r\nwhen: 2026-01-01\r\n\r\n";
-        $keepMerge = "erc: \r\nwho: PhpUnit;  PhpUnit\r\nwhat: Test;  Test\r\nwhen: 2026-01-01\r\n\r\n";
+        $keepMerge = "erc: \r\nwho: PhpUnit%sc%spPhpUnit\r\nwhat: Test%sc%spTest\r\nwhen: 2026-01-01\r\n\r\n";
         $overwriteMerge = "erc: \r\nwho: PhpUnit\r\nwhat: Test\r\nwhen: 2026-01-01\r\n\r\n";
         
         $this->assertEquals(Erc::mergeRecords($r1, $r2, 'keep'), $keepMerge, 'Output of records merge (strategy "keep") has not expected output.');

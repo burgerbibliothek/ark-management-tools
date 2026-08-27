@@ -38,7 +38,7 @@ class Erc extends Anvl
      */
     public static function isValidKernelElementLabel(string $label): bool
     {
-        preg_match('/^#|([A-z]{1}[\w\-]*)+(\(h\d{1,2}\))?$/', $label, $matches);
+        preg_match('/^#.*|([A-z]{1}[\w\-]*)+(\(h\d{1,2}\))?$/', $label, $matches);
         return $matches[0] === $label ? true : false;
     }
 
@@ -184,7 +184,7 @@ class Erc extends Anvl
         /** All existing values are kept, new values get appended */
         if($strategy === null || $strategy === "keep"){
             foreach($sR->record as $elName => $elBody){
-                $pR->add($elName, $elBody);
+                $pR->add($elName, self::decodeElementValue($elBody));
             }
 
             return $pR->record(decode: $decode);
