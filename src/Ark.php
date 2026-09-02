@@ -226,7 +226,7 @@ class Ark
 		/** Extract resolverService part if $ark is a valid url. **/
 		if (filter_var($ark, FILTER_VALIDATE_URL)) {
 			preg_match('/.*?(?=ark:)/i', $ark, $resolverService);
-			$components['resolverService'] = $resolverService[0];
+			$components['resolverService'] = count($resolverService) === 0 ? '' : $resolverService[0];
 		}
 
 		$ark = self::normalizationRemovalNMA($ark);
