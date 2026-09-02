@@ -69,7 +69,12 @@ class Ncda extends Ark
 	{
 
 		$id = str_split($id, strlen($id) - 1);
-		$checkId = Ncda::calc($id[0], $xdigits);
+
+		try{
+			$checkId = Ncda::calc($id[0], $xdigits);
+		} catch (Exception $exception) {
+			return false;
+		}
 
 		if ($id[1] === $checkId) {
 			return true;
