@@ -38,7 +38,7 @@ class Ncda extends Ark
 		}
 
 		/** Check if $id contains only characters that are in $xdigits */
-		if (preg_match_all('/[\/' . $xdigits . ']/', $id) !== strlen($id)) {
+		if (preg_match_all('/[\/' . preg_quote($xdigits) . ']/', $id) !== strlen($id)) {
 			throw new Exception('$id is not well formed (characters which are not part of $xdigits found in $id).');
 		}
 
