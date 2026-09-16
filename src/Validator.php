@@ -18,7 +18,7 @@ class Validator{
     public static function followsArkCharacterRepetoire(string $subject, bool $reservedChars = true): bool
     {
         if($reservedChars){
-            return preg_match('/[^0-9A-Za-z=~*+@_$%-.\/]/', $subject) > 0 ? false : true;
+            return preg_match('/[^0-9A-Za-z=~*+@_$\%\-\.\/]/', $subject) > 0 ? false : true;
         }
         return preg_match('/[^0-9A-Za-z=~*+@_$]/', $subject) > 0 ? false : true;
     }
