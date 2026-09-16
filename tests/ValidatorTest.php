@@ -27,6 +27,9 @@ class ValidatorTest extends TestCase
 		$this->assertTrue(Validator::followsArkCharacterRepetoire($xdigits), 'Validation of character repetoire failed.');
 		$this->assertFalse(Validator::followsArkCharacterRepetoire($xdigits, false), 'Validation of character repetoire failed.');
 		$this->assertFalse(Validator::followsArkCharacterRepetoire($xdigits . 'äöü'), 'Validation of character repetoire failed.');
+		$this->assertFalse(Validator::followsArkCharacterRepetoire('&'), 'Validation of character repetoire failed.');
+		$this->assertFalse(Validator::followsArkCharacterRepetoire("'"), 'Validation of character repetoire failed.');
+		$this->assertFalse(Validator::followsArkCharacterRepetoire(')'), 'Validation of character repetoire failed.');
 
 		$this->assertTrue(Validator::isValidBaseCompactName($baseCompactName), 'Failed to assert that $baseCompactName is valid.');
 		$this->assertFalse(Validator::isValidBaseCompactName($baseCompactName . '/'), 'Failed to assert that $baseCompactName is invalid.');

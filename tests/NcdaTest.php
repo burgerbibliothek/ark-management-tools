@@ -84,6 +84,12 @@ class NcdaTest extends TestCase
         $this->assertTrue(Ncda::verify($ark, $this->xdigits), 'Failed to verify that the NCDA is true.');
     }
 
+    public function test_verify_false(): void
+    {
+        $this->assertFalse(Ncda::verify('', $this->xdigits), 'Failed to verify that the NCDA is false.');
+        $this->assertFalse(Ncda::verify('0', $this->xdigits), 'Failed to verify that the NCDA is false.');
+    }
+
     public function test_noid_check_digit_algortihm_check_zone_exception(): void
     {   
         $this->expectException(Exception::class);
