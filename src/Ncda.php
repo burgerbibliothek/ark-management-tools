@@ -68,16 +68,18 @@ class Ncda extends Ark
 	static public function verify(string $id, string $xdigits): bool
 	{
 
-		$id = str_split($id, strlen($id) - 1);
+		if(strlen($id) >= 2){
+			$id = str_split($id, strlen($id) - 1);
 
-		try{
-			$checkId = Ncda::calc($id[0], $xdigits);
-		} catch (Exception $exception) {
-			return false;
-		}
+			try{
+				$checkId = Ncda::calc($id[0], $xdigits);
+			} catch (Exception $exception) {
+				return false;
+			}
 
-		if ($id[1] === $checkId) {
-			return true;
+			if ($id[1] === $checkId) {
+				return true;
+			}
 		}
 
 		return false;
