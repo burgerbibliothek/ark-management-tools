@@ -304,7 +304,7 @@ class Ark
 		foreach ($arks as $ark) {
 			$check[] = self::normalize($ark);
 		}
-
-		return count(array_unique($check)) == count($arks) ? false : true;
+		
+		return count(array_unique($check)) === 1 ? true : false;
 	}
 }
