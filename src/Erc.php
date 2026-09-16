@@ -3,7 +3,6 @@
 namespace Burgerbibliothek\ArkManagementTools;
 
 use Burgerbibliothek\ArkManagementTools\Anvl;
-use Exception\InvalidArgumentException;
 
 /**
  * Electronic Resource Citation (ERC).

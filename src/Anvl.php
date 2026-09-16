@@ -2,9 +2,6 @@
 
 namespace Burgerbibliothek\ArkManagementTools;
 
-use ErrorException as GlobalErrorException;
-use Exception\ErrorException;
-
 /**
  * Name-Value Language (ANVL).
  * Methods for creating and interacting with ANVL records.
