@@ -37,7 +37,7 @@ class ErcTest extends TestCase
         array_pop($valid_content);
 
         foreach ($valid_content as $record) {
-            $this->assertTrue(Erc::isValidRecord($record."\n\n"));
+            $this->assertTrue(Erc::isValidRecord($record."\r\n\r\n"));
         }
 
         $invalid_data = __DIR__ . '/ERCsamples-invalid.txt';

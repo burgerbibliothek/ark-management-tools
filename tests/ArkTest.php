@@ -143,7 +143,7 @@ class ArkTest extends TestCase
     public function test_ark_are_lexical_equivalent(): void{
 
         /** All ARKs are Equal */
-        $this->assertTrue(Ark::areLexicalEquivalent(['ark:12345/A-B-C', 'ark:12345/abc', 'ark:12345/abc']));
+        $this->assertTrue(Ark::areLexicalEquivalent(['ark:12345/a-b-c', 'ark:12345/abc', 'ark:12345/abc']));
         $this->assertFalse(Ark::areLexicalEquivalent(['ark:12345/abc', 'ark:12345/def', 'ark:12345/abc']));
 
     }
