@@ -138,6 +138,21 @@ class ArkTest extends TestCase
         $invalid_ark = Ark::splitIntoComponents($invalid_ark);
         $this->assertEquals($invalid_ark_components, $invalid_ark);
 
+        /** advanced inflections */
+        $ark = 'ark:/99999/a1b2c3d4e5f6g/suffix?info=1&foo=2';
+        $ark_components = [
+            'resolverService' => '',
+            'naan' => '99999',
+            'baseName' => 'a1b2c3d4e5f6g',
+            'baseCompactName' => 'ark:99999/a1b2c3d4e5f6g',
+            'checkZone' => '99999/a1b2c3d4e5f6g',
+            'suffixes' => 'suffix?info',
+            'inflection' => '?info'
+        ];
+
+        $ark = Ark::splitIntoComponents($ark);
+        $this->assertEquals($ark_components, $ark);
+
     }
 
     public function test_ark_are_lexical_equivalent(): void{

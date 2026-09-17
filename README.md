@@ -6,7 +6,7 @@ PHP Library for minting / validating Archival Resource Keys (ARK) and managing E
 ```php
 use Burgerbibliothek\ArkManagementTools\Ark
 
-echo ARK::generate('12345', '0123456789bcdfghjkmnpqrstvwxz', 7, 'q1');
+echo Ark::generate('12345', '0123456789bcdfghjkmnpqrstvwxz', 7, 'q1');
 ```
 Expected possible output:
 ```
@@ -15,9 +15,9 @@ Expected possible output:
 
 ### Verify ARK with NOID Check digit algorithm
 ```php
-use Burgerbibliothek\ArkManagementTools\Ncda
+use Burgerbibliothek\ArkManagementTools\Ark
 
-echo ARK::verify('12345/q15fk5zszx', '0123456789bcdfghjkmnpqrstvwxz');
+echo Ark::verify('12345/q15fk5zszx', '0123456789bcdfghjkmnpqrstvwxz');
 ```
 Output:
 ```

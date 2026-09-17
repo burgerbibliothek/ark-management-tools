@@ -114,7 +114,7 @@ class Ark
 	/**
 	 * Normalization: removal of hyphen characters.
 	 * Reformats string by removing all hypen characters.
-	 * @link https://www.ietf.org/archive/id/draft-kunze-ark-39.html#name-normalization-and-lexical-e
+	 * @link https://www.ietf.org/archive/id/draft-kunze-ark-43.html#name-normalization-and-lexical-e
 	 * @param $seq Text sequence from which to remove the hyphens.
 	 * @example echo Ark::normalizationHyphenRemoval('q15---FK5z-szx') // Outputs: "q15fk5zszx"
 	 * @return string
@@ -126,7 +126,7 @@ class Ark
 	/**
 	 * Normalization: label reformatting.
 	 * The first case-insensitive match on "ark:/" or "ark:" is converted to "ark:" (replacing any uppercase letters and removing any terminal '/').
-	 * @link https://www.ietf.org/archive/id/draft-kunze-ark-39.html#name-normalization-and-lexical-e
+	 * @link https://www.ietf.org/archive/id/draft-kunze-ark-43.html#name-normalization-and-lexical-e
 	 * @param $seq Text sequence containing the label.
 	 * @example echo Ark::normalizationLabel('Ark:/') // Outputs: "ark:"
 	 * @return string
@@ -138,7 +138,7 @@ class Ark
 	/**
 	 * Normalization: NAAN.
 	 * Any uppercase letters in the NAAN are converted to lowercase.
-	 * @link https://www.ietf.org/archive/id/draft-kunze-ark-39.html#name-normalization-and-lexical-e
+	 * @link https://www.ietf.org/archive/id/draft-kunze-ark-43.html#name-normalization-and-lexical-e
 	 * @param $seq Text sequence containing the NAAN.
 	 * @example echo Ark::normalizationNaan('ark:9ABC') // Outputs: "ark:9abc"
 	 * @return string
@@ -150,7 +150,7 @@ class Ark
 	/**
 	 * Normalization: removal of NMA part.
 	 * The NMA part (everything up to the first occurrence of "/ark:"), if present is removed.
-	 * @link https://www.ietf.org/archive/id/draft-kunze-ark-39.html#name-normalization-and-lexical-e
+	 * @link https://www.ietf.org/archive/id/draft-kunze-ark-43.html#name-normalization-and-lexical-e
 	 * @param $seq Text sequence containing NMA part.
 	 * @example echo Ark::normalizationNaan('ark:9ABC') // Outputs: "ark:9abc"
 	 * @return string
@@ -162,7 +162,7 @@ class Ark
 	/**
 	 * Normalization for ARK.
 	 * Reformats string containing an ARK into a normalized form.
-	 * @link https://www.ietf.org/archive/id/draft-kunze-ark-39.html#name-normalization-and-lexical-e
+	 * @link https://www.ietf.org/archive/id/draft-kunze-ark-43.html#name-normalization-and-lexical-e
 	 * @param $ark ARK or URI containing an ARK.
 	 * @example echo Ark::normalize(' https://n2t.org/Ark:/1A2b/q15---FK5z-szx?info ') // Outputs: "ark:/1a2b/q15fk5zszx"
 	 * @return string
@@ -244,6 +244,7 @@ class Ark
 			preg_match('/\?.*/', $ark, $inflection);
 			$inflection = implode($inflection);
 			parse_str($inflection, $components['inflection']);
+			var_dump($inflection);
 			$components['inflection'] = implode(array_values(array_flip($components['inflection'])));
 			$ark = preg_replace('/\?.*/', '', $ark);
 
@@ -291,7 +292,7 @@ class Ark
 	 * 
 	 * Checks if all ARKs in a list are lexically equivalent. 
 	 * 
-	 * @link https://www.ietf.org/archive/id/draft-kunze-ark-39.html#name-normalization-and-lexical-e.
+	 * @link https://www.ietf.org/archive/id/draft-kunze-ark-43.html#name-normalization-and-lexical-e.
 	 * @param array<string> $arks List containing arks .
 	 * @example 
 	 * $eq = Ark::areLexicalEquivalent(['ark:/ABC456/xyz?info', 'ARK:ABC456/xyz??']);
