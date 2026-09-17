@@ -37,8 +37,7 @@ class Erc extends Anvl
      */
     public static function isValidKernelElementLabel(string $label): bool
     {
-        preg_match('/^(?:#.*|([A-Za-z][\w\-]*)+(\(h\d{1,2}\))?)$/', $label, $matches);
-        return $matches[0] === $label ? true : false;
+        return preg_match('/^(?:#.*|([A-Za-z][\w\-]*)+(\(h\d{1,2}\))?)$/', $label, $matches) === 1 && $matches[0] === $label ? true : false;
     }
 
     /**
