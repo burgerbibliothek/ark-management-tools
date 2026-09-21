@@ -33,7 +33,7 @@ class Anvl{
     public function add(string $elementName, string $elementBody): void
     {
         $elementBody = preg_replace('/\r\n/', '', $elementBody);
-        $this->record[$elementName] = trim($elementBody);
+        $this->record[] = [$elementName => trim($elementBody)];
     }
 
     /**
@@ -54,7 +54,10 @@ class Anvl{
 
         $record = '';
 
-        foreach($this->record as $elementName => $elementBody){
+        foreach($this->record as $el){
+            
+            $elementName = key($el);
+            $elementBody = $el[$elementName];
 
             if($comments === false && $elementName === '#'){
                 continue;

@@ -1,6 +1,11 @@
 # ark-management-tools
 PHP Library for minting / validating Archival Resource Keys (ARK) and managing Electronic Resource Citation (ERC) Records.
 
+## Install
+```
+composer require burgerbibliothek/ark-management-tools
+```
+
 ## Examples
 ### Generate new ARK
 ```php

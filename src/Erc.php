@@ -157,8 +157,16 @@ class Erc extends Anvl
     #[\Override]
     public function record(bool $comments = false, bool $decode = true): string
     {
+        
         if ($decode) {
-            $this->record = array_map(fn($value) => self::decodeElementValue($value), $this->record);
+
+            $arrDecoded = [];
+            
+            foreach($this->record as $r){
+                $arrDecoded[][key($r)] = self::decodeElementValue($r[key($r)]);
+            }
+
+            $this->record = $arrDecoded;
         }
 
         return parent::record($comments);
