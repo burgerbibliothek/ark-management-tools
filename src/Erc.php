@@ -114,19 +114,27 @@ class Erc extends Anvl
      * Add a Kernel element to the record.
      * @param string $elementName String beginning with a letter that may contain any combination of letters, numbers, hyphens, and underscores. An element label may also be accompanied by its coded synonym e. g. wer(h1)
      * @param string $elementBody Value of the element will be encoded.
+     * @param string $mode How elements should be added: keep (default), overwrite
      */
     #[\Override]
-    public function add(string $elementName, string $elementBody): void
+    public function add(string $elementName, string $elementBody, ?string $mode = null): void
     {
         if (self::isValidKernelElementLabel($elementName)) {
 
             foreach ($this->record as $pos => $entry) {
                 if ($elementName !== '#' && key_exists($elementName, $entry) === true) {
-                    $elementBody .= '; ' . $entry[$elementName];
+                    switch ($mode) {
+                        case 'overwrite':
+                            $elementBody = $entry[$elementName];
+                            break;
+                        case null || 'keep':
+                            $elementBody .= '; ' . $entry[$elementName];
+                            break;
+                    }
                     unset($this->record[$pos]);
                 }
             }
-            
+
             $elementBody = self::encodeElementValue(trim($elementBody));
 
             parent::add($elementName, $elementBody);
@@ -188,20 +196,16 @@ class Erc extends Anvl
         $sR = new Erc;
         $pR->load($primaryRecord);
         $sR->load($secondaryRecord);
-        unset($sR->record['erc']);
-
-        /** All existing values are kept, new values get appended */
-        if($strategy === null || $strategy === "keep"){
-            foreach($sR->record as $elName => $elBody){
-                $pR->add($elName, self::decodeElementValue($elBody));
+        
+        /** All existing values are kept, new values get appended in case of keey / null or may get overwritte in case of overwrite */
+        if($strategy === null || $strategy === "keep" || $strategy === 'overwrite'){
+            unset($sR->record[0]);
+            foreach($sR->record as $entry){
+                $elName = array_key_first($entry);
+                $elBody = $entry[$elName];
+                $pR->add($elName, self::decodeElementValue($elBody), $strategy);
             }
 
-            return $pR->record(decode: $decode);
-        }
-
-        /** Existing values may get overwritten */
-        if($strategy === 'overwrite'){
-            $pR->record = array_merge($pR->record, $sR->record);
             return $pR->record(decode: $decode);
         }
 

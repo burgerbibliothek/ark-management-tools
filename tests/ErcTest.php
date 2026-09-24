@@ -82,7 +82,8 @@ class ErcTest extends TestCase
         $overwriteMerge = "erc: \r\nwho: PhpUnit\r\nwhat: Test\r\nwhen: 2026-01-01\r\n\r\n";
         
         $this->assertEquals(Erc::mergeRecords($r1, $r2, 'keep'), $keepMerge, 'Output of records merge (strategy "keep") has not expected output.');
-        $this->assertEquals(Erc::mergeRecords($r1, $r2, 'overwrite'), $overwriteMerge, 'Output of records merge (strategy "keep") has not expected output.');
+        $this->assertEquals(Erc::mergeRecords($r1, $r2, 'overwrite'), $overwriteMerge, 'Output of records merge (strategy "overwrite") has not expected output.');
+        $this->assertEquals(Erc::mergeRecords($r1, $r2, 'substitute'), $r2, 'Output of records merge (strategy "substitute") has not expected output.');
         
     }
 
