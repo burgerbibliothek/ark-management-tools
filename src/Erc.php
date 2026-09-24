@@ -120,10 +120,13 @@ class Erc extends Anvl
     {
         if (self::isValidKernelElementLabel($elementName)) {
 
-            if (key_exists($elementName, $this->record)) {
-                $elementBody .= '; ' . $this->record[$elementName];
+            foreach ($this->record as $pos => $entry) {
+                if ($elementName !== '#' && key_exists($elementName, $entry) === true) {
+                    $elementBody .= '; ' . $entry[$elementName];
+                    unset($this->record[$pos]);
+                }
             }
-
+            
             $elementBody = self::encodeElementValue(trim($elementBody));
 
             parent::add($elementName, $elementBody);
